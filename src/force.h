@@ -2,35 +2,38 @@
 #define FORCE_H_
 
 #include "math/vec3d.h"
+#include <iostream>
+
+using namespace std;
 
 class Force{
 
-	float force;
+	Vec3D force;
 
 	public:
 
-	Force(float force);
-	float getForce();
+	Force();
+	Vec3D getForce();
 
 	protected:
-	void updateForce(float force);
+	void updateForce(Vec3D force);
 
 };
 
 class GravityForce:public Force{
 
-	const float earthGravity = 9.8f;
-	float gravity;
-	float mass;
+	const double earthGravity = -9.8;
+	double gravity;
+	double mass;
 
 	public:
 
-	GravityForce(float mass);
-	GravityForce(float mass, float gravity);
-	float getGravity();
-	void setGravity(float gravity);
-	float getMass();
-	void setMass(float mass);
+	GravityForce(double mass);
+	GravityForce(double mass, double gravity);
+	double getGravity();
+	void setGravity(double gravity);
+	double getMass();
+	void setMass(double mass);
 
 };
 

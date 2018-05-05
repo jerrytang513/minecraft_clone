@@ -5,38 +5,42 @@
 #include <vector>
 #include "force.h"
 
+using namespace std;
+
 class Object{
 
 	Vec3D position;
-	float mass;
-	float inverseMass;
+	double mass;
+	double inverseMass;
 	std::vector<Force> forces;
+	std::vector<Force> continuousForces;
 	Vec3D acceleration;
 	Vec3D velocity;
-	float damping;
+	double damping;
 
 	public:
 
 	Object();
-	Object(float x,float y,float z);
+	Object(double x,double y,double z);
 	
-	void setMass(float mass);
-	void setInverseMass(float inverseMass);
+	void setMass(double mass);
+	void setInverseMass(double inverseMass);
 	std::vector<Force> getForce();
 	void addForce(Force force);
+	void addContinuousForce(Force force);
 	void clearForce();
-	void setPosition(float x, float y, float z);
+	void setPosition(double x, double y, double z);
 	void setPosition(Vec3D vec);
-	float getMass();
-	float getInverseMass();
+	double getMass();
+	double getInverseMass();
 	Vec3D getPosition();
 	void setAcceleration(Vec3D acceleration);
 	Vec3D getAcceleration();
 	void setVelocity(Vec3D velocity);
 	Vec3D getVelocity();
-	void setDamping(float damping);
-	float getDamping();
-	void newton_integrate(float time);
+	void setDamping(double damping);
+	double getDamping();
+	void update(double time);
 	
 
 };

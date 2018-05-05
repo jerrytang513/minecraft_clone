@@ -1,7 +1,7 @@
 CXX = g++
 INCLUDES = /usr/include/libdrm
 CXXFLAGS = -std=c++14
-LDFLAGS = -lGLEW -lGL -lGLU -lglut -lglfw -ldl -lrt -ldrm -lxcb-glx -lX11-xcb -lpthread -lXdamage -lm -lxcb-glx -lxcb-dri2 -lxcb-dri3 -lxcb-present -lxcb-sync -lxshmfence -lXxf86vm -lXfixes -lXext -lXau -lxcb -lXdmcp -lXinerama -lXcursor -lX11 -lXrandr -lXi
+LDFLAGS = -lGLEW -lGL -lGLU -lglfw -ldl -lrt -ldrm -lxcb-glx -lX11-xcb -lpthread -lXdamage -lm -lxcb-glx -lxcb-dri2 -lxcb-dri3 -lxcb-present -lxcb-sync -lxshmfence -lXxf86vm -lXfixes -lXext -lXau -lxcb -lXdmcp -lXinerama -lXcursor -lX11 -lXrandr -lXi
 EXEC = a
 
 MATH_DIR_OBJ = $(wildcard src/math/*.cc)
