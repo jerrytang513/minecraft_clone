@@ -7,8 +7,9 @@ EXEC = a
 MATH_DIR_OBJ = $(wildcard src/math/*.cc)
 OTHER_OBJ = $(wildcard src/*.cc)
 GRAPHICS_DIR_OBJ = $(wildcard src/graphics/*.cc)
+GRAPHICS_ASSET_DIR_OBJ = $(wildcard src/graphics/asset/*.cc)
 
-OBJECTS = $(MATH_DIR_OBJ:.cc=.o) $(OTHER_OBJ:.cc=.o) $(GRAPHICS_DIR_OBJ:.cc=.o)  main.o
+OBJECTS = $(MATH_DIR_OBJ:.cc=.o) $(OTHER_OBJ:.cc=.o) $(GRAPHICS_DIR_OBJ:.cc=.o) $(GRAPHICS_ASSET_DIR_OBJ:.cc=.o) main.o
 DEPENDS = ${OBJECTS:.o=.d}
 
 ${EXEC} : ${OBJECTS}

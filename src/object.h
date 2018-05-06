@@ -4,6 +4,7 @@
 #include "math/vec3d.h"
 #include <vector>
 #include "force.h"
+#include "graphics/asset/allShape.h"
 
 using namespace std;
 
@@ -17,6 +18,7 @@ class Object{
 	Vec3D acceleration;
 	Vec3D velocity;
 	double damping;
+	Shape3D* shape;
 
 	public:
 
@@ -41,7 +43,9 @@ class Object{
 	void setDamping(double damping);
 	double getDamping();
 	void update(double time);
-	
+
+	void attachCube(double centerX,double centerY,double centerZ,double edgeLength);
+	void draw();
 
 };
 

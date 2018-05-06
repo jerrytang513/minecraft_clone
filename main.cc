@@ -18,7 +18,7 @@ void exitInput(GLFWwindow* window){
 
 void keyCallback( GLFWwindow *window, int key, int scancode, int action, int mods);
 void drawCube( GLfloat centerPosX, GLfloat centerPosY, GLfloat centerPosZ, GLfloat edgeLength);
-void render(GLFWwindow *win,Vec3D pos);
+void render(GLFWwindow *win,Vec3D pos,Object *);
 void update(Object *ob,float time);
 
 GLfloat rotationX = 45.0f;
@@ -48,10 +48,13 @@ int main(){
 	glLoadIdentity();
 
 	//***************************************************** Add an object
+	
 	Object* ob = new Object(400,400,-500);
 	Vec3D vec(10,10,10);
 	ob->setMass(1);
-	ob->addContinuousForce(GravityForce(ob->getMass()));
+	ob->attachCube(40.0,40.0,40.0,20.0);
+
+	//ob->addContinuousForce(GravityForce(ob->getMass()));
 
 
 	//********************************************* Add forces to objects
@@ -73,7 +76,7 @@ int main(){
 			updates ++;
 			delta --;
 		}
-		render(win,ob->getPosition());
+		render(win,ob->getPosition(),ob);
 		frames ++;
 		if(duration_cast<chrono::milliseconds>(chrono::high_resolution_clock::now() - current_time).count() > 1000){
 			current_time = current_time + std::chrono::milliseconds(1000);
@@ -89,65 +92,17 @@ void update(Object *ob,float time){
 	ob->update(time);
 }
 
-void render(GLFWwindow *win,Vec3D pos){
+void render(GLFWwindow *win,Vec3D pos,Object* ob){
 	glClear(GL_COLOR_BUFFER_BIT);
 	glPushMatrix();
 	glTranslatef(pos.x,pos.y,pos.z);
 	glRotatef(rotationX,1,0,0);
 	glRotatef(rotationY,0,1,0);
-	drawCube(40.0f,40.0f,100.0f,50.0f);
+	ob->draw();
 	glPopMatrix();
 	glfwSwapBuffers(win);
 	glfwPollEvents();
 }
 
 
-void drawCube( GLfloat centerPosX, GLfloat centerPosY, GLfloat centerPosZ, GLfloat edgeLength){
-	GLfloat halfSideLength = edgeLength * 0.5f;
-	   GLfloat vertices[] =
-    {
-        // front face
-        centerPosX - halfSideLength, centerPosY + halfSideLength, centerPosZ + halfSideLength, // top left
-        centerPosX + halfSideLength, centerPosY + halfSideLength, centerPosZ + halfSideLength, // top right
-        centerPosX + halfSideLength, centerPosY - halfSideLength, centerPosZ + halfSideLength, // bottom right
-        centerPosX - halfSideLength, centerPosY - halfSideLength, centerPosZ + halfSideLength, // bottom left
-        
-        // back face
-        centerPosX - halfSideLength, centerPosY + halfSideLength, centerPosZ - halfSideLength, // top left
-        centerPosX + halfSideLength, centerPosY + halfSideLength, centerPosZ - halfSideLength, // top right
-        centerPosX + halfSideLength, centerPosY - halfSideLength, centerPosZ - halfSideLength, // bottom right
-        centerPosX - halfSideLength, centerPosY - halfSideLength, centerPosZ - halfSideLength, // bottom left
-        
-        // left face
-        centerPosX - halfSideLength, centerPosY + halfSideLength, centerPosZ + halfSideLength, // top left
-        centerPosX - halfSideLength, centerPosY + halfSideLength, centerPosZ - halfSideLength, // top right
-        centerPosX - halfSideLength, centerPosY - halfSideLength, centerPosZ - halfSideLength, // bottom right
-        centerPosX - halfSideLength, centerPosY - halfSideLength, centerPosZ + halfSideLength, // bottom left
-        
-        // right face
-        centerPosX + halfSideLength, centerPosY + halfSideLength, centerPosZ + halfSideLength, // top left
-        centerPosX + halfSideLength, centerPosY + halfSideLength, centerPosZ - halfSideLength, // top right
-        centerPosX + halfSideLength, centerPosY - halfSideLength, centerPosZ - halfSideLength, // bottom right
-        centerPosX + halfSideLength, centerPosY - halfSideLength, centerPosZ + halfSideLength, // bottom left
-        
-        // top face
-        centerPosX - halfSideLength, centerPosY + halfSideLength, centerPosZ + halfSideLength, // top left
-        centerPosX - halfSideLength, centerPosY + halfSideLength, centerPosZ - halfSideLength, // top right
-        centerPosX + halfSideLength, centerPosY + halfSideLength, centerPosZ - halfSideLength, // bottom right
-        centerPosX + halfSideLength, centerPosY + halfSideLength, centerPosZ + halfSideLength, // bottom left
-        
-        // top face
-        centerPosX - halfSideLength, centerPosY - halfSideLength, centerPosZ + halfSideLength, // top left
-        centerPosX - halfSideLength, centerPosY - halfSideLength, centerPosZ - halfSideLength, // top right
-        centerPosX + halfSideLength, centerPosY - halfSideLength, centerPosZ - halfSideLength, // bottom right
-        centerPosX + halfSideLength, centerPosY - halfSideLength, centerPosZ + halfSideLength  // bottom left
-    };
-    
-	glPolygonMode( GL_FRONT_AND_BACK, GL_LINE);
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer( 3, GL_FLOAT, 0, vertices);
 
-	glDrawArrays( GL_QUADS, 0, 24);
-	glDisableClientState( GL_VERTEX_ARRAY);
-
-}

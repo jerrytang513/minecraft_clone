@@ -96,3 +96,10 @@ void Object::update(double time){
 	clearForce();
 }
 
+void Object::attachCube(double centerX,double centerY,double centerZ, double edgeLength){
+	shape = new Cube(centerX,centerY,centerZ,edgeLength);
+}
+
+void Object::draw(){
+	shape->draw();
+}
