@@ -46,6 +46,7 @@ class Object{
 
 	void attachCube(double centerX,double centerY,double centerZ,double edgeLength);
 	void draw();
+	void rotate(GLdouble angle, Vec3D axis);
 
 };
 

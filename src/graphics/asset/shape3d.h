@@ -3,6 +3,8 @@
 
 #include "../../math/vec3d.h"
 #include "../../math/quaternion.h"
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 class Shape3D{
 
@@ -14,7 +16,7 @@ class Shape3D{
 	public:
 	
 	virtual void draw() = 0;
-	virtual void rotate() = 0;	
+	virtual void rotate(GLdouble angle,Vec3D axis) = 0;	
 
 };
 

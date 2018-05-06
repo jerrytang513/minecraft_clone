@@ -50,7 +50,6 @@ int main(){
 	//***************************************************** Add an object
 	
 	Object* ob = new Object(400,400,-500);
-	Vec3D vec(10,10,10);
 	ob->setMass(1);
 	ob->attachCube(40.0,40.0,40.0,20.0);
 
@@ -96,8 +95,9 @@ void render(GLFWwindow *win,Vec3D pos,Object* ob){
 	glClear(GL_COLOR_BUFFER_BIT);
 	glPushMatrix();
 	glTranslatef(pos.x,pos.y,pos.z);
-	glRotatef(rotationX,1,0,0);
-	glRotatef(rotationY,0,1,0);
+	//glRotatef(rotationX,1,0,0);
+	//glRotatef(rotationY,0,1,0);
+	ob->rotate(45,Vec3D(pos.x,pos.y,pos.z));
 	ob->draw();
 	glPopMatrix();
 	glfwSwapBuffers(win);

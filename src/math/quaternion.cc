@@ -1,6 +1,8 @@
 #include "quaternion.h"
 #include <math.h>
 
+#include <iostream>
+
 Quaternion::Quaternion():w{1},x{0},y{0},z{0}{}
 
 Quaternion::Quaternion(double w,double x,double y,double z):w{w},x{x},y{y},z{z}{}
@@ -61,6 +63,8 @@ Vec3D Quaternion::rotation(double angle, Vec3D axis){
 	Quaternion inverseQ = q.inverse();
 
 	Quaternion rotationVector = q * p * inverseQ;
+	
+	std::cout << "R" << rotationVector.x << std::endl;
 
 	return Vec3D(rotationVector.x,rotationVector.y,rotationVector.z);
 

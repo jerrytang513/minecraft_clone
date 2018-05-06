@@ -103,3 +103,7 @@ void Object::attachCube(double centerX,double centerY,double centerZ, double edg
 void Object::draw(){
 	shape->draw();
 }
+
+void Object::rotate(GLdouble angle, Vec3D axis){
+	shape->rotate(angle,axis);
+}

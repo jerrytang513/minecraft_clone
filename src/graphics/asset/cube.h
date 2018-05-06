@@ -2,8 +2,6 @@
 #define CUBE_H_
 
 #include "shape3d.h"
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <iostream>
 
 class Cube : public Shape3D{
@@ -48,7 +46,7 @@ class Cube : public Shape3D{
 	
 	Cube(GLdouble centerPosX, GLdouble centerPosY, GLdouble centerPosZ, GLdouble edgeLength);
 	void draw() override;
-	void rotate() override;
+	void rotate(GLdouble angle,Vec3D axis) override;
 
 
 
