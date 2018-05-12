@@ -92,6 +92,10 @@ void Vec3D::operator/=(const Vec3D& vec){
 	this->z /= vec.z;
 }
 
+Vec3D Vec3D::dot(const Vec3D& vec){
+	return Vec3D(this->x * vec.x,this->y * vec.y, this->z * vec.z);
+}
 
-	
-
+Vec3D Vec3D::cross(const Vec3D& vec){
+	return Vec3D(this->y * vec.z - this->z * vec.y, this->z * vec.x - this->x * vec.z, this->x * vec.y - this->y * vec.x);
+}

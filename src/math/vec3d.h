@@ -19,7 +19,6 @@ class Vec3D{
 	double magnitude();
 	Vec3D normalize();
 
-
 	// Some arithemetic operations
 	
 	Vec3D operator+(const double& val);
@@ -32,7 +31,7 @@ class Vec3D{
 	Vec3D operator/(const Vec3D& vec);
 
 	void operator+=(const double& val);
-	void  operator+=(const Vec3D& vec);
+	void operator+=(const Vec3D& vec);
 	void operator-=(const double& val);
 	void operator-=(const Vec3D& vec);
 	void operator*=(const double& val);
@@ -40,10 +39,8 @@ class Vec3D{
 	void operator/=(const double& val);
 	void operator/=(const Vec3D& vec);
 
-
-	
-
-
+	Vec3D dot(const Vec3D& vec);
+	Vec3D cross(const Vec3D& vec);
 
 };
 #endif

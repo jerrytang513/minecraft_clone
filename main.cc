@@ -97,7 +97,7 @@ void render(GLFWwindow *win,Vec3D pos,Object* ob){
 	glTranslatef(pos.x,pos.y,pos.z);
 	//glRotatef(rotationX,1,0,0);
 	//glRotatef(rotationY,0,1,0);
-	ob->rotate(45,Vec3D(pos.x,pos.y,pos.z));
+	ob->rotate(45,Vec3D(1,1,1));
 	ob->draw();
 	glPopMatrix();
 	glfwSwapBuffers(win);
