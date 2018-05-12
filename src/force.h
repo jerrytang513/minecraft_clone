@@ -13,10 +13,20 @@ class Force{
 	public:
 
 	Force();
+	Force(Vec3D);
+
 	Vec3D getForce();
 
 	protected:
 	void updateForce(Vec3D force);
+
+};
+
+class AppliedForce:public Force{
+
+	public:
+	
+	AppliedForce(Vec3D);
 
 };
 

@@ -82,6 +82,7 @@ using namespace std;
 	}
 
 	Cube::Cube(GLdouble centerPosX, GLdouble centerPosY, GLdouble centerPosZ, GLdouble edgeLength):Shape3D(Vec3D(centerPosX,centerPosY,centerPosZ)){
+
 		halfSideLength = edgeLength * 0.5;
 		frontTopLeft = Vec3D(centerPosX - halfSideLength,centerPosY + halfSideLength, centerPosZ + halfSideLength);
 		frontTopRight = Vec3D(centerPosX + halfSideLength, centerPosY + halfSideLength, centerPosZ + halfSideLength);
@@ -170,10 +171,16 @@ using namespace std;
 			vertices[i].z = rotationVec.z;
 			
 		}
+		Quaternion x(0,xAxis.x,xAxis.y,xAxis.z);
+		Quaternion y(0,yAxis.x,yAxis.y,yAxis.z);
+		Quaternion z(0,zAxis.x,zAxis.y,zAxis.z);
+		xAxis = x.rotation(angle,axis);
+		yAxis = y.rotation(angle,axis);
+		zAxis = z.rotation(angle,axis);
+
 		std::cout << vertices[0].x << std::endl;
 
 		valueAssign(vertices,data);
-
 	}
 
 

@@ -1,35 +1,13 @@
 #include "cubeCollision.h"
+#include <iostream>
 
-CubeCollision::CubeCollision(Vec3D centerPoint,double halfWidth,double halfHeight,double halfDepth):
-	Collision{},centerPoint{centerPoint},halfWidth{halfWidth},halfHeight{halfHeight},halfDepth{halfDepth}{}
+CubeCollision::CubeCollision(Vec3D centerPos,double halfWidth,double halfHeight,double halfDepth):
+	Collision{centerPos},halfWidth{halfWidth},halfHeight{halfHeight},halfDepth{halfDepth}{}
 
-void CubeCollision::setXAxis(Vec3D xAxis){
-	this->xAxis = xAxis;
-}
-
-void CubeCollision::setYAxis(Vec3D yAxis){
-	this->yAxis = yAxis;
-}
-
-void CubeCollision::setZAxis(Vec3D zAxis){
-	this->zAxis = zAxis;
-}
-
-Vec3D CubeCollision::getXAxis(){
-	return this->xAxis;
-}
-
-Vec3D CubeCollision::getYAxis(){
-	return this->yAxis;
-}
-
-Vec3D CubeCollision::getZAxis(){
-       return this->zAxis;
-}       
 
 bool CubeCollision::isCollideWithCube(CubeCollision b){
 
-	Vec3D t = b.centerPoint - centerPoint; 
+	Vec3D t = b.centerPos - centerPos; 
 	
         double rxx = this->xAxis.dot(b.xAxis).magnitude();
 	double rxy = this->xAxis.dot(b.yAxis).magnitude();

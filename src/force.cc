@@ -2,10 +2,13 @@
 #include "math/vec3d.h"
 
 Force::Force(){}
+Force::Force(Vec3D force):force{force}{}
 
 Vec3D Force::getForce(){return this->force;}
 
 void Force::updateForce(Vec3D force){this->force = force;}
+
+AppliedForce::AppliedForce(Vec3D force):Force{force}{}
 
 GravityForce::GravityForce(double mass):Force{},mass{mass},gravity{earthGravity}{
 	

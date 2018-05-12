@@ -48,8 +48,6 @@ class Cube : public Shape3D{
 	void draw() override;
 	void rotate(GLdouble angle,Vec3D axis) override;
 
-
-
 };
 
 

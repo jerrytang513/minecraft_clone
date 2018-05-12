@@ -4,6 +4,7 @@
 #include "src/math/vec3d.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <iostream>
 
 using namespace std::chrono;
 using namespace std;
@@ -51,7 +52,16 @@ int main(){
 	
 	Object* ob = new Object(400,400,-500);
 	ob->setMass(1);
-	ob->attachCube(40.0,40.0,40.0,20.0);
+	ob->attachCube(40.0,40.0,40.0,50.0);
+
+	Object* ob2 = new Object(800,400,-500);
+	ob2->setMass(1);
+	ob2->attachCube(40.0,40.0,40.0,50.0);
+	//ob2->addContinuousForce(AppliedForce(Vec3D(-10,0,0)));
+	ob2->addForce(AppliedForce(Vec3D(-5,0,0)));
+
+	Collision *c1 = ob->getCollision();
+	CubeCollision *c2 = (CubeCollision*)ob2->getCollision();
 
 	//ob->addContinuousForce(GravityForce(ob->getMass()));
 
@@ -70,12 +80,33 @@ int main(){
 		auto now = chrono::high_resolution_clock::now();
 		delta += (double)(duration_cast<chrono::nanoseconds>(now - last_time).count() / ns);
 		while(delta >= 1){
+			// UPDATE THE OBJECT IMPORTANT !!!
 			update(ob,duration_cast<chrono::nanoseconds>(chrono::high_resolution_clock::now() - last_tick_time).count()/1000000000.0);
+			update(ob2,duration_cast<chrono::nanoseconds>(chrono::high_resolution_clock::now() - last_tick_time).count()/1000000000.0);
+			
 			last_tick_time = chrono::high_resolution_clock::now();
 			updates ++;
 			delta --;
 		}
+
+		// COLLISION DETECTION STAGE
+		// 
+		std::cout << c1->isCollideWithCube(*c2) << std::endl;
+		if(c1->isCollideWithCube(*c2) == 1){
+
+			std::cout << "COLLIDED" << std::endl;
+			
+		} else {
+
 		render(win,ob->getPosition(),ob);
+		render(win,ob2->getPosition(),ob2);
+		
+
+		
+		}
+		//
+		// COLLISION DETECTION STAGE
+		
 		frames ++;
 		if(duration_cast<chrono::milliseconds>(chrono::high_resolution_clock::now() - current_time).count() > 1000){
 			current_time = current_time + std::chrono::milliseconds(1000);

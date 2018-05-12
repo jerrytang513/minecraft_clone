@@ -5,6 +5,8 @@
 #include <vector>
 #include "force.h"
 #include "graphics/asset/allShape.h"
+#include "collision/collision.h"
+#include "collision/cubeCollision.h"
 
 using namespace std;
 
@@ -17,8 +19,11 @@ class Object{
 	std::vector<Force> continuousForces;
 	Vec3D acceleration;
 	Vec3D velocity;
-	double damping;
 	Shape3D* shape;
+	double damping;
+	Collision* collision;
+
+	~Object();
 
 	public:
 
@@ -47,6 +52,8 @@ class Object{
 	void attachCube(double centerX,double centerY,double centerZ,double edgeLength);
 	void draw();
 	void rotate(GLdouble angle, Vec3D axis);
+
+	Collision* getCollision();
 
 };
 

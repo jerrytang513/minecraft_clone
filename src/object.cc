@@ -1,8 +1,14 @@
 #include "object.h"
+#include <iostream>
 
 Object::Object():position{Vec3D(0,0,0)},mass{0},inverseMass{0},forces{},acceleration{Vec3D(0,0,0)},velocity{Vec3D(0,0,0)},damping{0}{}
 
 Object::Object(double x,double y, double z):position{Vec3D(x,y,z)},mass{0},inverseMass{0},forces{},acceleration{Vec3D(0,0,0)},velocity{Vec3D(0,0,0)},damping{0}{}
+
+Object::~Object(){
+	delete shape;
+	delete collision;
+}
 
 void Object::setMass(double mass){
 	this->mass = mass;
@@ -88,16 +94,29 @@ void Object::update(double time){
 	for(std::vector<Force>::iterator it = continuousForces.begin(); it != continuousForces.end(); it++){
 		finalForce += (*it).getForce();
 	}
-		
 	this->acceleration += finalForce * this->getInverseMass();
+	//std::cout << this->acceleration.x << std::endl;
 	this->velocity += (this->acceleration * time);	
 	this->position += this->velocity * time ;
+	//std::cout << this->position.x << std::endl;
+
+	// update collision info
+	collision->setCenterPos(this->position);
+	collision->setXAxis((this->shape)->getXAxis());	
+	collision->setYAxis((this->shape)->getYAxis());
+	collision->setZAxis((this->shape)->getZAxis());
+	
 	// Considering having applied force (continuously supplying the force to the object)
 	clearForce();
 }
 
+Collision* Object::getCollision(){
+	return this->collision;	
+}
+
 void Object::attachCube(double centerX,double centerY,double centerZ, double edgeLength){
 	shape = new Cube(centerX,centerY,centerZ,edgeLength);
+	collision = new CubeCollision(Vec3D(centerX,centerY,centerZ),edgeLength/2,edgeLength/2,edgeLength/2);
 }
 
 void Object::draw(){

@@ -64,7 +64,7 @@ Vec3D Quaternion::rotation(double angle, Vec3D axis){
 
 	Quaternion rotationVector = q * p * inverseQ;
 	
-	std::cout << "R" << rotationVector.x << std::endl;
+	//std::cout << "R" << rotationVector.x << std::endl;
 
 	return Vec3D(rotationVector.x,rotationVector.y,rotationVector.z);
 
