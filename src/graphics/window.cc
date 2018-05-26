@@ -4,6 +4,10 @@ bool Window::keys[1024];
 void keyCallback(GLFWwindow*window, int key, int scancode, int action,int mods);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
+void error_callback(int error, const char* description){
+	std::cout << "Error " << description << std::endl;
+}
+
 Window::Window(int width, int height, const char* title){
 	if(!glfwInit()){
 		std::cout << "CANNOT initialize with glfwInit()" << std::endl;	
@@ -19,6 +23,7 @@ Window::Window(int width, int height, const char* title){
 	glfwMakeContextCurrent(window);
 	glfwSetWindowUserPointer(window,this);
 	glfwSetKeyCallback(window,keyCallback);
+	glfwSetErrorCallback(error_callback);
 	// When resize happens, reset the values for the viewport.
 	glfwSetFramebufferSizeCallback(window,framebuffer_size_callback);
 	if(glewInit() != GLEW_OK){
