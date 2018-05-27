@@ -11,7 +11,7 @@ GRAPHICS_ASSET_DIR_OBJ = $(wildcard src/graphics/asset/*.cc)
 COLLISION_DIR_OBJ = $(wildcard src/collision/*.cc)
 APPLICATION_DIR_OBJ = $(wildcard src/application*.cc)
 
-OBJECTS = $(MATH_DIR_OBJ:.cc=.o) $(OTHER_OBJ:.cc=.o) $(GRAPHICS_DIR_OBJ:.cc=.o) $(GRAPHICS_ASSET_DIR_OBJ:.cc=.o) $(APPLICATION_DIR_OBJ:.cc=.o) $(COLLISION_DIR_OBJ:.cc=.o) main.o application.o
+OBJECTS = $(MATH_DIR_OBJ:.cc=.o) $(OTHER_OBJ:.cc=.o) $(GRAPHICS_DIR_OBJ:.cc=.o) $(GRAPHICS_ASSET_DIR_OBJ:.cc=.o) $(APPLICATION_DIR_OBJ:.cc=.o) $(COLLISION_DIR_OBJ:.cc=.o) main.o application.o rocket.o
 DEPENDS = ${OBJECTS:.o=.d}
 
 ${EXEC} : ${OBJECTS}

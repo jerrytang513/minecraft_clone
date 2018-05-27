@@ -23,7 +23,7 @@ class Application{
 	Application(char* title);
 	~Application();
 	virtual void render() = 0;
-	virtual void tick() = 0;
+	virtual void tick(float) = 0;
 
 // Methods for input
 
@@ -31,14 +31,8 @@ class Application{
 	void setCurWindow(char* title);
 	Window* getCurWindow(char* title);
 
-
 	virtual void init() = 0;
-
-	
-
-
-
-
+	void run();
 
 };
 

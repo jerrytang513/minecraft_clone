@@ -5,6 +5,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include "rocket.cc"
 
 using namespace std::chrono;
 using namespace std;
@@ -17,16 +18,16 @@ void exitInput(GLFWwindow* window){
 #define SCREEN_WIDTH 1000
 #define SCREEN_HEIGHT 700
 
-void keyCallback( GLFWwindow *window, int key, int scancode, int action, int mods);
-void drawCube( GLfloat centerPosX, GLfloat centerPosY, GLfloat centerPosZ, GLfloat edgeLength);
-void render(GLFWwindow *win,Vec3D pos,Object *);
-void update(Object *ob,float time);
-
 GLfloat rotationX = 45.0f;
 GLfloat rotationY = 45.0f;
 
 int main(){
 
+	Rocket * rocket = new Rocket();
+	std::cout << glGetString(GL_VERSION) << std::endl;
+	rocket->run();
+
+	/*
 	const char* title = "PHYSICS_ENGINE";
 
 	// Create a Window Object
@@ -48,7 +49,7 @@ int main(){
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	//***************************************************** Add an object
+	***************************************************** Add an object
 	
 	Object* ob = new Object(400,400,-500);
 	ob->setMass(1);
@@ -115,6 +116,7 @@ int main(){
 			frames = 0;
 		}
 	}
+*/
 
 	return 0;
 }
