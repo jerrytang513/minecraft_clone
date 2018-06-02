@@ -23,5 +23,3 @@ ${EXEC} : ${OBJECTS}
 
 clean:
 	rm -rf ${OBJECTS} ${EXEC} ${DEPENDS}
-
-

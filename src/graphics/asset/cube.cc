@@ -1,9 +1,9 @@
 #include "cube.h"
-
+#include "glm/glm.hpp"
 using namespace std;
 
-	void valueAssign(Vec3D* vertices,GLdouble* data){
-		
+	void valueAssign(Vec3D* vertices,GLfloat* data){
+
 		data[0] =  vertices[0].x;
 		data[1] =  vertices[0].y;
 		data[2] =  vertices[0].z;
@@ -41,7 +41,7 @@ using namespace std;
 		data[33] =  vertices[11].x;
 		data[34] =  vertices[11].y;
 		data[35] =  vertices[11].z;
-		
+
 		data[36] =  vertices[12].x;
 		data[37] =  vertices[12].y;
 		data[38] =  vertices[12].z;
@@ -81,7 +81,7 @@ using namespace std;
 		data[71] =  vertices[23].z;
 	}
 
-	Cube::Cube(GLdouble centerPosX, GLdouble centerPosY, GLdouble centerPosZ, GLdouble edgeLength):Shape3D(Vec3D(centerPosX,centerPosY,centerPosZ)){
+	Cube::Cube(GLfloat centerPosX, GLfloat centerPosY, GLfloat centerPosZ, GLfloat edgeLength):Shape3D(Vec3D(centerPosX,centerPosY,centerPosZ)){
 
 		halfSideLength = edgeLength * 0.5;
 		frontTopLeft = Vec3D(centerPosX - halfSideLength,centerPosY + halfSideLength, centerPosZ + halfSideLength);
@@ -118,7 +118,7 @@ using namespace std;
 		bottomTopRight = Vec3D(centerPosX - halfSideLength, centerPosY - halfSideLength, centerPosZ - halfSideLength); // top right
 		bottomBottomRight = Vec3D(centerPosX + halfSideLength, centerPosY - halfSideLength, centerPosZ - halfSideLength); // bottom right
 		bottomBottomLeft = Vec3D(centerPosX + halfSideLength, centerPosY - halfSideLength, centerPosZ + halfSideLength); // bottom left
-		
+
 		vertices[0] = Vec3D(frontTopLeft.x,frontTopLeft.y,frontTopLeft.z);
 		vertices[1] = Vec3D(frontTopRight.x,frontTopRight.y,frontTopRight.z);
 		vertices[2] = Vec3D(frontBottomRight.x,frontBottomRight.y,frontBottomRight.z);
@@ -155,13 +155,13 @@ using namespace std;
         void Cube::draw(){
 		glPolygonMode( GL_FRONT_AND_BACK, GL_LINE);
 		glEnableClientState(GL_VERTEX_ARRAY);
-		glVertexPointer( 3, GL_DOUBLE, 0, data);
+		glVertexPointer( 3, GL_FLOAT, 0, data);
 
 		glDrawArrays( GL_QUADS, 0, 24);
 		glDisableClientState( GL_VERTEX_ARRAY);
 	}
 
-        void Cube::rotate(GLdouble angle, Vec3D axis){
+        void Cube::rotate(GLfloat angle, Vec3D axis){
 
 		for(int i = 0; i < 24; i++){
 			Quaternion q(0,vertices[i].x,vertices[i].y,vertices[i].z);
@@ -169,7 +169,7 @@ using namespace std;
 			vertices[i].x = rotationVec.x;
 			vertices[i].y = rotationVec.y;
 			vertices[i].z = rotationVec.z;
-			
+
 		}
 		Quaternion x(0,xAxis.x,xAxis.y,xAxis.z);
 		Quaternion y(0,yAxis.x,yAxis.y,yAxis.z);
@@ -182,5 +182,3 @@ using namespace std;
 
 		valueAssign(vertices,data);
 	}
-
-

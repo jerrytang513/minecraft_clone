@@ -12,7 +12,7 @@ class Window{
 	GLFWwindow *window;
 	const char* title_name;
 	static bool keys[1024];
-	
+
 	public:
 
 	Window(int width, int height, const char* title);
@@ -26,9 +26,9 @@ class Window{
 	GLFWwindow* getWindow();
 
 	// Register Functions
-	
+
 	private:
-	friend void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);	
+	friend void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	friend void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 };

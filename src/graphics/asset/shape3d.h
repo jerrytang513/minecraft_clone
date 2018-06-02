@@ -18,9 +18,9 @@ class Shape3D{
 	Shape3D(Vec3D vec,Vec3D xAxis,Vec3D yAxis,Vec3D zAxis);
 
 	public:
-	
+
 	virtual void draw() = 0;
-	virtual void rotate(GLdouble angle,Vec3D axis) = 0;	
+	virtual void rotate(GLfloat angle,Vec3D axis) = 0;
 
 	Vec3D getXAxis();
         Vec3D getYAxis();

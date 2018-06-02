@@ -50,7 +50,7 @@ int main(){
 	glLoadIdentity();
 
 	***************************************************** Add an object
-	
+
 	Object* ob = new Object(400,400,-500);
 	ob->setMass(1);
 	ob->attachCube(40.0,40.0,40.0,50.0);
@@ -69,45 +69,45 @@ int main(){
 
 	//********************************************* Add forces to objects
 	// FPS counter
-	
+
 	auto last_time = chrono::high_resolution_clock::now();
 	auto current_time = chrono::high_resolution_clock::now();
 	auto last_tick_time = chrono::high_resolution_clock::now();
-	double ns = 1000000000.0 / 60.0;
-	double delta = 0;
+	float ns = 1000000000.0 / 60.0;
+	float delta = 0;
 	int frames = 0;
 	int updates = 0;
 	while(!glfwWindowShouldClose(win)){
 		auto now = chrono::high_resolution_clock::now();
-		delta += (double)(duration_cast<chrono::nanoseconds>(now - last_time).count() / ns);
+		delta += (float)(duration_cast<chrono::nanoseconds>(now - last_time).count() / ns);
 		while(delta >= 1){
 			// UPDATE THE OBJECT IMPORTANT !!!
 			update(ob,duration_cast<chrono::nanoseconds>(chrono::high_resolution_clock::now() - last_tick_time).count()/1000000000.0);
 			update(ob2,duration_cast<chrono::nanoseconds>(chrono::high_resolution_clock::now() - last_tick_time).count()/1000000000.0);
-			
+
 			last_tick_time = chrono::high_resolution_clock::now();
 			updates ++;
 			delta --;
 		}
 
 		// COLLISION DETECTION STAGE
-		// 
+		//
 		std::cout << c1->isCollideWithCube(*c2) << std::endl;
 		if(c1->isCollideWithCube(*c2) == 1){
 
 			std::cout << "COLLIDED" << std::endl;
-			
+
 		} else {
 
 		render(win,ob->getPosition(),ob);
 		render(win,ob2->getPosition(),ob2);
-		
 
-		
+
+
 		}
 		//
 		// COLLISION DETECTION STAGE
-		
+
 		frames ++;
 		if(duration_cast<chrono::milliseconds>(chrono::high_resolution_clock::now() - current_time).count() > 1000){
 			current_time = current_time + std::chrono::milliseconds(1000);
@@ -136,6 +136,3 @@ void render(GLFWwindow *win,Vec3D pos,Object* ob){
 	glfwSwapBuffers(win);
 	glfwPollEvents();
 }
-
-
-

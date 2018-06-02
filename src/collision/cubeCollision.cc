@@ -1,25 +1,25 @@
 #include "cubeCollision.h"
 #include <iostream>
 
-CubeCollision::CubeCollision(Vec3D centerPos,double halfWidth,double halfHeight,double halfDepth):
+CubeCollision::CubeCollision(Vec3D centerPos,float halfWidth,float halfHeight,float halfDepth):
 	Collision{centerPos},halfWidth{halfWidth},halfHeight{halfHeight},halfDepth{halfDepth}{}
 
 
 bool CubeCollision::isCollideWithCube(CubeCollision b){
 
-	Vec3D t = b.centerPos - centerPos; 
-	
-        double rxx = this->xAxis.dot(b.xAxis).magnitude();
-	double rxy = this->xAxis.dot(b.yAxis).magnitude();
-	double rxz = this->xAxis.dot(b.zAxis).magnitude();
+	Vec3D t = b.centerPos - centerPos;
 
-	double ryx = this->yAxis.dot(b.xAxis).magnitude();
-	double ryy = this->yAxis.dot(b.yAxis).magnitude();
-	double ryz = this->yAxis.dot(b.zAxis).magnitude();
+        float rxx = this->xAxis.dot(b.xAxis).magnitude();
+	float rxy = this->xAxis.dot(b.yAxis).magnitude();
+	float rxz = this->xAxis.dot(b.zAxis).magnitude();
 
-	double rzx = this->zAxis.dot(b.xAxis).magnitude();
-	double rzy = this->zAxis.dot(b.yAxis).magnitude();
-	double rzz = this->zAxis.dot(b.zAxis).magnitude();	
+	float ryx = this->yAxis.dot(b.xAxis).magnitude();
+	float ryy = this->yAxis.dot(b.yAxis).magnitude();
+	float ryz = this->yAxis.dot(b.zAxis).magnitude();
+
+	float rzx = this->zAxis.dot(b.xAxis).magnitude();
+	float rzy = this->zAxis.dot(b.yAxis).magnitude();
+	float rzz = this->zAxis.dot(b.zAxis).magnitude();
 
 	// 15 Testing Conditions
 	// 6 plane test
@@ -34,7 +34,7 @@ bool CubeCollision::isCollideWithCube(CubeCollision b){
 	if(t.dot(b.yAxis).magnitude() > (b.halfHeight + this->halfWidth * rxy + this->halfHeight * ryy + this->halfDepth * rzy))
 		return false;
 	if(t.dot(b.zAxis).magnitude() > (b.halfDepth + this->halfWidth * rxz + this->halfHeight * ryz + this->halfDepth * rzz))
-		return false;	
+		return false;
 
 	// 9 axis plane test
 	if(t.dot(this->xAxis.cross(b.xAxis)).magnitude() > (abs(this->halfHeight * rzx) + abs(this->halfDepth * ryx) + abs(b.halfHeight * rxz) + abs(b.halfDepth * rxy)))
@@ -60,5 +60,3 @@ bool CubeCollision::isCollideWithCube(CubeCollision b){
 
 	return true;
 }
-
-

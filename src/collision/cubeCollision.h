@@ -6,13 +6,13 @@
 
 class CubeCollision: public Collision{
 
-	double halfWidth;
-	double halfHeight;
-	double halfDepth;
+	float halfWidth;
+	float halfHeight;
+	float halfDepth;
 
 	public:
 
-	CubeCollision(Vec3D,double,double,double);
+	CubeCollision(Vec3D,float,float,float);
 
 	virtual bool isCollideWithCube(CubeCollision) override;
 

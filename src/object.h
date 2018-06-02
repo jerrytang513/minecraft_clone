@@ -13,14 +13,14 @@ using namespace std;
 class Object{
 
 	Vec3D position;
-	double mass;
-	double inverseMass;
+	float mass;
+	float inverseMass;
 	std::vector<Force> forces;
 	std::vector<Force> continuousForces;
 	Vec3D acceleration;
 	Vec3D velocity;
 	Shape3D* shape;
-	double damping;
+	float damping;
 	Collision* collision;
 
 	~Object();
@@ -28,30 +28,30 @@ class Object{
 	public:
 
 	Object();
-	Object(double x,double y,double z);
-	
-	void setMass(double mass);
-	void setInverseMass(double inverseMass);
+	Object(float x,float y,float z);
+
+	void setMass(float mass);
+	void setInverseMass(float inverseMass);
 	std::vector<Force> getForce();
 	void addForce(Force force);
 	void addContinuousForce(Force force);
 	void clearForce();
-	void setPosition(double x, double y, double z);
+	void setPosition(float x, float y, float z);
 	void setPosition(Vec3D vec);
-	double getMass();
-	double getInverseMass();
+	float getMass();
+	float getInverseMass();
 	Vec3D getPosition();
 	void setAcceleration(Vec3D acceleration);
 	Vec3D getAcceleration();
 	void setVelocity(Vec3D velocity);
 	Vec3D getVelocity();
-	void setDamping(double damping);
-	double getDamping();
-	void update(double time);
+	void setDamping(float damping);
+	float getDamping();
+	void update(float time);
 
-	void attachCube(double centerX,double centerY,double centerZ,double edgeLength);
+	void attachCube(float centerX,float centerY,float centerZ,float edgeLength);
 	void draw();
-	void rotate(GLdouble angle, Vec3D axis);
+	void rotate(GLfloat angle, Vec3D axis);
 
 	Collision* getCollision();
 

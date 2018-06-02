@@ -26,4 +26,3 @@ Vec3D Shape3D::getYAxis(){
 Vec3D Shape3D::getZAxis(){
         return this->zAxis;
 }
-

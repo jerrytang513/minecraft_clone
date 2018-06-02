@@ -7,7 +7,7 @@ class Rocket:public Application{
 
 	int screenWidth = 1000;
 	int screenHeight = 700;
-	vector<Object*> obj;	
+	vector<Object*> obj;
 	char* title = (char*)"Rocket";
 
 
@@ -45,7 +45,7 @@ class Rocket:public Application{
 		Collision *c1 = ob->getCollision();
 		CubeCollision *c2 = (CubeCollision*)ob2->getCollision();
 	}
-	
+
 	void tick(float time){
 		for(vector<Object*>::iterator it = obj.begin(); it != obj.end(); it++){
 			(*it)->update(time);
@@ -66,7 +66,7 @@ class Rocket:public Application{
 		}
 
 	}
-	
+
 
 
 

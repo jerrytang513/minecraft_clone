@@ -10,10 +10,10 @@ void error_callback(int error, const char* description){
 
 Window::Window(int width, int height, const char* title){
 	if(!glfwInit()){
-		std::cout << "CANNOT initialize with glfwInit()" << std::endl;	
+		std::cout << "CANNOT initialize with glfwInit()" << std::endl;
 	} else {
 		this->window = glfwCreateWindow(width,height,title,NULL,NULL);
-	}	
+	}
 
 	// Set the version number
   	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -40,7 +40,7 @@ GLFWwindow* Window::getWindow(){
 }
 void Window::setViewPort(int x,int y, int width, int height){
 	glViewport(x,y,width,height);
-}	
+}
 
 Window::~Window(){
 	glfwTerminate();

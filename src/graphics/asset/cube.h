@@ -5,7 +5,7 @@
 #include <iostream>
 
 class Cube : public Shape3D{
-	GLdouble halfSideLength;
+	GLfloat halfSideLength;
         Vec3D frontTopLeft;
         Vec3D frontTopRight;
         Vec3D frontBottomRight;
@@ -41,12 +41,12 @@ class Cube : public Shape3D{
         Vec3D bottomBottomLeft;
 
 	Vec3D vertices[24];
-	GLdouble data[72];
+	GLfloat data[72];
 	public:
-	
-	Cube(GLdouble centerPosX, GLdouble centerPosY, GLdouble centerPosZ, GLdouble edgeLength);
+
+	Cube(GLfloat centerPosX, GLfloat centerPosY, GLfloat centerPosZ, GLfloat edgeLength);
 	void draw() override;
-	void rotate(GLdouble angle,Vec3D axis) override;
+	void rotate(GLfloat angle,Vec3D axis) override;
 
 };
 

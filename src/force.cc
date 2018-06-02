@@ -10,25 +10,25 @@ void Force::updateForce(Vec3D force){this->force = force;}
 
 AppliedForce::AppliedForce(Vec3D force):Force{force}{}
 
-GravityForce::GravityForce(double mass):Force{},mass{mass},gravity{earthGravity}{
-	
+GravityForce::GravityForce(float mass):Force{},mass{mass},gravity{earthGravity}{
+
 	updateForce(Vec3D(0,mass * gravity,0));
 }
 
-GravityForce::GravityForce(double mass, double gravity):Force{},mass{mass},gravity{gravity}{
+GravityForce::GravityForce(float mass, float gravity):Force{},mass{mass},gravity{gravity}{
 	updateForce(Vec3D(0,mass * gravity,0));
 }
 
-double GravityForce::getGravity(){return gravity;}
+float GravityForce::getGravity(){return gravity;}
 
-void GravityForce::setGravity(double gravity){
+void GravityForce::setGravity(float gravity){
 	this->gravity = gravity;
 	updateForce(Vec3D(0,this->mass * this->gravity,0));
 }
 
-double GravityForce::getMass(){return this->mass;}
+float GravityForce::getMass(){return this->mass;}
 
-void GravityForce::setMass(double mass){
+void GravityForce::setMass(float mass){
 	this->mass = mass;
 	updateForce(Vec3D(0,this->mass * this->gravity,0));
 }

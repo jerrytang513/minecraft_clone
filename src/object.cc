@@ -3,19 +3,19 @@
 
 Object::Object():position{Vec3D(0,0,0)},mass{0},inverseMass{0},forces{},acceleration{Vec3D(0,0,0)},velocity{Vec3D(0,0,0)},damping{0}{}
 
-Object::Object(double x,double y, double z):position{Vec3D(x,y,z)},mass{0},inverseMass{0},forces{},acceleration{Vec3D(0,0,0)},velocity{Vec3D(0,0,0)},damping{0}{}
+Object::Object(float x,float y, float z):position{Vec3D(x,y,z)},mass{0},inverseMass{0},forces{},acceleration{Vec3D(0,0,0)},velocity{Vec3D(0,0,0)},damping{0}{}
 
 Object::~Object(){
 	delete shape;
 	delete collision;
 }
 
-void Object::setMass(double mass){
+void Object::setMass(float mass){
 	this->mass = mass;
 	this->inverseMass = 1 / this->mass;
 }
 
-void Object::setInverseMass(double inverseMass){
+void Object::setInverseMass(float inverseMass){
 	this->inverseMass = inverseMass;
 }
 
@@ -31,7 +31,7 @@ void Object::clearForce(){
 	this->forces.clear();
 }
 
-void Object::setPosition(double x, double y, double z){
+void Object::setPosition(float x, float y, float z){
 	this->position.x = x;
 	this->position.y = y;
 	this->position.z = z;
@@ -43,11 +43,11 @@ void Object::setPosition(Vec3D vec){
 	this->position.z = vec.z;
 }
 
-double Object::getMass(){
+float Object::getMass(){
 	return this->mass;
 }
 
-double Object::getInverseMass(){
+float Object::getInverseMass(){
 	return this->inverseMass;
 }
 
@@ -73,11 +73,11 @@ Vec3D Object::getVelocity(){
 	return this->velocity;
 }
 
-void  Object::setDamping(double damping){
+void  Object::setDamping(float damping){
 	this->damping = damping;
 }
 
-double Object::getDamping(){
+float Object::getDamping(){
 	return this->damping;
 }
 
@@ -85,7 +85,7 @@ std::vector<Force> Object::getForce(){
 	return this->forces;
 }
 
-void Object::update(double time){
+void Object::update(float time){
 	Vec3D finalForce(0,0,0);
 	std::vector<Force> forces = getForce();
 	for(std::vector<Force>::iterator it = forces.begin(); it != forces.end(); it++){
@@ -96,25 +96,25 @@ void Object::update(double time){
 	}
 	this->acceleration += finalForce * this->getInverseMass();
 	//std::cout << this->acceleration.x << std::endl;
-	this->velocity += (this->acceleration * time);	
+	this->velocity += (this->acceleration * time);
 	this->position += this->velocity * time ;
 	//std::cout << this->position.x << std::endl;
 
 	// update collision info
 	collision->setCenterPos(this->position);
-	collision->setXAxis((this->shape)->getXAxis());	
+	collision->setXAxis((this->shape)->getXAxis());
 	collision->setYAxis((this->shape)->getYAxis());
 	collision->setZAxis((this->shape)->getZAxis());
-	
+
 	// Considering having applied force (continuously supplying the force to the object)
 	clearForce();
 }
 
 Collision* Object::getCollision(){
-	return this->collision;	
+	return this->collision;
 }
 
-void Object::attachCube(double centerX,double centerY,double centerZ, double edgeLength){
+void Object::attachCube(float centerX,float centerY,float centerZ, float edgeLength){
 	shape = new Cube(centerX,centerY,centerZ,edgeLength);
 	collision = new CubeCollision(Vec3D(centerX,centerY,centerZ),edgeLength/2,edgeLength/2,edgeLength/2);
 }
@@ -123,6 +123,6 @@ void Object::draw(){
 	shape->draw();
 }
 
-void Object::rotate(GLdouble angle, Vec3D axis){
+void Object::rotate(GLfloat angle, Vec3D axis){
 	shape->rotate(angle,axis);
 }
