@@ -5,16 +5,12 @@
 #include <glm/glm.hpp>
 
 class Vec3D{
-	// This placeholder is there to improve the performance of the memory.
-	// Since it works better with 4 words than 3 words;
-	float placeholder;
-
 	public:
 	float x;
 	float y;
 	float z;
 
-	Vec3D();
+	Vec3D() = default;
 	Vec3D(float x,float y,float z);
 
 	glm::vec3 getGLMVec();

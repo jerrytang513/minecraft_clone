@@ -1,7 +1,7 @@
-#include "Vec4D.h"
+#include "vec4d.h"
 
-Vec4D::Vec4D():x{0},y{0},z{0},t{0},placeholder{0}{}
-Vec4D::Vec4D(float x, float y, float z,float t):x{x},y{y},z{z},t{t},placeholder{0}{}
+Vec4D::Vec4D() = default;
+Vec4D::Vec4D(float x, float y, float z,float t):x{x},y{y},z{z},t{t}{}
 
 glm::vec4 Vec4D::getGLMVec(){
 		return glm::vec4(x,y,z,t);

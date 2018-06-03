@@ -6,6 +6,7 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include "rocket.cc"
+#include "src/math/mat4.h"
 
 using namespace std::chrono;
 using namespace std;
@@ -21,12 +22,24 @@ void exitInput(GLFWwindow* window){
 GLfloat rotationX = 45.0f;
 GLfloat rotationY = 45.0f;
 
-int main(){
 
+int main(){
+	Vec3D v(1.0f,2.0f,3.0f);
+	Mat4 mat = Mat4::translation(v);
+
+
+	for(int i = 0; i < 16; i++){
+		std::cout << mat.values[i];
+	}
+
+
+
+
+/*
 	Rocket * rocket = new Rocket();
 	std::cout << glGetString(GL_VERSION) << std::endl;
 	rocket->run();
-
+*/
 	/*
 	const char* title = "PHYSICS_ENGINE";
 

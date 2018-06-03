@@ -1,7 +1,6 @@
 #include "vec3d.h"
 
-Vec3D::Vec3D():x{0},y{0},z{0},placeholder{0}{}
-Vec3D::Vec3D(float x, float y, float z):x{x},y{y},z{z},placeholder{0}{}
+Vec3D::Vec3D(float x, float y, float z):x{x},y{y},z{z}{}
 
 glm::vec3 Vec3D::getGLMVec(){
 		return glm::vec3(x,y,z);

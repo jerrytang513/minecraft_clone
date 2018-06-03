@@ -7,8 +7,6 @@
 class Vec4D{
 	// This placeholder is there to improve the performance of the memory.
 	// Since it works better with 4 words than 3 words;
-	float placeholder;
-
 	public:
 	float x;
 	float y;
