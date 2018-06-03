@@ -12,7 +12,9 @@ std::string Shader::parseShader(){
   std::ifstream fstream(filepath);
   std::string line;
   std::stringstream ss;
-  while(getline(ss,line)){
+  std::cout << filepath << std::endl;
+
+  while(getline(fstream,line)){
       ss << line << '\n';
   }
   return ss.str();
@@ -20,13 +22,12 @@ std::string Shader::parseShader(){
 
 void Shader::addShader(GLuint program){
 
-
     shaderID = glCreateShader(shaderType);
-    const GLchar* code[1];
-    code[0] = parseShader().c_str();
+    std::string code[1];
+    code[0] = parseShader();
     GLint length[1];
-    length[0] = sizeof(code[0]) / sizeof(GLchar);
-    glShaderSource(shaderID, 1, code, length);
+    length[0] = code[0].length();
+    glShaderSource(shaderID, 1, (char* const*)code, length);
     glCompileShader(shaderID);
     GLint result = 0;
     GLchar eLog[1024] = { 0 };

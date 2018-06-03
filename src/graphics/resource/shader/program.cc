@@ -10,7 +10,7 @@ Program::~Program(){
 
 Program::Program(std::vector<ShaderStruct> shaders):shaders{shaders},programID{0},allShaders{}{}
 
-void Program::CompileProgram(){
+void Program::compileProgram(){
   programID = glCreateProgram();
   if (!programID)
   {
@@ -45,4 +45,8 @@ void Program::CompileProgram(){
     printf("Error validating program: '%s'\n", eLog);
     return;
   }
+}
+
+GLuint Program::getProgramID(){
+  return programID;
 }

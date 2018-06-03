@@ -7,6 +7,7 @@
 
 
 struct ShaderStruct{
+  ShaderStruct(std::string filepath, GLenum type):filepath{filepath},type{type}{}
   std::string filepath;
   GLenum type;
 };
@@ -20,7 +21,8 @@ class Program{
 public:
   ~Program();
   Program(std::vector<ShaderStruct> shaders);
-  void CompileProgram();
+  void compileProgram();
+  GLuint getProgramID();
 
 };
 
