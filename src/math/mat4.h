@@ -10,6 +10,7 @@ public:
 
     union{
       float values[16];
+      float matrix[4][4];
       Vec4D cols[4];
     };
 

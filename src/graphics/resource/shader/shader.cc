@@ -1,12 +1,14 @@
 #include "shader.h"
 
 Shader::~Shader(){
-  glDeleteShader(shaderID);
+  if(shaderID != 0)
+    glDeleteShader(shaderID);
+  shaderID = 0;
 }
 
 Shader::Shader(std::string filepath, GLenum shaderType):filepath{filepath},shaderType{shaderType},shaderID{0}{}
 
-std::string Shader::parseShader(const std::string& filepath, GLenum){
+std::string Shader::parseShader(){
   std::ifstream fstream(filepath);
   std::string line;
   std::stringstream ss;
@@ -16,10 +18,12 @@ std::string Shader::parseShader(const std::string& filepath, GLenum){
   return ss.str();
 }
 
-void Shader::addShader(GLuint program, GLenum type, const char* source){
-    shaderID = glCreateShader(type);
+void Shader::addShader(GLuint program){
+
+
+    shaderID = glCreateShader(shaderType);
     const GLchar* code[1];
-    code[0] = source;
+    code[0] = parseShader().c_str();
     GLint length[1];
     length[0] = sizeof(code[0]) / sizeof(GLchar);
     glShaderSource(shaderID, 1, code, length);
@@ -30,9 +34,9 @@ void Shader::addShader(GLuint program, GLenum type, const char* source){
     if (!result)
     {
     	glGetShaderInfoLog(shaderID, sizeof(eLog), NULL, eLog);
-    	printf("Error compiling the %d shader: '%s'\n", type, eLog);
+    	printf("Error compiling the %d shader: '%s'\n", shaderType, eLog);
     	return;
     }
-    std::cout << type << " : has been attached" << std::endl;
+    std::cout << shaderType << " : has been attached" << std::endl;
     glAttachShader(program, shaderID);
 }

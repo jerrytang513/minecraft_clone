@@ -25,8 +25,8 @@ class Window{
 	void setViewPort(int x,int y,int width, int height);
 	GLFWwindow* getWindow();
 
-	static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+	//static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+//	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 };
 #endif

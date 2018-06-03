@@ -1,7 +1,7 @@
 #include "window.h"
 
 bool Window::keys[1024];
-void keyCallback(GLFWwindow*window, int key, int scancode, int action,int mods);
+//void keyCallback(GLFWwindow*window, int key, int scancode, int action,int mods);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 void error_callback(int error, const char* description){
@@ -22,7 +22,7 @@ Window::Window(int width, int height, const char* title){
 
 	glfwMakeContextCurrent(window);
 	glfwSetWindowUserPointer(window,this);
-	glfwSetKeyCallback(window,keyCallback);
+	//glfwSetKeyCallback(window,keyCallback);
 	glfwSetErrorCallback(error_callback);
 	// When resize happens, reset the values for the viewport.
 	glfwSetFramebufferSizeCallback(window,framebuffer_size_callback);
@@ -72,8 +72,9 @@ void framebuffer_size_callback(GLFWwindow* window,int width, int height){
 	glViewport(0,0,width,height);
 
 }
-
+/*
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods){
 	Window* win = (Window*) glfwGetWindowUserPointer(window);
 	win->keys[key] = action != GLFW_RELEASE;
 }
+*/

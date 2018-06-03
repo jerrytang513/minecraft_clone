@@ -8,22 +8,17 @@
 #include <stdio.h>
 #include <GL/glew.h>
 
-
 class Shader{
 
   std::string filepath;
   GLenum shaderType;
   GLuint shaderID;
-  ~Shader();
 
 public:
+  ~Shader();
   Shader(std::string filepath, GLenum shaderType);
-  std::string parseShader(const std::string& filepath, GLenum shaderType);
-  void addShader(GLuint program, GLenum type, const char* source);
-
-
-
+  std::string parseShader();
+  void addShader(GLuint program);
 };
-
 
 #endif
