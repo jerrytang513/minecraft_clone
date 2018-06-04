@@ -5,6 +5,7 @@
 #include "vec4d.h"
 #include "vec3d.h"
 #include "utilities.h"
+#include "quaternion.h"
 class Mat4{
 public:
 
@@ -24,14 +25,10 @@ public:
 
   static Mat4 getIdentity();
   static Mat4 translation(Vec3D& translate);
+  static Mat4 scale(Vec3D& scale);
   static Mat4 orthographic(float left, float right, float top, float bottom, float near, float far);
   static Mat4 perspective(float fov, float aspectRatio, float near, float far);
-  static Mat4 rotation();
-
-
-
-
-
+  static Mat4 rotation(float angle, Vec3D axis);
 
 };
 

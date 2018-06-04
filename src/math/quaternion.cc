@@ -8,14 +8,19 @@ Quaternion::Quaternion(float w,float x,float y,float z):w{w},x{x},y{y},z{z}{}
 Quaternion::Quaternion(float w,Vec3D vec):w{w},x{vec.x},y{vec.y},z{vec.z}{}
 
 void Quaternion::normalize(){
-
-	float norm = sqrt(w * w + x * x + y * y + z * z);
+	float norm = sqrt(x * x + y * y + z * z);
 	float normValue = 1 / norm;
+	float alpha = w / 180 * M_PI;
+	std::cout << M_PI << std::endl;
 
 	x *= normValue;
 	y *= normValue;
 	z *= normValue;
-	w *= normValue;
+
+	x *= sin(alpha / 2);
+	y *= sin(alpha / 2);
+	z *= sin(alpha / 2);
+	w = cos(alpha / 2);
 }
 
 Quaternion Quaternion::inverse(){
@@ -66,27 +71,4 @@ Vec3D Quaternion::rotation(float angle, Vec3D axis){
 
 	return Vec3D(rotationVector.x,rotationVector.y,rotationVector.z);
 
-}
-
-Mat4 Quaternion::rotationMatrix(float angle, Vec3D axis){
-	Mat4 result;
-	Vec3D normalizedAxis = axis.normalize();
-	Quaternion q(angle,normalizedAxis);
-	result.values[0] = 1 - 2 * q.z * q.z - 2 * q.y * q.y;
-	result.values[1] = -2 * q.z * q.w + 2 * q.y * q.x;
-	result.values[2] = 2 * q.y * q.w + 2 * q.z * q.x;
-	result.values[3] = 0;
-	result.values[4] = 2 * q.x * q.y + 2 * q.w * q.z;
-	result.values[5] = 1 - 2 * q.z * q.z - 2 * q.x * q.x;
-	result.values[6] = 2 * q.z * q.y - 2 * q.x * q.w;
-	result.values[7] = 0;
-	result.values[8] = 2 * q.x * q.z - 2 * q.w * q.y;
-	result.values[9] = 2 * q.y * q.z + 2 * q.w * q.x;
-	result.values[10] = 1 - 2 * q.y * q.y - 2 * q.x * q.x;
-	result.values[11] = 0;
-	result.values[12] = 0;
-	result.values[13] = 0;
-	result.values[14] = 0;
-	result.values[15] = 1;
-	return result;
 }

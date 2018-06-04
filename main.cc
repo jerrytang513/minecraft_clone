@@ -20,27 +20,44 @@ using namespace std;
 
 // Window dimensions
 const GLint WIDTH = 800, HEIGHT = 600;
-
-GLuint VBO, VAO, shader, uniformModel;
+GLfloat vertices[] = {
+	-0.5f,0.5f,-0.5f,
+	0.5f,0.5f,-0.5f,
+	0.5f,0.5f,0.5f,
+	-0.5f,0.5f,0.5f,
+	-0.5f,-0.5f,0.5f,
+	-0.5f,-0.5f,-0.5f,
+	0.5f,-0.5f,-0.5f,
+	0.5f,-0.5f,0.5f
+};
+GLuint VBO, VAO, shader, uniformScale, uniformTransform, uniformRotation;
 Program *p;
 bool direction = true;
 float triOffset = 0.0f;
+float degree = 0.0f;
 float triMaxOffset = 0.7f;
 float triIncrement = 0.1f;
 std::vector<Mesh*> meshArray;
 void CreateTriangle()
 {
-	GLfloat vertices[] = {
-		-1.0f, -1.0f, 0.0f,
-		1.0f, -1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f
-	};
+
 	unsigned int indices[] = {
-		0,1,2
+		0,3,1,
+		1,3,2,
+		5,4,6,
+		6,4,7,
+		2,3,4,
+		2,4,7,
+		1,0,5,
+		1,5,6,
+		3,0,5,
+		3,5,4,
+		1,2,7,
+		1,7,6
 	};
 
 	Mesh* m = new Mesh();
-	m->createMesh(vertices,indices,9,3);
+	m->createMesh(vertices,indices,24,36);
 	meshArray.emplace_back(m);
 }
 
@@ -51,7 +68,10 @@ void CompileShaders()
 	v.emplace_back(ShaderStruct(string("src/graphics/resource/shader/fragment.glsl"),(GLenum)GL_FRAGMENT_SHADER));
 	p = new Program(v);
 	p->compileProgram();
-	uniformModel = glGetUniformLocation((unsigned)p->getProgramID(), "model");
+	uniformScale = glGetUniformLocation((unsigned)p->getProgramID(), "scale");
+	uniformTransform = glGetUniformLocation((unsigned)p->getProgramID(), "transform");
+	uniformRotation = glGetUniformLocation((unsigned)p->getProgramID(), "rotation");
+
 }
 
 int main()
@@ -109,6 +129,8 @@ int main()
 	// Loop until window closed
 	while (!glfwWindowShouldClose(mainWindow))
 	{
+
+
 		// Get + Handle user input events
 		glfwPollEvents();
 
@@ -124,18 +146,24 @@ int main()
 		{
 			direction = !direction;
 		}
+		if(degree > 360)
+			degree = 0;
+		degree+=1.0f;
 
 		// Clear window
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		glUseProgram((unsigned)p->getProgramID());
 
 		//glm::mat4 model;
 		//model = glm::translate(model, glm::vec3(triOffset, triOffset, 0.0f));
-		Vec3D v(0.0f,triOffset,0.0f);
-		glUniformMatrix4fv(uniformModel, 1, GL_TRUE, Mat4::translation(v).values);
-
+		Vec3D v(0.2f,0.2f,0.2f);
+		Vec3D o(1.0f,1.0f,0.0f);
+		Vec3D origin(0.0f,0.0f,0.0f);
+		glUniformMatrix4fv(uniformScale, 1, GL_TRUE, Mat4::scale(v).values);
+		glUniformMatrix4fv(uniformTransform, 1, GL_TRUE, Mat4::translation(v).values);
+		glUniformMatrix4fv(uniformRotation, 1, GL_TRUE, Mat4::rotation(degree,o).values);
 
 		for(auto it = meshArray.begin(); it != meshArray.end(); it++){
 			(*it)->renderMesh();

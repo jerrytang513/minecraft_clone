@@ -31,6 +31,14 @@ Mat4 Mat4::translation(Vec3D& translate){
   return result;
 }
 
+Mat4 Mat4::scale(Vec3D& scale){
+  Mat4 result = getIdentity();
+  result.values[0] = scale.x;
+  result.values[5] = scale.y;
+  result.values[10] = scale.z;
+  return result;
+}
+
 Mat4 Mat4::orthographic(float left, float right, float top, float bottom, float near, float far){
   Mat4 result;
   result.values[0] = 2.0f / (right - left);
@@ -53,6 +61,29 @@ Mat4 Mat4::perspective(float fov, float aspectRatio, float near, float far){
   result.values[2 + 2 * 4] = b;
   result.values[3 + 3 * 4] = -1.0f;
   result.values[2 + 3 * 4] = c;
+  return result;
+}
+
+Mat4 Mat4::rotation(float angle, Vec3D axis){
+  Mat4 result = getIdentity();
+  Quaternion q(angle, axis);
+  q.normalize();
+  result.values[0] = 2 * (q.x * q.x + q.w * q.w) - 1;
+  result.values[1] = 2 * (q.x * q.y + q.z * q.w);
+  result.values[2] = 2 * (q.x * q.z - q.y * q.w);
+  result.values[3] = 0.0f;
+  result.values[4] = 2 * (q.x * q.y - q.z * q.w);
+  result.values[5] = 2 * (q.y * q.y + q.w * q.w) - 1;
+  result.values[6] = 2 * (q.y * q.z + q.x * q.w);
+  result.values[7] = 0.0f;
+  result.values[8] = 2 * (q.x * q.z + q.y * q.w);
+  result.values[9] = 2 * (q.y * q.z - q.x * q.w);
+  result.values[10] = 2 * (q.z * q.z + q.w * q.w) - 1;
+  result.values[11] = 0.0f;
+  result.values[12] = 0.0f;
+  result.values[13] = 0.0f;
+  result.values[14] = 0.0f;
+  result.values[15] = 1.0f;
   return result;
 }
 

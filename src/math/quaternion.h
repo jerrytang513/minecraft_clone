@@ -3,7 +3,6 @@
 
 #include "vec3d.h"
 #include <math.h>
-#include "mat4.h"
 #include <iostream>
 
 class Quaternion{
@@ -23,8 +22,6 @@ class Quaternion{
 	Quaternion operator*(const Quaternion q);
 	void toUnionNormQuaternion();
 	Vec3D rotation(float angle, Vec3D axis);
-	Mat4 rotationMatrix(float angle, Vec3D axis);
-
 };
 
 
