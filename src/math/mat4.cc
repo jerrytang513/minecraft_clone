@@ -87,6 +87,33 @@ Mat4 Mat4::rotation(float angle, Vec3D axis){
   return result;
 }
 
+Mat4 Mat4::view(Camera& camera){
+  Mat4 view = getIdentity();
+  Mat4 pos = getIdentity();
+
+  Vec3D position = camera.getPosition();
+  Vec3D right = camera.getRight();
+  Vec3D up = camera.getUp();
+  Vec3D direction = camera.getDirection();
+
+  view.values[0] = right.x;
+  view.values[1] = right.y;
+  view.values[2] = right.z;
+  view.values[4] = up.x;
+  view.values[5] = up.y;
+  view.values[6] = up.z;
+  view.values[8] = direction.x;
+  view.values[9] = direction.y;
+  view.values[10] = direction.z;
+
+  pos.values[3] = - position.x;
+  pos.values[7] = - position.y;
+  pos.values[11] = - position.z;
+
+  return view * pos;
+
+}
+
 Mat4& Mat4::multiply(Mat4& other){
   for(int i = 0; i < 4; i++){
     for(int j = 0; j < 4; j++){

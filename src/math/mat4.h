@@ -6,6 +6,7 @@
 #include "vec3d.h"
 #include "utilities.h"
 #include "quaternion.h"
+#include "../graphics/camera.h"
 class Mat4{
 public:
 
@@ -29,7 +30,7 @@ public:
   static Mat4 orthographic(float left, float right, float top, float bottom, float near, float far);
   static Mat4 perspective(float fov, float aspectRatio, float near, float far);
   static Mat4 rotation(float angle, Vec3D axis);
-
+  static Mat4 view(Camera& camera);
 };
 
 #endif

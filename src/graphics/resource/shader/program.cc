@@ -50,3 +50,21 @@ void Program::compileProgram(){
 GLuint Program::getProgramID(){
   return programID;
 }
+
+void Program::use(){
+  glUseProgram(programID);
+}
+
+void Program::setBool(const std::string &name, bool value) const{
+  glUniform1i(glGetUniformLocation(programID, name.c_str()),(int)value);
+}
+
+void Program::setInt(const std::string &name, int value) const
+{
+    glUniform1i(glGetUniformLocation(programID, name.c_str()), value);
+}
+
+void Program::setFloat(const std::string &name, float value) const
+{
+    glUniform1f(glGetUniformLocation(programID, name.c_str()), value);
+}

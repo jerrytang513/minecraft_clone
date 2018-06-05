@@ -8,10 +8,11 @@ MATH_DIR_OBJ = $(wildcard src/math/*.cc)
 OTHER_OBJ = $(wildcard src/*.cc)
 GRAPHICS_DIR_OBJ = $(wildcard src/graphics/*.cc)
 GRAPHICS_ASSET_DIR_OBJ = $(wildcard src/graphics/asset/*.cc)
+GRAPHICS_RESOURCE_DIR_OBJ = $(wildcard src/graphics/resource/*.cc)
 COLLISION_DIR_OBJ = $(wildcard src/collision/*.cc)
 SHADER_DIR_OBJ = $(wildcard src/graphics/resource/shader/*.cc)
 
-OBJECTS = $(MATH_DIR_OBJ:.cc=.o) $(OTHER_OBJ:.cc=.o) $(GRAPHICS_DIR_OBJ:.cc=.o) $(SHADER_DIR_OBJ:.cc=.o) $(GRAPHICS_ASSET_DIR_OBJ:.cc=.o) $(APPLICATION_DIR_OBJ:.cc=.o) $(COLLISION_DIR_OBJ:.cc=.o) main.o application.o rocket.o
+OBJECTS = $(MATH_DIR_OBJ:.cc=.o) $(OTHER_OBJ:.cc=.o) $(GRAPHICS_DIR_OBJ:.cc=.o) $(SHADER_DIR_OBJ:.cc=.o) $(GRAPHICS_ASSET_DIR_OBJ:.cc=.o) $(GRAPHICS_RESOURCE_DIR_OBJ:.cc=.o) $(APPLICATION_DIR_OBJ:.cc=.o) $(COLLISION_DIR_OBJ:.cc=.o) main.o application.o rocket.o
 DEPENDS = ${OBJECTS:.o=.d}
 
 ${EXEC} : ${OBJECTS}
