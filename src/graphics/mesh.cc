@@ -6,6 +6,7 @@ Mesh::Mesh()
 	VBO = 0;
 	IBO = 0;
 	indexCount = 0;
+	counter = 0;
 }
 
 void Mesh::createMesh(GLfloat *vertices, unsigned int *indices, unsigned int numOfVertices, unsigned int numOfIndices)
@@ -23,13 +24,22 @@ void Mesh::createMesh(GLfloat *vertices, unsigned int *indices, unsigned int num
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices[0]) * numOfVertices, vertices, GL_DYNAMIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	glEnableVertexAttribArray(0);
+	for(std::vector<vertexAttribVal>::iterator it = vertexVals.begin(); it != vertexVals.end(); ++it){
+		glVertexAttribPointer(it->counter, it->size, it->type, it->normalized, it->stride, it->pointer);
+		glEnableVertexAttribArray(it->counter);
+	}
+	for(std::vector<Texture>::iterator it = textures.begin(); it != textures.end(); ++it){
+		it->init();
+	}
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	glBindVertexArray(0);
+}
+
+void Mesh::addVertexAttribPointer(int size, GLenum type, bool normalized, int stride, const void* pointer){
+		vertexVals.emplace_back(vertexAttribVal(counter++, size, type, normalized, stride, pointer));
 }
 
 void Mesh::renderMesh()
@@ -39,6 +49,13 @@ void Mesh::renderMesh()
 	glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+	for(std::vector<Texture>::iterator it = textures.begin(); it != textures.end(); ++it){
+		it->render();
+	}
+}
+
+void Mesh::addTextureAttrib(std::string path, GLenum texture){
+	textures.emplace_back(Texture(path,texture));
 }
 
 void Mesh::clearMesh()

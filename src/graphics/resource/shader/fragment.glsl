@@ -1,9 +1,12 @@
-#version 330
+#version 320 es
 
-out vec4 colour;
-in vec4 vCol;
+out vec4 FragColor;
 
-void main()
-{
-    colour = vCol;
+in vec3 color;
+in vec2 texCoord;
+
+uniform sampler2D texture;
+
+void main(){
+  FragColor = texture(texture,texCoord);
 }

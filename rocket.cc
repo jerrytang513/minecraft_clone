@@ -13,7 +13,6 @@ class Rocket:public Application{
 
 	public:
 	Rocket():Application{title}{
-		cout << "SDF" << endl;
 		init();
 	}
 	private:

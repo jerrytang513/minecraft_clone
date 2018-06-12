@@ -1,14 +1,14 @@
-#version 330
-layout (location = 0) in vec3 pos;
-out vec4 vCol;
+#version 330 core
+layout (location = 0) in vec3 apos;
+layout (location = 1) in vec3 acolor;
+layout (location = 2) in vec2 atexCoord;
 
-uniform mat4 scale;
-uniform mat4 transform;
-uniform mat4 rotation;
+out vec3 color;
+out vec2 texCoord;
 
 void main()
 {
-    gl_Position = rotation * vec4(pos.x, pos.y, pos.z, 1.0);
-    vCol = vec4(clamp(pos, 0.0f, 1.0f), 1.0f);
-
+  gl_Position = vec4(apos,1.0);
+  color = acolor;
+  texCoord = atexCoord;
 }

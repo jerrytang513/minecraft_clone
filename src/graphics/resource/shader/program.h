@@ -6,23 +6,19 @@
 #include "shader.h"
 
 
-struct ShaderStruct{
-  ShaderStruct(std::string filepath, GLenum type):filepath{filepath},type{type}{}
-  std::string filepath;
-  GLenum type;
-};
 
 class Program{
 
-  std::vector<ShaderStruct> shaders;
+  std::vector<Shader*> shaders;
   GLuint programID;
-  std::vector<Shader*> allShaders;
 
 public:
   ~Program();
-  Program(std::vector<ShaderStruct> shaders);
+  Program();
   void compileProgram();
   GLuint getProgramID();
+
+  void addShader(std::string filepath, GLenum shaderType);
   void use();
   void setBool(const std::string &name, bool value) const;
   void setInt(const std::string &name, int value) const;

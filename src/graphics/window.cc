@@ -16,10 +16,9 @@ Window::Window(int width, int height, const char* title){
 	}
 
 	// Set the version number
-  	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwMakeContextCurrent(window);
 	glfwSetWindowUserPointer(window,this);
 	//glfwSetKeyCallback(window,keyCallback);
@@ -29,6 +28,8 @@ Window::Window(int width, int height, const char* title){
 	if(glewInit() != GLEW_OK){
 		std::cout << "CANNOT initialize with glfwInit()" << std::endl;
 	}
+	glewExperimental = GL_TRUE;
+
 	// Initilize all the keys
 	for(int i = 0; i < 1024; i++){
 		keys[i] = false;

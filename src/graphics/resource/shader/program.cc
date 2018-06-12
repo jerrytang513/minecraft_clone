@@ -3,26 +3,26 @@
 Program::~Program(){
     if(programID != 0)
       glDeleteProgram(programID);
-    for(auto it = allShaders.rbegin(); it != allShaders.rend(); it++){
+    for(auto it = shaders.rbegin(); it != shaders.rend(); it++){
       delete *it;
     }
 }
 
-Program::Program(std::vector<ShaderStruct> shaders):shaders{shaders},programID{0},allShaders{}{}
+Program::Program():programID{glCreateProgram()}{}
+
+void Program::addShader(std::string filepath, GLenum shaderType){
+  std::cout << "HERHE" << std::endl;
+
+  Shader* shader = new Shader(filepath, shaderType);
+  shader->addShader(programID);
+  shaders.emplace_back(shader);
+}
 
 void Program::compileProgram(){
-  programID = glCreateProgram();
   if (!programID)
   {
     printf("Error creating shader program!\n");
     return;
-  }
-
-  // Build all shaders
-  for(auto it = shaders.begin(); it != shaders.end(); it++){
-    Shader* s = new Shader(it->filepath,it->type);
-    s->addShader(programID);
-    allShaders.emplace_back(s);
   }
 
   GLint result = 0;

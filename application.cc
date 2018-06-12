@@ -3,21 +3,20 @@
 using namespace std;
 using namespace chrono;
 
-Application::Application(char* title):title{title}{
-
-
-}
+Application::Application(char* title):title{title}{}
 
 Application::~Application(){
 
 }
 
 void Application::addWindow(int screenWidth,int screenHeight,char* title){
-	std::cout << glGetString(GL_VERSION) << std::endl;
+
 	Window* win = new Window(screenWidth,screenHeight,title);
 	win->setViewPort(0,0,screenWidth,screenHeight);
 	windows.insert(std::pair<char*,Window*>(title,win));
 	setCurWindow(title);
+	glEnable(GL_DEPTH_TEST);
+
 }
 
 void Application::setCurWindow(char* title){
@@ -30,6 +29,7 @@ Window* Application::getCurWindow(char* title){
 }
 
 void Application::run(){
+	std::cout << "HERHE" << std::endl;
 
 	auto last_time = chrono::high_resolution_clock::now();
 	auto current_time = chrono::high_resolution_clock::now();
@@ -39,7 +39,7 @@ void Application::run(){
 	int frames = 0;
 	int updates = 0;
 	while(!glfwWindowShouldClose(curWin->getWindow())){
-		std::cout << "ASDASD" << std::endl;
+
 		auto now = chrono::high_resolution_clock::now();
 		delta += (float)(duration_cast<chrono::nanoseconds>(now - last_time).count() / ns);
 		while(delta >= 1){
