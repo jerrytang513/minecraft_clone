@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\src">
+      <UniqueIdentifier>{149c1e75-f1ab-4b92-9e3e-30d58010c453}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\graphics">
+      <UniqueIdentifier>{8c45f73c-e228-41b8-94b1-2f777cff51b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\math">
+      <UniqueIdentifier>{a230a010-8205-4ac5-aed7-7e779a65fc8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\collision">
+      <UniqueIdentifier>{56837fbb-71bb-41eb-a1f7-fb07bfea1d02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\graphics\asset">
+      <UniqueIdentifier>{341a6cf4-95c4-4eb2-b428-ff3b365aa1c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\graphics\resource">
+      <UniqueIdentifier>{ec34c061-0733-4972-a5de-5a8b0e2b1ece}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\graphics\resource\shader">
+      <UniqueIdentifier>{ac2d8d7d-db70-40fc-9cbe-0e3693008dfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\graphics\asset\pics">
+      <UniqueIdentifier>{d7d11864-fc30-4949-b289-bf61c2bdbe96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\glsl">
+      <UniqueIdentifier>{8ebe6dac-fec4-4123-8205-372a1dad26e4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="application.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mat4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="quaternion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vec3d.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vec4d.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="force.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="forceManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="collision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cubeCollision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="allShape.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shape3d.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="program.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics_Engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="application.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="window.cc">
+      <Filter>Source Files\src\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="mat4.cc">
+      <Filter>Source Files\src\math</Filter>
+    </ClCompile>
+    <ClCompile Include="vec3d.cc">
+      <Filter>Source Files\src\math</Filter>
+    </ClCompile>
+    <ClCompile Include="quaternion.cc">
+      <Filter>Source Files\src\math</Filter>
+    </ClCompile>
+    <ClCompile Include="vec4d.cc">
+      <Filter>Source Files\src\math</Filter>
+    </ClCompile>
+    <ClCompile Include="force.cc">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="object.cc">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="collision.cc">
+      <Filter>Source Files\src\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="cubeCollision.cc">
+      <Filter>Source Files\src\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="rocket.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cc">
+      <Filter>Source Files\src\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="texture.cc">
+      <Filter>Source Files\src\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh.cc">
+      <Filter>Source Files\src\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_image.cc">
+      <Filter>Source Files\src\graphics\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="cube.cc">
+      <Filter>Source Files\src\graphics\asset</Filter>
+    </ClCompile>
+    <ClCompile Include="shape3d.cc">
+      <Filter>Source Files\src\graphics\asset</Filter>
+    </ClCompile>
+    <ClCompile Include="shader.cc">
+      <Filter>Source Files\src\graphics\resource\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="program.cc">
+      <Filter>Source Files\src\graphics\resource\shader</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vertex.glsl">
+      <Filter>Source Files\glsl</Filter>
+    </None>
+    <None Include="fragment.glsl">
+      <Filter>Source Files\glsl</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\physics_engine_pre\src\graphics\asset\pics\container.jpg">
+      <Filter>Source Files\src\graphics\asset\pics</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
