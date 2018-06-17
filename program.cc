@@ -11,7 +11,6 @@ Program::~Program() {
 Program::Program() :programID{ glCreateProgram() } {}
 
 void Program::addShader(std::string filepath, GLenum shaderType) {
-	std::cout << "HERHE" << std::endl;
 
 	Shader* shader = new Shader(filepath, shaderType);
 	shader->addShader(programID);

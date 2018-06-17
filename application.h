@@ -18,7 +18,6 @@ class Application {
 
 	int screenWidth, screenHeight;
 	char* title;
-	std::map<char*, Window*> windows;
 	Window* curWin;
 
 public:
@@ -30,8 +29,7 @@ public:
 	// Methods for input
 
 	void addWindow(int screenWidth, int screenHeight, char* title);
-	void setCurWindow(char* title);
-	Window* getCurWindow(char* title);
+	Window* getCurWindow();
 
 	virtual void init() = 0;
 	void run();

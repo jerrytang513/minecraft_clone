@@ -11,26 +11,15 @@ Application::~Application() {
 
 void Application::addWindow(int screenWidth, int screenHeight, char* title) {
 
-	Window* win = new Window(screenWidth, screenHeight, title);
-	win->setViewPort(0, 0, screenWidth, screenHeight);
-	windows.insert(std::pair<char*, Window*>(title, win));
-	setCurWindow(title);
-	glEnable(GL_DEPTH_TEST);
-
+	curWin = new Window(screenWidth, screenHeight, title);
 }
 
-void Application::setCurWindow(char* title) {
-	curWin = windows.find(title)->second;
-	curWin->getWindow();
-}
 
-Window* Application::getCurWindow(char* title) {
+Window* Application::getCurWindow() {
 	return curWin;
 }
 
 void Application::run() {
-	std::cout << "HERHE" << std::endl;
-
 	auto last_time = chrono::high_resolution_clock::now();
 	auto current_time = chrono::high_resolution_clock::now();
 	auto last_tick_time = chrono::high_resolution_clock::now();

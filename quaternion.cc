@@ -6,13 +6,12 @@ Quaternion::Quaternion() :w{ 1 }, x{ 0 }, y{ 0 }, z{ 0 } {}
 
 Quaternion::Quaternion(float w, float x, float y, float z) : w{ w }, x{ x }, y{ y }, z{ z } {}
 
-Quaternion::Quaternion(float w, Vec3D vec) : w{ w }, x{ vec.x }, y{ vec.y }, z{ vec.z } {}
+Quaternion::Quaternion(float w, Vec3D vec) : w{ w }, x{ vec.coord.x }, y{ vec.coord.y }, z{ vec.coord.z } {}
 
 void Quaternion::normalize() {
 	float norm = sqrt(x * x + y * y + z * z);
 	float normValue = 1 / norm;
 	float alpha = w / 180 * M_PI;
-	std::cout << M_PI << std::endl;
 
 	x *= normValue;
 	y *= normValue;

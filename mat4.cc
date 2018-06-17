@@ -25,17 +25,17 @@ Mat4 Mat4::getIdentity() {
 
 Mat4 Mat4::translation(Vec3D& translate) {
 	Mat4 result = getIdentity();
-	result.values[3] = translate.x;
-	result.values[7] = translate.y;
-	result.values[11] = translate.z;
+	result.values[0 + 4 * 3] = translate.coord.x;
+	result.values[1 + 4 * 3] = translate.coord.y;
+	result.values[2 + 4 * 3] = translate.coord.z;
 	return result;
 }
 
 Mat4 Mat4::scale(Vec3D& scale) {
 	Mat4 result = getIdentity();
-	result.values[0] = scale.x;
-	result.values[5] = scale.y;
-	result.values[10] = scale.z;
+	result.values[0] = scale.coord.x;
+	result.values[5] = scale.coord.y;
+	result.values[10] = scale.coord.z;
 	return result;
 }
 
@@ -52,14 +52,14 @@ Mat4 Mat4::orthographic(float left, float right, float top, float bottom, float 
 
 Mat4 Mat4::perspective(float fov, float aspectRatio, float near, float far) {
 	Mat4 result;
-	float q = 1.0f / (float)tan(toRadians(0.5f * fov));
-	float a = q / aspectRatio;
+	float q = 1.0f /((float)aspectRatio * (float)tan(toRadians(0.5f * fov)));
+	float a = 1.0f /(float)tan(toRadians(fov));
 	float b = (near + far) / (near - far);
 	float c = (2.0f * near * far) / (near - far);
-	result.values[0 + 0 * 4] = a;
-	result.values[1 + 1 * 4] = q;
+	result.values[0 + 0 * 4] = q;
+	result.values[1 + 1 * 4] = a;
 	result.values[2 + 2 * 4] = b;
-	result.values[3 + 3 * 4] = -1.0f;
+	result.values[3 + 2 * 4] = - 1.0f ;
 	result.values[2 + 3 * 4] = c;
 	return result;
 }
@@ -96,25 +96,27 @@ Mat4 Mat4::view(Camera& camera) {
 	Vec3D up = camera.getUp();
 	Vec3D direction = camera.getDirection();
 
-	view.values[0] = right.x;
-	view.values[1] = right.y;
-	view.values[2] = right.z;
-	view.values[4] = up.x;
-	view.values[5] = up.y;
-	view.values[6] = up.z;
-	view.values[8] = direction.x;
-	view.values[9] = direction.y;
-	view.values[10] = direction.z;
+	view.values[0] = right.coord.x;
+	view.values[1] = up.coord.x;
+	view.values[2] = direction.coord.x;
 
-	pos.values[3] = -position.x;
-	pos.values[7] = -position.y;
-	pos.values[11] = -position.z;
+	view.values[4] = right.coord.y;
+	view.values[5] = up.coord.y;
+	view.values[6] = direction.coord.y;
+
+	view.values[8] = right.coord.z;
+	view.values[9] = up.coord.z;
+	view.values[10] = direction.coord.z;
+
+	pos.values[3] = -position.coord.x;
+	pos.values[7] = -position.coord.y;
+	pos.values[11] = -position.coord.z;
 
 	return view * pos;
 
 }
 
-Mat4& Mat4::multiply(Mat4& other) {
+void Mat4::multiply(Mat4& other) {
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
 			float sum = 0.0f;
@@ -124,15 +126,22 @@ Mat4& Mat4::multiply(Mat4& other) {
 			values[j + i * 4] = sum;
 		}
 	}
-	Mat4 results(values);
-
-	return results;
 }
 
 Mat4 operator*(Mat4& left, Mat4& right) {
-	return left.multiply(right);
+	float values[16];
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			float sum = 0.0f;
+			for (int k = 0; k < 4; k++) {
+				sum += left.values[j + k * 4] * right.values[k + i * 4];
+			}
+			values[j + i * 4] = sum;
+		}
+	}
+	return Mat4(values);
 }
 
-Mat4& Mat4::operator*=(Mat4& other) {
-	return multiply(other);
+void Mat4::operator*=(Mat4& other) {
+	multiply(other);
 }

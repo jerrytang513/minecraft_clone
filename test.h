@@ -15,7 +15,6 @@ class Test :public Application {
 
 	vector<Object*> obj;
 	char* title = (char*)"Test";
-	Mesh *mesh;
 	Program* program;
 
 	public:

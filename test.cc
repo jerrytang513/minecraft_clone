@@ -1,63 +1,47 @@
 #include "test.h"
 
-	Test::Test():Application{title} {
-		init();
-	}
+Test::Test() :Application{ title } {
+	init();
+}
 
-	void Test::init() {
+void Test::init() {
+/*
+	float vertices[] = {
+		// positions          // colors           // texture coords
+		0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
+		0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
+		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
+		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left
+	};
+	unsigned int indices[] = {
+		0, 1, 3, // first triangle
+		1, 2, 3  // second triangle
+	};
 
-		float vertices[] = {
-			// positions          // colors           // texture coords
-			0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
-			0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
-			-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
-			-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left
-		};
-		unsigned int indices[] = {
-			0, 1, 3, // first triangle
-			1, 2, 3  // second triangle
-		};
+	addWindow(1000, 700, title);
+	GLFWwindow *win = getCurWindow()->getWindow();
 
-		addWindow(1000, 700, title);
+	mesh = new Mesh();
 
-		GLFWwindow *win = getCurWindow(title)->getWindow();
-		glViewport(0, 0, 1000, 700);
-		glfwGetFramebufferSize(win, &screenWidth, &screenHeight);
+	mesh->addVertexAttribPointer(3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+	mesh->addVertexAttribPointer(3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	mesh->addVertexAttribPointer(2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	mesh->addTextureAttrib("container.jpg", GL_TEXTURE0);
+	mesh->createMesh(vertices, indices, 4, 6);
 
-		mesh = new Mesh();
-		
-		mesh->addVertexAttribPointer(3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-		mesh->addVertexAttribPointer(3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-		mesh->addVertexAttribPointer(2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-		mesh->addTextureAttrib("container.jpg", GL_TEXTURE0);
-		mesh->createMesh(vertices, indices, 4, 6);
+	program = new Program();
 
-		program = new Program();
-		
-		std::cout << "HERHE" << std::endl;
+	program->addShader("vertex.glsl", GL_VERTEX_SHADER);
+	program->addShader("fragment.glsl", GL_FRAGMENT_SHADER);
+	program->compileProgram();
+	program->use();
+	program->setInt("texture", 0);
+*/
+}
 
-		program->setInt("texture", 0);
-		program->addShader("vertex.glsl", GL_VERTEX_SHADER);
-		program->addShader("fragment.glsl", GL_FRAGMENT_SHADER);
-		program->compileProgram();
-		program->use();
-		
+void Test::tick(float time) {
+}
 
-	}
+void Test::render() {
 
-	void Test::tick(float time) {
-
-	}
-
-	void Test::render() {
-		glClearColor(0.9f, 0.8f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		program->use();
-		mesh->renderMesh();
-		glfwSwapBuffers(getCurWindow(title)->getWindow());
-		glfwPollEvents();
-
-
-	}
-
-
+}

@@ -1,99 +1,102 @@
 #include "vec3d.h"
 
-Vec3D::Vec3D(float x, float y, float z) :x{ x }, y{ y }, z{ z } {}
+Coordinate::Coordinate(float x, float y, float z):x{x},y{y},z{z}{};
+
+Vec3D::Vec3D() : coord{Coordinate(0.0f,0.0f,0.0f)}{}
+Vec3D::Vec3D(float x, float y, float z) :coord{Coordinate(x,y,z)} {}
 
 // Use Norm2 magnitude
 float Vec3D::magnitude() {
-	return sqrt(x*x + y * y + z * z);
+	return sqrt(coord.x*coord.x + coord.y *coord.y + coord.z * coord.z);
 }
 
 Vec3D Vec3D::normalize() {
 	float mag = magnitude();
-	float normX = x / mag;
-	float normY = y / mag;
-	float normZ = z / mag;
+	float normX = coord.x / mag;
+	float normY = coord.y / mag;
+	float normZ = coord.z / mag;
 	return Vec3D(normX, normY, normZ);
 }
 
 Vec3D Vec3D::operator+(const float& val) {
-	Vec3D vec(this->x + val, this->y + val, this->z + val);
+	Vec3D vec(coord.x + val, coord.y + val, coord.z + val);
 	return vec;
 }
 Vec3D Vec3D::operator+(const Vec3D& vec) {
-	Vec3D new_vec(this->x + vec.x, this->y + vec.y, this->z + vec.z);
+	Vec3D new_vec(coord.x + vec.coord.x, coord.y + vec.coord.y, coord.z + vec.coord.z);
 	return new_vec;
 }
 Vec3D Vec3D::operator-(const float& val) {
-	Vec3D vec(this->x - val, this->y - val, this->z - val);
+	Vec3D vec(coord.x - val, coord.y - val, coord.z - val);
 	return vec;
 }
 Vec3D Vec3D::operator-(const Vec3D& vec) {
-	Vec3D new_vec(this->x - vec.x, this->y - vec.y, this->z - vec.z);
+	Vec3D new_vec(coord.x - vec.coord.x, coord.y - vec.coord.y, coord.z - vec.coord.z);
 	return new_vec;
 }
 Vec3D Vec3D::operator*(const float& val) {
-	Vec3D vec(this->x * val, this->y * val, this->z * val);
+	Vec3D vec(coord.x * val, coord.y * val, coord.z * val);
 	return vec;
 }
 Vec3D Vec3D::operator*(const Vec3D& vec) {
-	Vec3D new_vec(this->x * vec.x, this->y * vec.y, this->z * vec.z);
+	Vec3D new_vec(coord.x * vec.coord.x, coord.y * vec.coord.y, coord.z * vec.coord.z);
 	return new_vec;
 }
 // TODO: ADD Assert for division by 0
 Vec3D Vec3D::operator/(const float& val) {
-	Vec3D vec(this->x / val, this->y / val, this->z / val);
+	Vec3D vec(coord.x / val, coord.y / val, coord.z / val);
 	return vec;
 }
 Vec3D Vec3D::operator/(const Vec3D& vec) {
-	Vec3D new_vec(this->x / vec.x, this->y / vec.y, this->z / vec.z);
+	Vec3D new_vec(coord.x / vec.coord.x, coord.y / vec.coord.y, coord.z / vec.coord.z);
 	return new_vec;
 }
 
 void Vec3D::operator+=(const float &val) {
-	this->x += val;
-	this->y += val;
-	this->z += val;
+	coord.x += val;
+	coord.y += val;
+	coord.z += val;
 }
 void Vec3D::operator+=(const Vec3D& vec) {
-	this->x += vec.x;
-	this->y += vec.y;
-	this->z += vec.z;
+	coord.x += vec.coord.x;
+	coord.y += vec.coord.y;
+	coord.z += vec.coord.z;
 }
 void Vec3D::operator-=(const float& val) {
-	this->x -= val;
-	this->y -= val;
-	this->z -= val;
+	coord.x -= val;
+	coord.y -= val;
+	coord.z -= val;
 }
 void Vec3D::operator-=(const Vec3D& vec) {
-	this->x -= vec.x;
-	this->y -= vec.y;
-	this->z -= vec.z;
+	coord.x -= vec.coord.x;
+	coord.y -= vec.coord.y;
+	coord.z -= vec.coord.z;
 }
 void Vec3D::operator*=(const float& val) {
-	this->x *= val;
-	this->y *= val;
-	this->z *= val;
+	coord.x *= val;
+	coord.y *= val;
+	coord.z *= val;
 }
 void Vec3D::operator*=(const Vec3D& vec) {
-	this->x *= vec.x;
-	this->y *= vec.y;
-	this->z *= vec.z;
+	coord.x *= vec.coord.x;
+	coord.y *= vec.coord.y;
+	coord.z *= vec.coord.z;
 }
 void Vec3D::operator/=(const float& val) {
-	this->x /= val;
-	this->y /= val;
-	this->z /= val;
+	coord.x /= val;
+	coord.y /= val;
+	coord.z /= val;
 }
 void Vec3D::operator/=(const Vec3D& vec) {
-	this->x /= vec.x;
-	this->y /= vec.y;
-	this->z /= vec.z;
+	coord.x /= vec.coord.x;
+	coord.y /= vec.coord.y;
+	coord.z /= vec.coord.z;
 }
 
 Vec3D Vec3D::dot(const Vec3D& vec) {
-	return Vec3D(this->x * vec.x, this->y * vec.y, this->z * vec.z);
+	return Vec3D(coord.x * vec.coord.x, coord.y * vec.coord.y, coord.z * vec.coord.z);
 }
 
 Vec3D Vec3D::cross(const Vec3D& vec) {
-	return Vec3D(this->y * vec.z - this->z * vec.y, this->z * vec.x - this->x * vec.z, this->x * vec.y - this->y * vec.x);
+	return Vec3D(coord.y * vec.coord.z - coord.z * vec.coord.y, coord.z * vec.coord.x - coord.x * vec.coord.z, coord.x * vec.coord.y - coord.y * vec.coord.x);
 }

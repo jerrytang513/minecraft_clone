@@ -3,13 +3,22 @@
 #include <iostream>
 #include <math.h>
 
-class Vec3D {
-public:
+struct Coordinate{
+	Coordinate(float x, float y, float z);
 	float x;
 	float y;
 	float z;
+};
 
-	Vec3D() = default;
+class Vec3D {
+public:
+
+	union{
+		Coordinate coord;
+		float* values;
+	};
+
+	Vec3D();
 	Vec3D(float x, float y, float z);
 
 	float magnitude();

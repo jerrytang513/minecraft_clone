@@ -32,15 +32,15 @@ void Object::clearForce() {
 }
 
 void Object::setPosition(float x, float y, float z) {
-	this->position.x = x;
-	this->position.y = y;
-	this->position.z = z;
+	this->position.coord.x = x;
+	this->position.coord.y = y;
+	this->position.coord.z = z;
 }
 
 void Object::setPosition(Vec3D vec) {
-	this->position.x = vec.x;
-	this->position.y = vec.y;
-	this->position.z = vec.z;
+	this->position.coord.x = vec.coord.x;
+	this->position.coord.y = vec.coord.y;
+	this->position.coord.z = vec.coord.z;
 }
 
 float Object::getMass() {
@@ -56,9 +56,9 @@ Vec3D Object::getPosition() {
 }
 
 void Object::setAcceleration(Vec3D acceleration) {
-	this->acceleration.x = acceleration.x;
-	this->acceleration.y = acceleration.y;
-	this->acceleration.z = acceleration.z;
+	this->acceleration.coord.x = acceleration.coord.x;
+	this->acceleration.coord.y = acceleration.coord.y;
+	this->acceleration.coord.z = acceleration.coord.z;
 }
 
 Vec3D Object::getAcceleration() {

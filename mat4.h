@@ -20,9 +20,9 @@ public:
 	Mat4(float* values);
 
 	void setDiagonal(float* values);
-	Mat4& multiply(Mat4& mat);
+	void multiply(Mat4& mat);
 	friend Mat4 operator*(Mat4& left, Mat4& right);
-	Mat4& operator*=(Mat4& other);
+	void operator*=(Mat4& other);
 
 	static Mat4 getIdentity();
 	static Mat4 translation(Vec3D& translate);

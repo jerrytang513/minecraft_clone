@@ -114,6 +114,15 @@
     <ClInclude Include="test.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="shader_s.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="test2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="test3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -155,9 +164,6 @@
     <ClCompile Include="cubeCollision.cc">
       <Filter>Source Files\src\collision</Filter>
     </ClCompile>
-    <ClCompile Include="rocket.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="camera.cc">
       <Filter>Source Files\src\graphics</Filter>
     </ClCompile>
@@ -182,6 +188,15 @@
     <ClCompile Include="program.cc">
       <Filter>Source Files\src\graphics\resource\shader</Filter>
     </ClCompile>
+    <ClCompile Include="placeholder.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test2.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test3.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="vertex.glsl">
@@ -190,9 +205,18 @@
     <None Include="fragment.glsl">
       <Filter>Source Files\glsl</Filter>
     </None>
+    <None Include="vertex2.glsl">
+      <Filter>Source Files\glsl</Filter>
+    </None>
+    <None Include="fragment2.glsl">
+      <Filter>Source Files\glsl</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\physics_engine_pre\src\graphics\asset\pics\container.jpg">
+      <Filter>Source Files\src\graphics\asset\pics</Filter>
+    </Image>
+    <Image Include="smily.jpg">
       <Filter>Source Files\src\graphics\asset\pics</Filter>
     </Image>
   </ItemGroup>
