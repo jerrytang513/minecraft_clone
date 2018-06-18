@@ -100,7 +100,7 @@ int main()
           -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
     };
     Vec3D cubePositions[] = {
-           Vec3D( 0.0f,  0.0f,  0.0f),
+           Vec3D( 3.0f,  0.0f,  0.0f),
            Vec3D( 2.0f,  5.0f, -15.0f),
            Vec3D(-1.5f, -2.2f, -2.5f),
            Vec3D(-3.8f, -2.0f, -12.3f),
@@ -211,15 +211,26 @@ int main()
         // create transformations
         glm::mat4 view;
 
-        Mat4 rotateModel = Mat4::rotation((float)glfwGetTime() * 50.0f, Vec3D(1.0f,0.0f,0.0f));
         Mat4 projectModel = Mat4::perspective(45.0f,(float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 
-        view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+        float radius = 10.0f;
+        float camX = sin(glfwGetTime()) * radius;
+        float camZ = cos(glfwGetTime()) * radius;
+        std::cout << "SIN " << camX << "COS " << camZ << std::endl;
+
+
+        Camera cam(Vec3D(camX, 0.0f, camZ), Vec3D(0.0f,0.0f,0.0f), Vec3D(0.0f,1.0f,0.0f));
+        Mat4 viewModel = Mat4::view(cam);
+        for(int i = 0; i < 16; i++){
+          std::cout << i << " " << viewModel.values[i] << std::endl;
+        }
+
+
 
         unsigned int viewLoc  = glGetUniformLocation(ourShader.ID, "view");
         unsigned int projectLoc  = glGetUniformLocation(ourShader.ID, "projection");
         glUniformMatrix4fv(projectLoc, 1, GL_FALSE, projectModel.values);
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
+        glUniformMatrix4fv(viewLoc, 1, GL_TRUE, viewModel.values);
 
 
 
@@ -229,14 +240,12 @@ int main()
             unsigned int modelLoc  = glGetUniformLocation(ourShader.ID, "model");
 
              // calculate the model matrix for each object and pass it to shader before drawing
-             Mat4 model = Mat4::translation(cubePositions[i]);
-             float angle = 20.0f * i;
+            Mat4 model = Mat4::translation(cubePositions[i]);
+            float angle = 20.0f * i;
             Mat4 rotateModel = Mat4::rotation(angle, Vec3D(1.0f,0.3f,0.5f));
             model = model * rotateModel;
-
-             glUniformMatrix4fv(modelLoc, 1, GL_FALSE, model.values);
-
-             glDrawArrays(GL_TRIANGLES, 0, 36);
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, model.values);
+            glDrawArrays(GL_TRIANGLES, 0, 36);
          }
         glfwSwapBuffers(window);
         glfwPollEvents();

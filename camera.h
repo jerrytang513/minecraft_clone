@@ -9,9 +9,10 @@ class Camera {
 	Vec3D direction;
 	Vec3D right;
 	Vec3D up;
+	Vec3D worldUp;
 
 public:
-	Camera(Vec3D position, Vec3D target, Vec3D right);
+	Camera(Vec3D position, Vec3D target, Vec3D worldUp);
 
 	void setPosition(Vec3D position);
 

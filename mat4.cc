@@ -97,34 +97,40 @@ Mat4 Mat4::view(Camera& camera) {
 	Vec3D direction = camera.getDirection();
 
 	view.values[0] = right.coord.x;
-	view.values[1] = up.coord.x;
-	view.values[2] = direction.coord.x;
-
 	view.values[4] = right.coord.y;
-	view.values[5] = up.coord.y;
-	view.values[6] = direction.coord.y;
-
 	view.values[8] = right.coord.z;
+
+	view.values[1] = up.coord.x;
+	view.values[5] = up.coord.y;
 	view.values[9] = up.coord.z;
+
+	view.values[2] = direction.coord.x;
+	view.values[6] = direction.coord.y;
 	view.values[10] = direction.coord.z;
 
-	pos.values[3] = -position.coord.x;
-	pos.values[7] = -position.coord.y;
-	pos.values[11] = -position.coord.z;
+	pos.values[3] = - position.coord.x;
+	pos.values[7] = - position.coord.y;
+	pos.values[11] = - position.coord.z;
 
-	return view * pos;
+	view *= pos;
+	return view;
 
 }
 
 void Mat4::multiply(Mat4& other) {
+	float result[16];
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
 			float sum = 0.0f;
 			for (int k = 0; k < 4; k++) {
-				sum += values[j + k * 4] * other.values[k + i * 4];
+				sum +=  other.values[j + k * 4] *values[k + i * 4];
 			}
-			values[j + i * 4] = sum;
+			result[j + i * 4] = sum;
 		}
+	}
+
+	for(int i = 0; i < 16; i++){
+		values[i] = result[i];
 	}
 }
 
