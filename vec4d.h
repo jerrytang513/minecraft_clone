@@ -1,33 +1,46 @@
-#ifndef Vec4D_H_
-#define Vec4D_H_
+#ifndef VEC4D_H_
+#define VEC4D_H_
 #include <iostream>
 #include <math.h>
 
-class Vec4D {
-	// This placeholder is there to improve the performance of the memory.
-	// Since it works better with 4 words than 3 words;
-public:
+struct Coordinate{
+	Coordinate(float x, float y, float z, float w);
 	float x;
 	float y;
 	float z;
-	float t;
+	float w;
+};
+
+class Vec4D {
+public:
+
+	union{
+		Coordinate coord;
+		float* values;
+	};
 
 	Vec4D();
-	Vec4D(float x, float y, float z, float t);
+	Vec4D(float x, float y, float z, float w);
 
 	float magnitude();
 	Vec4D normalize();
 
 	// Some arithemetic operations
 
-	Vec4D operator+(const float& val);
-	Vec4D operator+(const Vec4D& vec);
-	Vec4D operator-(const float& val);
-	Vec4D operator-(const Vec4D& vec);
-	Vec4D operator*(const float& val);
-	Vec4D operator*(const Vec4D& vec);
-	Vec4D operator/(const float& val);
-	Vec4D operator/(const Vec4D& vec);
+	friend Vec4D operator+(const Vec4D& vec, const Vec4D& other);
+	friend Vec4D operator-(const Vec4D& vec, const Vec4D& other);
+	friend Vec4D operator*(const Vec4D& vec, const Vec4D& other);
+	friend Vec4D operator/(const Vec4D& vec, const Vec4D& other);
+
+	friend Vec4D operator+(const Vec4D& vec, const float& val);
+	friend Vec4D operator-(const Vec4D& vec, const float& val);
+  friend Vec4D operator*(const Vec4D& vec, const float& val);
+	friend Vec4D operator/(const Vec4D& vec, const float& val);
+
+	friend Vec4D operator+(const float& val, const Vec4D& vec);
+	friend Vec4D operator-(const float& val, const Vec4D& vec);
+	friend Vec4D operator*(const float& val, const Vec4D& vec);
+  friend Vec4D operator/(const float& val, const Vec4D& vec);
 
 	void operator+=(const float& val);
 	void operator+=(const Vec4D& vec);
@@ -39,5 +52,6 @@ public:
 	void operator/=(const Vec4D& vec);
 
 	Vec4D dot(const Vec4D& vec);
+
 };
 #endif

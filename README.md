@@ -1,8 +1,6 @@
 # PHYSICS ENGINE
 # physics_engine
 
-
-
 ## Use the Mesh class for generating VAO VBO and IBO
 1. Create all the vertices.
 2. Create all the indices.

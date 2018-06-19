@@ -1,105 +1,117 @@
-#include "vec4d.h"
+#include "Vec4D.h"
 
-Vec4D::Vec4D() = default;
-Vec4D::Vec4D(float x, float y, float z, float t) :x{ x }, y{ y }, z{ z }, t{ t } {}
+Coordinate::Coordinate(float x, float y, float z, float w):x{x}, y{y}, z{z}, w{w}{};
+
+Vec4D::Vec4D() : coord{Coordinate(0.0f, 0.0f, 0.0f, 0.0f)}{}
+Vec4D::Vec4D(float x, float y, float z, float w) :coord{Coordinate(x,y,z,w)} {}
 
 // Use Norm2 magnitude
 float Vec4D::magnitude() {
-	return sqrt(x*x + y * y + z * z + t * t);
+	return sqrt(coord.x*coord.x + coord.y *coord.y + coord.z * coord.z + coord.w * coord.w);
 }
 
 Vec4D Vec4D::normalize() {
 	float mag = magnitude();
-	float normX = x / mag;
-	float normY = y / mag;
-	float normZ = z / mag;
-	float normT = t / mag;
-	return Vec4D(normX, normY, normZ, normT);
+	float normX = coord.x / mag;
+	float normY = coord.y / mag;
+	float normZ = coord.z / mag;
+	float normW = coord.w / mag;
+	return Vec4D(normX, normY, normZ, normW);
+}
+///
+Vec4D operator+(const Vec4D& vec, const float& val) {
+	return Vec4D(vec.coord.x + val, vec.coord.y + val, vec.coord.z + val, vec.coord.w + val);
+}
+Vec4D operator-(const Vec4D& vec, const float& val) {
+	return Vec4D(vec.coord.x - val, vec.coord.y - val, vec.coord.z - val, vec.coord.w - val);
+}
+Vec4D operator*(const Vec4D& vec, const float& val) {
+	return Vec4D(vec.coord.x * val, vec.coord.y * val, vec.coord.z * val, vec.coord.w * val);
+}
+Vec4D operator/(const Vec4D& vec, const float& val) {
+	return Vec4D(vec.coord.x / val, vec.coord.y / val, vec.coord.z / val, vec.coord.w / val);
+}
+///
+Vec4D operator+(const float& val, const Vec4D& vec) {
+	return Vec4D(vec.coord.x + val, vec.coord.y + val, vec.coord.z + val, vec.coord.w + val);
 }
 
-Vec4D Vec4D::operator+(const float& val) {
-	Vec4D vec(this->x + val, this->y + val, this->z + val, this->t + val);
-	return vec;
+Vec4D operator-(const float& val, const Vec4D& vec) {
+	return Vec4D(val - vec.coord.x , val - vec.coord.y, val - vec.coord.z, val - vec.coord.w);
 }
-Vec4D Vec4D::operator+(const Vec4D& vec) {
-	Vec4D new_vec(this->x + vec.x, this->y + vec.y, this->z + vec.z, this->t + vec.t);
-	return new_vec;
+Vec4D operator*(const float& val, const Vec4D& vec) {
+	return Vec4D(vec.coord.x * val, vec.coord.y * val, vec.coord.z * val, vec.coord.w * val);
 }
-Vec4D Vec4D::operator-(const float& val) {
-	Vec4D vec(this->x - val, this->y - val, this->z - val, this->t - val);
-	return vec;
+Vec4D operator/(const float& val, const Vec4D& vec) {
+	return Vec4D(val / vec.coord.x, val / vec.coord.y, val / vec.coord.z, val / vec.coord.w);
 }
-Vec4D Vec4D::operator-(const Vec4D& vec) {
-	Vec4D new_vec(this->x - vec.x, this->y - vec.y, this->z - vec.z, this->t - vec.t);
-	return new_vec;
+///
+
+Vec4D operator+(const Vec4D& vec, const Vec4D& other) {
+	return Vec4D(other.coord.x + vec.coord.x, other.coord.y + vec.coord.y, other.coord.z + vec.coord.z, other.coord.w + vec.coord.w);
 }
-Vec4D Vec4D::operator*(const float& val) {
-	Vec4D vec(this->x * val, this->y * val, this->z * val, this->t * val);
-	return vec;
+
+Vec4D operator-(const Vec4D& vec, const Vec4D& other) {
+	return Vec4D(vec.coord.x - other.coord.x, vec.coord.y - other.coord.y, vec.coord.z - other.coord.z, vec.coord.w - other.coord.w);
 }
-Vec4D Vec4D::operator*(const Vec4D& vec) {
-	Vec4D new_vec(this->x * vec.x, this->y * vec.y, this->z * vec.z, this->t * vec.t);
-	return new_vec;
+
+Vec4D operator*(const Vec4D& vec, const Vec4D& other) {
+	return Vec4D(other.coord.x * vec.coord.x, other.coord.y * vec.coord.y, other.coord.z * vec.coord.z, other.coord.w * vec.coord.w);
 }
-// TODO: ADD Assert for division by 0
-Vec4D Vec4D::operator/(const float& val) {
-	Vec4D vec(this->x / val, this->y / val, this->z / val, this->t / val);
-	return vec;
-}
-Vec4D Vec4D::operator/(const Vec4D& vec) {
-	Vec4D new_vec(this->x / vec.x, this->y / vec.y, this->z / vec.z, this->t / vec.t);
-	return new_vec;
+
+Vec4D operator/(const Vec4D& vec, const Vec4D& other) {
+	return Vec4D(vec.coord.x / other.coord.x, vec.coord.y / other.coord.y, vec.coord.z / other.coord.z, vec.coord.w / other.coord.w);
 }
 
 void Vec4D::operator+=(const float &val) {
-	this->x += val;
-	this->y += val;
-	this->z += val;
-	this->t += val;
+	coord.x += val;
+	coord.y += val;
+	coord.z += val;
+	coord.w += val;
 }
 void Vec4D::operator+=(const Vec4D& vec) {
-	this->x += vec.x;
-	this->y += vec.y;
-	this->z += vec.z;
-	this->t += vec.t;
+	coord.x += vec.coord.x;
+	coord.y += vec.coord.y;
+	coord.z += vec.coord.z;
+	coord.w += vec.coord.w;
 }
 void Vec4D::operator-=(const float& val) {
-	this->x -= val;
-	this->y -= val;
-	this->z -= val;
-	this->t -= val;
+	coord.x -= val;
+	coord.y -= val;
+	coord.z -= val;
+	coord.w -= val;
 }
 void Vec4D::operator-=(const Vec4D& vec) {
-	this->x -= vec.x;
-	this->y -= vec.y;
-	this->z -= vec.z;
-	this->t -= vec.t;
+	coord.x -= vec.coord.x;
+	coord.y -= vec.coord.y;
+	coord.z -= vec.coord.z;
+	coord.w -= vec.coord.w;
 }
 void Vec4D::operator*=(const float& val) {
-	this->x *= val;
-	this->y *= val;
-	this->z *= val;
-	this->t *= val;
+	coord.x *= val;
+	coord.y *= val;
+	coord.z *= val;
+	coord.w *= val;
 }
 void Vec4D::operator*=(const Vec4D& vec) {
-	this->x *= vec.x;
-	this->y *= vec.y;
-	this->z *= vec.z;
-	this->t *= vec.t;
+	coord.x *= vec.coord.x;
+	coord.y *= vec.coord.y;
+	coord.z *= vec.coord.z;
+	coord.w *= vec.coord.w;
 }
 void Vec4D::operator/=(const float& val) {
-	this->x /= val;
-	this->y /= val;
-	this->z /= val;
-	this->t /= val;
+	coord.x /= val;
+	coord.y /= val;
+	coord.z /= val;
+	coord.w /= val;
 }
 void Vec4D::operator/=(const Vec4D& vec) {
-	this->x /= vec.x;
-	this->y /= vec.y;
-	this->z /= vec.z;
-	this->t /= vec.t;
+	coord.x /= vec.coord.x;
+	coord.y /= vec.coord.y;
+	coord.z /= vec.coord.z;
+	coord.w /= vec.coord.w;
 }
 
 Vec4D Vec4D::dot(const Vec4D& vec) {
-	return Vec4D(this->x * vec.x, this->y * vec.y, this->z * vec.z, this->t * vec.t);
+	return Vec4D(coord.x * vec.coord.x, coord.y * vec.coord.y, coord.z * vec.coord.z, coord.w * vec.coord.w);
 }
