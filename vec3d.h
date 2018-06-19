@@ -26,14 +26,20 @@ public:
 
 	// Some arithemetic operations
 
-	Vec3D operator+(const float& val);
-	Vec3D operator+(const Vec3D& vec);
-	Vec3D operator-(const float& val);
-	Vec3D operator-(const Vec3D& vec);
-	Vec3D operator*(const float& val);
-	Vec3D operator*(const Vec3D& vec);
-	Vec3D operator/(const float& val);
-	Vec3D operator/(const Vec3D& vec);
+	friend Vec3D operator+(const Vec3D& vec, const Vec3D& other);
+	friend Vec3D operator-(const Vec3D& vec, const Vec3D& other);
+	friend Vec3D operator*(const Vec3D& vec, const Vec3D& other);
+	friend Vec3D operator/(const Vec3D& vec, const Vec3D& other);
+
+	friend Vec3D operator+(const Vec3D& vec, const float& val);
+	friend Vec3D operator-(const Vec3D& vec, const float& val);
+  friend Vec3D operator*(const Vec3D& vec, const float& val);
+	friend Vec3D operator/(const Vec3D& vec, const float& val);
+
+	friend Vec3D operator+(const float& val, const Vec3D& vec);
+	friend Vec3D operator-(const float& val, const Vec3D& vec);
+	friend Vec3D operator*(const float& val, const Vec3D& vec);
+  friend Vec3D operator/(const float& val, const Vec3D& vec);
 
 	void operator+=(const float& val);
 	void operator+=(const Vec3D& vec);

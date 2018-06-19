@@ -17,39 +17,49 @@ Vec3D Vec3D::normalize() {
 	float normZ = coord.z / mag;
 	return Vec3D(normX, normY, normZ);
 }
+///
+Vec3D operator+(const Vec3D& vec, const float& val) {
+	return Vec3D(vec.coord.x + val, vec.coord.y + val, vec.coord.z + val);
+}
+Vec3D operator-(const Vec3D& vec, const float& val) {
+	return Vec3D(vec.coord.x - val, vec.coord.y - val, vec.coord.z - val);
+}
+Vec3D operator*(const Vec3D& vec, const float& val) {
+	return Vec3D(vec.coord.x * val, vec.coord.y * val, vec.coord.z * val);
+}
+Vec3D operator/(const Vec3D& vec, const float& val) {
+	return Vec3D(vec.coord.x / val, vec.coord.y / val, vec.coord.z / val);
+}
+///
+Vec3D operator+(const float& val, const Vec3D& vec) {
+	return Vec3D(vec.coord.x + val, vec.coord.y + val, vec.coord.z + val);
+}
 
-Vec3D Vec3D::operator+(const float& val) {
-	Vec3D vec(coord.x + val, coord.y + val, coord.z + val);
-	return vec;
+Vec3D operator-(const float& val, const Vec3D& vec) {
+	return Vec3D(val - vec.coord.x , val - vec.coord.y, val - vec.coord.z);
 }
-Vec3D Vec3D::operator+(const Vec3D& vec) {
-	Vec3D new_vec(coord.x + vec.coord.x, coord.y + vec.coord.y, coord.z + vec.coord.z);
-	return new_vec;
+Vec3D operator*(const float& val, const Vec3D& vec) {
+	return Vec3D(vec.coord.x * val, vec.coord.y * val, vec.coord.z * val);
 }
-Vec3D Vec3D::operator-(const float& val) {
-	Vec3D vec(coord.x - val, coord.y - val, coord.z - val);
-	return vec;
+Vec3D operator/(const float& val, const Vec3D& vec) {
+	return Vec3D(val / vec.coord.x, val / vec.coord.y, val / vec.coord.z);
 }
-Vec3D Vec3D::operator-(const Vec3D& vec) {
-	Vec3D new_vec(coord.x - vec.coord.x, coord.y - vec.coord.y, coord.z - vec.coord.z);
-	return new_vec;
+///
+
+Vec3D operator+(const Vec3D& vec, const Vec3D& other) {
+	return Vec3D(other.coord.x + vec.coord.x, other.coord.y + vec.coord.y, other.coord.z + vec.coord.z);
 }
-Vec3D Vec3D::operator*(const float& val) {
-	Vec3D vec(coord.x * val, coord.y * val, coord.z * val);
-	return vec;
+
+Vec3D operator-(const Vec3D& vec, const Vec3D& other) {
+	return Vec3D(vec.coord.x - other.coord.x, vec.coord.y - other.coord.y, vec.coord.z - other.coord.z);
 }
-Vec3D Vec3D::operator*(const Vec3D& vec) {
-	Vec3D new_vec(coord.x * vec.coord.x, coord.y * vec.coord.y, coord.z * vec.coord.z);
-	return new_vec;
+
+Vec3D operator*(const Vec3D& vec, const Vec3D& other) {
+	return Vec3D(other.coord.x * vec.coord.x, other.coord.y * vec.coord.y, other.coord.z * vec.coord.z);
 }
-// TODO: ADD Assert for division by 0
-Vec3D Vec3D::operator/(const float& val) {
-	Vec3D vec(coord.x / val, coord.y / val, coord.z / val);
-	return vec;
-}
-Vec3D Vec3D::operator/(const Vec3D& vec) {
-	Vec3D new_vec(coord.x / vec.coord.x, coord.y / vec.coord.y, coord.z / vec.coord.z);
-	return new_vec;
+
+Vec3D operator/(const Vec3D& vec, const Vec3D& other) {
+	return Vec3D(vec.coord.x / other.coord.x, vec.coord.y / other.coord.y, vec.coord.z / other.coord.z);
 }
 
 void Vec3D::operator+=(const float &val) {
