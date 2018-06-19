@@ -18,12 +18,20 @@ public:
 
 	Mat4();
 	Mat4(float* values);
+	// copy ctr
+	Mat4(Mat4& mat);
 
 	void setDiagonal(float* values);
 	void multiply(Mat4& mat);
+	void transpose();
+	void inverse();
+
 	friend Mat4 operator*(Mat4& left, Mat4& right);
 	void operator*=(Mat4& other);
 
+	static Mat4 getTranspose(Mat4& mat);
+	static Mat4 getInverse(Mat4& mat);
+	static Mat3 getTopLeft3x3Mat(Mat4& mat);
 	static Mat4 getIdentity();
 	static Mat4 translation(Vec3D& translate);
 	static Mat4 scale(Vec3D& scale);

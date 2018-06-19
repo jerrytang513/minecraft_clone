@@ -11,6 +11,12 @@ Mat4::Mat4(float* values) {
 	}
 }
 
+Mat4::Mat4(Mat4& mat){
+	for(int i = 0; i < 16; i++){
+		values[i] = mat.values[i];
+	}
+}
+
 void Mat4::setDiagonal(float* values) {
 	this->values[0] = values[0];
 	this->values[5] = values[1];
@@ -21,6 +27,162 @@ void Mat4::setDiagonal(float* values) {
 Mat4 Mat4::getIdentity() {
 	float f[16] = { 1.0f,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f,0.0f,0.0f,0.0f,1.0f };
 	return Mat4(f);
+}
+
+Mat4 Mat4::transpose(){
+	for(int row = 0; row < 4; row++){
+		for(int col = row + 1; col < 4; col++){
+			std::swap(matrix[row][col], matrix[col][row]);
+		}
+	}
+}
+
+Mat4 Mat4::inverse(){
+	float inverse[16];
+	float det;
+	inverse[0] = values[5]  * values[10] * values[15] -
+					values[5]  * values[11] * values[14] -
+					values[9]  * values[6]  * values[15] +
+					values[9]  * values[7]  * values[14] +
+					values[13] * values[6]  * values[11] -
+					values[13] * values[7]  * values[10];
+
+ inverse[4] = -values[4]  * values[10] * values[15] +
+					 values[4]  * values[11] * values[14] +
+					 values[8]  * values[6]  * values[15] -
+					 values[8]  * values[7]  * values[14] -
+					 values[12] * values[6]  * values[11] +
+					 values[12] * values[7]  * values[10];
+
+ inverse[8] = values[4]  * values[9] * values[15] -
+					values[4]  * values[11] * values[13] -
+					values[8]  * values[5] * values[15] +
+					values[8]  * values[7] * values[13] +
+					values[12] * values[5] * values[11] -
+					values[12] * values[7] * values[9];
+
+ inverse[12] = -values[4]  * values[9] * values[14] +
+						values[4]  * values[10] * values[13] +
+						values[8]  * values[5] * values[14] -
+						values[8]  * values[6] * values[13] -
+						values[12] * values[5] * values[10] +
+						values[12] * values[6] * values[9];
+
+ inverse[1] = -values[1]  * values[10] * values[15] +
+					 values[1]  * values[11] * values[14] +
+					 values[9]  * values[2] * values[15] -
+					 values[9]  * values[3] * values[14] -
+					 values[13] * values[2] * values[11] +
+					 values[13] * values[3] * values[10];
+
+ inverse[5] = values[0]  * values[10] * values[15] -
+					values[0]  * values[11] * values[14] -
+					values[8]  * values[2] * values[15] +
+					values[8]  * values[3] * values[14] +
+					values[12] * values[2] * values[11] -
+					values[12] * values[3] * values[10];
+
+ inverse[9] = -values[0]  * values[9] * values[15] +
+					 values[0]  * values[11] * values[13] +
+					 values[8]  * values[1] * values[15] -
+					 values[8]  * values[3] * values[13] -
+					 values[12] * values[1] * values[11] +
+					 values[12] * values[3] * values[9];
+
+ inverse[13] = values[0]  * values[9] * values[14] -
+					 values[0]  * values[10] * values[13] -
+					 values[8]  * values[1] * values[14] +
+					 values[8]  * values[2] * values[13] +
+					 values[12] * values[1] * values[10] -
+					 values[12] * values[2] * values[9];
+
+ inverse[2] = values[1]  * values[6] * values[15] -
+					values[1]  * values[7] * values[14] -
+					values[5]  * values[2] * values[15] +
+					values[5]  * values[3] * values[14] +
+					values[13] * values[2] * values[7] -
+					values[13] * values[3] * values[6];
+
+ inverse[6] = -values[0]  * values[6] * values[15] +
+					 values[0]  * values[7] * values[14] +
+					 values[4]  * values[2] * values[15] -
+					 values[4]  * values[3] * values[14] -
+					 values[12] * values[2] * values[7] +
+					 values[12] * values[3] * values[6];
+
+ inverse[10] = values[0]  * values[5] * values[15] -
+					 values[0]  * values[7] * values[13] -
+					 values[4]  * values[1] * values[15] +
+					 values[4]  * values[3] * values[13] +
+					 values[12] * values[1] * values[7] -
+					 values[12] * values[3] * values[5];
+
+ inverse[14] = -values[0]  * values[5] * values[14] +
+						values[0]  * values[6] * values[13] +
+						values[4]  * values[1] * values[14] -
+						values[4]  * values[2] * values[13] -
+						values[12] * values[1] * values[6] +
+						values[12] * values[2] * values[5];
+
+ inverse[3] = -values[1] * values[6] * values[11] +
+					 values[1] * values[7] * values[10] +
+					 values[5] * values[2] * values[11] -
+					 values[5] * values[3] * values[10] -
+					 values[9] * values[2] * values[7] +
+					 values[9] * values[3] * values[6];
+
+ inverse[7] = values[0] * values[6] * values[11] -
+					values[0] * values[7] * values[10] -
+					values[4] * values[2] * values[11] +
+					values[4] * values[3] * values[10] +
+					values[8] * values[2] * values[7] -
+					values[8] * values[3] * values[6];
+
+ inverse[11] = -values[0] * values[5] * values[11] +
+						values[0] * values[7] * values[9] +
+						values[4] * values[1] * values[11] -
+						values[4] * values[3] * values[9] -
+						values[8] * values[1] * values[7] +
+						values[8] * values[3] * values[5];
+
+ inverse[15] = values[0] * values[5] * values[10] -
+					 values[0] * values[6] * values[9] -
+					 values[4] * values[1] * values[10] +
+					 values[4] * values[2] * values[9] +
+					 values[8] * values[1] * values[6] -
+					 values[8] * values[2] * values[5];
+
+ det = values[0] * inverse[0] + values[1] * inverse[4] + values[2] * inverse[8] + values[3] * inverse[12];
+
+ if (det == 0)
+		 return false;
+
+ det = 1.0 / det;
+
+ for (i = 0; i < 16; i++)
+		 values[i] = inverse[i] * det;
+}
+
+Mat4 Mat4::getTranspose(Mat4& mat){
+	Mat4 result(mat);
+	result.transpose();
+	return result;
+}
+
+Mat4 Mat4::getInverse(Mat4& mat){
+	Mat4 result(mat);
+	result.inverse();
+	return result;
+}
+
+Mat3 Mat4::getTopLeft3x3Mat(Mat4& mat){
+	float result[9];
+	int count = 0;
+	for(int i = 0; i < 12; i++){
+		if((i+1) % 4 != 0)
+			result[count++] = mat.values[i];
+	}
+	return Mat3(result);
 }
 
 Mat4 Mat4::translation(Vec3D& translate) {
