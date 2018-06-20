@@ -3,19 +3,18 @@
 #include <iostream>
 #include <math.h>
 
-struct Coordinate{
-	Coordinate(float x, float y, float z);
-	float x;
-	float y;
-	float z;
-};
+
 
 class Vec3D {
 public:
 
 	union{
-		Coordinate coord;
-		float* values;
+		struct Coordinate{
+			float x;
+			float y;
+			float z;
+		} coord;
+		float values[3];
 	};
 
 	Vec3D();

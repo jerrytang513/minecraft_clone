@@ -1,9 +1,9 @@
 #include "Vec4D.h"
 
-Coordinate::Coordinate(float x, float y, float z, float w):x{x}, y{y}, z{z}, w{w}{};
+Coordinate4D::Coordinate4D(float x, float y, float z, float w):x{x}, y{y}, z{z}, w{w}{};
 
-Vec4D::Vec4D() : coord{Coordinate(0.0f, 0.0f, 0.0f, 0.0f)}{}
-Vec4D::Vec4D(float x, float y, float z, float w) :coord{Coordinate(x,y,z,w)} {}
+Vec4D::Vec4D() : coord{Coordinate4D(0.0f, 0.0f, 0.0f, 0.0f)}{}
+Vec4D::Vec4D(float x, float y, float z, float w) :coord{Coordinate4D(x,y,z,w)} {}
 
 // Use Norm2 magnitude
 float Vec4D::magnitude() {

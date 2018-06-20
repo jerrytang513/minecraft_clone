@@ -1,9 +1,15 @@
 #include "vec3d.h"
 
-Coordinate::Coordinate(float x, float y, float z):x{x},y{y},z{z}{};
-
-Vec3D::Vec3D() : coord{Coordinate(0.0f,0.0f,0.0f)}{}
-Vec3D::Vec3D(float x, float y, float z) :coord{Coordinate(x,y,z)} {}
+Vec3D::Vec3D(){
+	coord.x = 0.0f;
+	coord.y = 0.0f;
+	coord.z = 0.0f;
+}
+Vec3D::Vec3D(float x, float y, float z){
+	coord.x = x;
+	coord.y = y;
+	coord.z = z;
+}
 
 // Use Norm2 magnitude
 float Vec3D::magnitude() {

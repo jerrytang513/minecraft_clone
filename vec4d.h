@@ -3,8 +3,8 @@
 #include <iostream>
 #include <math.h>
 
-struct Coordinate{
-	Coordinate(float x, float y, float z, float w);
+struct Coordinate4D{
+	Coordinate4D(float x, float y, float z, float w);
 	float x;
 	float y;
 	float z;
@@ -15,7 +15,7 @@ class Vec4D {
 public:
 
 	union{
-		Coordinate coord;
+		Coordinate4D coord;
 		float* values;
 	};
 

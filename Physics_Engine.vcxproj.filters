@@ -211,6 +211,18 @@
     <None Include="fragment2.glsl">
       <Filter>Source Files\glsl</Filter>
     </None>
+    <None Include="shaders\lamp.fs">
+      <Filter>Source Files\glsl</Filter>
+    </None>
+    <None Include="shaders\lamp.vs">
+      <Filter>Source Files\glsl</Filter>
+    </None>
+    <None Include="shaders\lighting.fs">
+      <Filter>Source Files\glsl</Filter>
+    </None>
+    <None Include="shaders\lighting.vs">
+      <Filter>Source Files\glsl</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\physics_engine_pre\src\graphics\asset\pics\container.jpg">

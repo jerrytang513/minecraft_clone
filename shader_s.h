@@ -4,6 +4,8 @@
 
 #include <glm/glm.hpp>
 
+#include "vec3d.h"
+#include "mat4.h"
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -130,9 +132,9 @@ public:
         glUniform2f(glGetUniformLocation(ID, name.c_str()), x, y);
     }
     // ------------------------------------------------------------------------
-    void setVec3(const std::string &name, const glm::vec3 &value) const
+    void setVec3(const std::string &name, const Vec3D& vec) const
     {
-        glUniform3fv(glGetUniformLocation(ID, name.c_str()), 1, &value[0]);
+        glUniform3fv(glGetUniformLocation(ID, name.c_str()), 1, vec.values);
     }
     void setVec3(const std::string &name, float x, float y, float z) const
     {
@@ -158,9 +160,9 @@ public:
         glUniformMatrix3fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
     }
     // ------------------------------------------------------------------------
-    void setMat4(const std::string &name, const glm::mat4 &mat) const
+    void setMat4(const std::string &name, const Mat4 &mat) const
     {
-        glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+        glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, mat.values);
     }
 
 private:

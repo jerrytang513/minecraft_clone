@@ -11,12 +11,6 @@ Mat4::Mat4(float* values) {
 	}
 }
 
-Mat4::Mat4(Mat4& mat){
-	for(int i = 0; i < 16; i++){
-		values[i] = mat.values[i];
-	}
-}
-
 void Mat4::setDiagonal(float* values) {
 	this->values[0] = values[0];
 	this->values[5] = values[1];
@@ -29,7 +23,7 @@ Mat4 Mat4::getIdentity() {
 	return Mat4(f);
 }
 
-Mat4 Mat4::transpose(){
+void Mat4::transpose(){
 	for(int row = 0; row < 4; row++){
 		for(int col = row + 1; col < 4; col++){
 			std::swap(matrix[row][col], matrix[col][row]);
@@ -37,7 +31,7 @@ Mat4 Mat4::transpose(){
 	}
 }
 
-Mat4 Mat4::inverse(){
+void Mat4::inverseMat(){
 	float inverse[16];
 	float det;
 	inverse[0] = values[5]  * values[10] * values[15] -
@@ -154,12 +148,8 @@ Mat4 Mat4::inverse(){
 
  det = values[0] * inverse[0] + values[1] * inverse[4] + values[2] * inverse[8] + values[3] * inverse[12];
 
- if (det == 0)
-		 return false;
-
  det = 1.0 / det;
-
- for (i = 0; i < 16; i++)
+ for (int i = 0; i < 16; i++)
 		 values[i] = inverse[i] * det;
 }
 
@@ -171,10 +161,10 @@ Mat4 Mat4::getTranspose(Mat4& mat){
 
 Mat4 Mat4::getInverse(Mat4& mat){
 	Mat4 result(mat);
-	result.inverse();
+	result.inverseMat();
 	return result;
 }
-
+/*
 Mat3 Mat4::getTopLeft3x3Mat(Mat4& mat){
 	float result[9];
 	int count = 0;
@@ -184,7 +174,7 @@ Mat3 Mat4::getTopLeft3x3Mat(Mat4& mat){
 	}
 	return Mat3(result);
 }
-
+*/
 Mat4 Mat4::translation(Vec3D& translate) {
 	Mat4 result = getIdentity();
 	result.values[0 + 4 * 3] = translate.coord.x;
@@ -258,6 +248,9 @@ Mat4 Mat4::view(Camera& camera) {
 	Vec3D up = camera.getUp();
 	Vec3D direction = camera.getDirection();
 
+
+	std::cout << camera.getFront().coord.x << std::endl;
+
 	view.values[0] = right.coord.x;
 	view.values[4] = right.coord.y;
 	view.values[8] = right.coord.z;
@@ -275,6 +268,7 @@ Mat4 Mat4::view(Camera& camera) {
 	pos.values[11] = - position.coord.z;
 
 	view *= pos;
+	view.transpose();
 	return view;
 
 }

@@ -221,6 +221,10 @@
   <ItemGroup>
     <None Include="fragment.glsl" />
     <None Include="fragment2.glsl" />
+    <None Include="shaders\lamp.fs" />
+    <None Include="shaders\lamp.vs" />
+    <None Include="shaders\lighting.fs" />
+    <None Include="shaders\lighting.vs" />
     <None Include="vertex.glsl" />
     <None Include="vertex2.glsl" />
   </ItemGroup>
