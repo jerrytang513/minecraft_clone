@@ -1,3 +1,4 @@
+/*
 #include "camera.h"
 #include "utilities.h"
 #include <iostream>
@@ -89,3 +90,4 @@ Vec3D Camera::getRight() {
 Vec3D Camera::getUp() {
 	return this->up;
 }
+*/

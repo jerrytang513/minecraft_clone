@@ -1,24 +1,57 @@
 #include "cube.h"
-using namespace std;
 
-void valueAssign(Vec3D* vertices, GLfloat* data) {
+Cube::Cube():Shape3D(){
 
-}
+  const Vertex verticesArr[] = {
+    // top
+    Vertex({- 0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
+    Vertex({0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
+    Vertex({0.5f, 0.5f, - 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
+    Vertex({- 0.5f, 0.5f, - 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
 
-Cube::Cube(GLfloat centerPosX, GLfloat centerPosY, GLfloat centerPosZ, GLfloat edgeLength) :Shape3D(Vec3D()) {
+    // bottom
+    Vertex({- 0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
+    Vertex({0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
+    Vertex({0.5f, -0.5f, - 0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
+    Vertex({- 0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
 
-}
+    // left
+    Vertex({- 0.5f, - 0.5f, 0.5f, - 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
+    Vertex({- 0.5f, - 0.5f, - 0.5f, - 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
+    Vertex({- 0.5f, 0.5f, - 0.5f,  - 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
+    Vertex({- 0.5f, 0.5f, 0.5f, - 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
 
-void Cube::draw() {
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, 0, data);
+    // right
+    Vertex({ 0.5f, - 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
+    Vertex({ 0.5f, - 0.5f, - 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
+    Vertex({ 0.5f, 0.5f, - 0.5f,  1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
+    Vertex({ 0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
 
-	glDrawArrays(GL_QUADS, 0, 24);
-	glDisableClientState(GL_VERTEX_ARRAY);
-}
+    // front
+    Vertex({ - 0.5f, - 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
+    Vertex({ 0.5f, - 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
+    Vertex({ 0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
+    Vertex({ - 0.5f, 0.5f, 0.5f,  0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
 
-void Cube::rotate(GLfloat angle, Vec3D axis) {
+    // back
+    Vertex({ - 0.5f, - 0.5f, - 0.5f,  0.0f, 0.0f, - 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
+    Vertex({ 0.5f, - 0.5f, - 0.5f, 0.0f, 0.0f, - 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
+    Vertex({ 0.5f, 0.5f, - 0.5f, 0.0f, 0.0f, - 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}),
+    Vertex({ - 0.5f, 0.5f, - 0.5f, 0.0f, 0.0f, - 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f})
+  };
 
+  const unsigned int indicesArr[] = {
+    0, 1, 2, 2, 3, 0,
+    4, 5, 6, 6, 7, 4,
+    8, 9, 10, 10, 11, 8,
+    12, 13, 14, 14, 15, 12,
+    16, 17, 18, 18, 19, 16,
+    20, 21, 22, 22, 23, 20
+    };
 
+    std::vector<Vertex> temp (verticesArr, verticesArr + sizeof(verticesArr) / sizeof(verticesArr[0]));
+    std::vector<unsigned int> temp2 (indicesArr, indicesArr + sizeof(indicesArr) / sizeof(indicesArr[0]));
+
+    vertices = temp;
+    indices = temp2;
 }

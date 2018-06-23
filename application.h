@@ -8,8 +8,6 @@
 #include "object.h"
 #include "vec3d.h"
 #include "window.h"
-#include "mesh.h"
-#include "program.h"
 #include <map>
 #include <iterator>
 #include <string>

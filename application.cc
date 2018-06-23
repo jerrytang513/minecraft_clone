@@ -1,6 +1,4 @@
 #include "application.h"
-
-using namespace std;
 using namespace chrono;
 
 Application::Application(char* title) :title{ title } {}

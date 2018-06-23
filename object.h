@@ -49,10 +49,6 @@ public:
 	float getDamping();
 	void update(float time);
 
-	void attachCube(float centerX, float centerY, float centerZ, float edgeLength);
-	void draw();
-	void rotate(GLfloat angle, Vec3D axis);
-
 	Collision* getCollision();
 
 };

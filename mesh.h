@@ -1,24 +1,51 @@
 #ifndef MESH_H
 #define MESH_H
 
+
+#include <GL/glew.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include "vec3d.h"
+#include "vec2d.h"
+#include "shader.h"
+
 #include <string>
 #include <fstream>
 #include <sstream>
 #include <iostream>
 #include <vector>
+#include <initializer_list>
+
 using namespace std;
-/*
+
 struct Vertex {
     // position
-    glm::vec3 Position;
+    Vec3D Position;
     // normal
-    glm::vec3 Normal;
+    Vec3D Normal;
     // texCoords
-    glm::vec2 TexCoords;
+    Vec2D TexCoords;
     // tangent
-    glm::vec3 Tangent;
+    Vec3D Tangent;
     // bitangent
-    glm::vec3 Bitangent;
+    Vec3D Bitangent;
+    Vertex(){}
+    Vertex(std::initializer_list<float> temp){
+      float data[14];
+      std::copy(temp.begin(), temp.end(), data);
+      Position = Vec3D(data[0], data[1], data[2]);
+      Normal = Vec3D(data[3], data[4], data[5]);
+      TexCoords = Vec2D(data[6], data[7]);
+      Tangent = Vec3D(data[8], data[9], data[10]);
+      Bitangent = Vec3D(data[11], data[12], data[13]);
+    }
+    Vertex(float data[14]){
+      Position = Vec3D(data[0], data[1], data[2]);
+      Normal = Vec3D(data[3], data[4], data[5]);
+      TexCoords = Vec2D(data[6], data[7]);
+      Tangent = Vec3D(data[8], data[9], data[10]);
+      Bitangent = Vec3D(data[11], data[12], data[13]);
+    }
 };
 
 struct Texture {
@@ -29,11 +56,13 @@ struct Texture {
 
 class Mesh {
 public:
+    /*  Mesh Data  */
     vector<Vertex> vertices;
     vector<unsigned int> indices;
     vector<Texture> textures;
     unsigned int VAO;
 
+    /*  Functions  */
     // constructor
     Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures)
     {
@@ -84,8 +113,10 @@ public:
     }
 
 private:
+    /*  Render data  */
     unsigned int VBO, EBO;
 
+    /*  Functions    */
     // initializes all the buffer objects/arrays
     void setupMesh()
     {
@@ -125,5 +156,4 @@ private:
         glBindVertexArray(0);
     }
 };
-*/
 #endif

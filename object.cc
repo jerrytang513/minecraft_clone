@@ -100,11 +100,6 @@ void Object::update(float time) {
 	this->position += this->velocity * time;
 	//std::cout << this->position.x << std::endl;
 
-	// update collision info
-	collision->setCenterPos(this->position);
-	collision->setXAxis((this->shape)->getXAxis());
-	collision->setYAxis((this->shape)->getYAxis());
-	collision->setZAxis((this->shape)->getZAxis());
 
 	// Considering having applied force (continuously supplying the force to the object)
 	clearForce();
@@ -112,17 +107,4 @@ void Object::update(float time) {
 
 Collision* Object::getCollision() {
 	return this->collision;
-}
-
-void Object::attachCube(float centerX, float centerY, float centerZ, float edgeLength) {
-	shape = new Cube(centerX, centerY, centerZ, edgeLength);
-	collision = new CubeCollision(Vec3D(centerX, centerY, centerZ), edgeLength / 2, edgeLength / 2, edgeLength / 2);
-}
-
-void Object::draw() {
-	shape->draw();
-}
-
-void Object::rotate(GLfloat angle, Vec3D axis) {
-	shape->rotate(angle, axis);
 }

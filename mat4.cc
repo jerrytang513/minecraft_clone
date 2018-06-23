@@ -240,6 +240,7 @@ Mat4 Mat4::rotation(float angle, Vec3D axis) {
 }
 
 Mat4 Mat4::view(Camera& camera) {
+	/*
 	Mat4 view = getIdentity();
 	Mat4 pos = getIdentity();
 
@@ -270,7 +271,8 @@ Mat4 Mat4::view(Camera& camera) {
 	view *= pos;
 	view.transpose();
 	return view;
-
+*/
+return getIdentity();
 }
 
 void Mat4::multiply(Mat4& other) {

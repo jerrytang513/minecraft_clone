@@ -72,15 +72,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>C:\Users\jerry\Documents\libs\build\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>C:\Users\jerry\Documents\libs\build\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <LibraryPath>C:\Users\jerry\Documents\libs\build\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <LibraryPath>C:\Users\jerry\Documents\libs\build\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -90,13 +94,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\jerry\Documents\libs\GLEW\include;C:\Users\jerry\Documents\libs\GLFW\include;C:\Users\jerry\Documents\libs\GLM;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\jerry\Documents\libs\GLEW\include;C:\Users\jerry\Documents\libs\GLFW\include;C:\Users\jerry\Documents\libs\GLM;C:\Users\jerry\Documents\libs\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\jerry\Documents\libs\GLEW\lib\Release\x64;C:\Users\jerry\Documents\libs\GLFW\lib-vc2015;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\jerry\Documents\libs\GLEW\lib\Release\x64;C:\Users\jerry\Documents\libs\GLFW\lib-vc2015;C:\Users\jerry\Documents\libs\build\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -107,13 +111,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\jerry\Documents\libs\GLEW\include;C:\Users\jerry\Documents\libs\GLFW\include;C:\Users\jerry\Documents\libs\GLM;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\jerry\Documents\libs\GLEW\include;C:\Users\jerry\Documents\libs\GLFW\include;C:\Users\jerry\Documents\libs\GLM;C:\Users\jerry\Documents\libs\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\jerry\Documents\libs\GLEW\lib\Release\x64;C:\Users\jerry\Documents\libs\GLFW\lib-vc2015;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\jerry\Documents\libs\GLEW\lib\Release\x64;C:\Users\jerry\Documents\libs\GLFW\lib-vc2015;C:\Users\jerry\Documents\libs\build\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -126,15 +130,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\jerry\Documents\libs\GLEW\include;C:\Users\jerry\Documents\libs\GLFW\include;C:\Users\jerry\Documents\libs\GLM;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\jerry\Documents\libs\GLEW\include;C:\Users\jerry\Documents\libs\GLFW\include;C:\Users\jerry\Documents\libs\GLM;C:\Users\jerry\Documents\libs\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\jerry\Documents\libs\GLEW\lib\Release\x64;C:\Users\jerry\Documents\libs\GLFW\lib-vc2015;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\jerry\Documents\libs\GLEW\lib\Release\x64;C:\Users\jerry\Documents\libs\GLFW\lib-vc2015;C:\Users\jerry\Documents\libs\build\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -147,15 +151,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\jerry\Documents\libs\GLEW\include;C:\Users\jerry\Documents\libs\GLFW\include;C:\Users\jerry\Documents\libs\GLM;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\jerry\Documents\libs\GLEW\include;C:\Users\jerry\Documents\libs\GLFW\include;C:\Users\jerry\Documents\libs\GLM;C:\Users\jerry\Documents\libs\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\jerry\Documents\libs\GLEW\lib\Release\x64;C:\Users\jerry\Documents\libs\GLFW\lib-vc2015;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\jerry\Documents\libs\GLEW\lib\Release\x64;C:\Users\jerry\Documents\libs\GLFW\lib-vc2015;C:\Users\jerry\Documents\libs\build\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -167,22 +171,19 @@
     <ClInclude Include="cubeCollision.h" />
     <ClInclude Include="force.h" />
     <ClInclude Include="forceManager.h" />
+    <ClInclude Include="GraphicsManager.h" />
     <ClInclude Include="mat4.h" />
     <ClInclude Include="mesh.h" />
     <ClInclude Include="object.h" />
-    <ClInclude Include="program.h" />
     <ClInclude Include="quaternion.h" />
-    <ClInclude Include="shader.h" />
     <ClInclude Include="shader_s.h" />
     <ClInclude Include="shape3d.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="test.h" />
-    <ClInclude Include="test2.h" />
-    <ClInclude Include="test3.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="utilities.h" />
+    <ClInclude Include="Vec2D.h" />
     <ClInclude Include="vec3d.h" />
     <ClInclude Include="vec4d.h" />
     <ClInclude Include="window.h" />
@@ -194,14 +195,12 @@
     <ClCompile Include="cube.cc" />
     <ClCompile Include="cubeCollision.cc" />
     <ClCompile Include="force.cc" />
+    <ClCompile Include="GraphicsManager.cc" />
     <ClCompile Include="mat4.cc" />
-    <ClCompile Include="mesh.cc" />
     <ClCompile Include="object.cc" />
     <ClCompile Include="Physics_Engine.cpp" />
     <ClCompile Include="placeholder.cc" />
-    <ClCompile Include="program.cc" />
     <ClCompile Include="quaternion.cc" />
-    <ClCompile Include="shader.cc" />
     <ClCompile Include="shape3d.cc" />
     <ClCompile Include="stb_image.cc" />
     <ClCompile Include="stdafx.cpp">
@@ -210,10 +209,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="test.cc" />
-    <ClCompile Include="test2.cc" />
-    <ClCompile Include="test3.cc" />
-    <ClCompile Include="texture.cc" />
+    <ClCompile Include="Vec2D.cc" />
     <ClCompile Include="vec3d.cc" />
     <ClCompile Include="vec4d.cc" />
     <ClCompile Include="window.cc" />

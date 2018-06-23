@@ -1,35 +1,29 @@
 #ifndef SHAPE3D_H_
 #define SHAPE3D_H_
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include "vec3d.h"
-#include "quaternion.h"
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include "mesh.h"
+#include <vector>
+
 
 class Shape3D {
 
 protected:
 
-	Vec3D center;
-	Vec3D xAxis;
-	Vec3D yAxis;
-	Vec3D zAxis;
-	Shape3D(Vec3D vec);
-	Shape3D(Vec3D vec, Vec3D xAxis, Vec3D yAxis, Vec3D zAxis);
+	std::vector<Vertex> vertices;
+	std::vector<unsigned int> indices;
+	std::vector<Texture> textures;
+
+	Shape3D();
 
 public:
 
-	virtual void draw() = 0;
-	virtual void rotate(GLfloat angle, Vec3D axis) = 0;
-
-	Vec3D getXAxis();
-	Vec3D getYAxis();
-	Vec3D getZAxis();
-
-	void setXAxis(Vec3D);
-	void setYAxis(Vec3D);
-	void setZAxis(Vec3D);
-
+	std::vector<Vertex> getVertices();
+	std::vector<unsigned int> getIndices();
+	std::vector<Texture> getTextures();
+	Mesh createMesh();
 
 };
 

@@ -105,22 +105,13 @@
     <ClInclude Include="shape3d.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="program.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="test.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="shader_s.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="test2.h">
+    <ClInclude Include="GraphicsManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="test3.h">
+    <ClInclude Include="Vec2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -129,9 +120,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Physics_Engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="test.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="application.cc">
@@ -167,12 +155,6 @@
     <ClCompile Include="camera.cc">
       <Filter>Source Files\src\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="texture.cc">
-      <Filter>Source Files\src\graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="mesh.cc">
-      <Filter>Source Files\src\graphics</Filter>
-    </ClCompile>
     <ClCompile Include="stb_image.cc">
       <Filter>Source Files\src\graphics\resource</Filter>
     </ClCompile>
@@ -182,19 +164,13 @@
     <ClCompile Include="shape3d.cc">
       <Filter>Source Files\src\graphics\asset</Filter>
     </ClCompile>
-    <ClCompile Include="shader.cc">
-      <Filter>Source Files\src\graphics\resource\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="program.cc">
-      <Filter>Source Files\src\graphics\resource\shader</Filter>
-    </ClCompile>
     <ClCompile Include="placeholder.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="test2.cc">
+    <ClCompile Include="GraphicsManager.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="test3.cc">
+    <ClCompile Include="Vec2D.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
