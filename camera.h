@@ -12,13 +12,15 @@ enum Camera_Movement {
     FORWARD,
     BACKWARD,
     LEFT,
-    RIGHT
+    RIGHT,
+    UP,
+    DOWN,
 };
 
 // Default camera values
 const float YAW         = -90.0f;
 const float PITCH       =  0.0f;
-const float SPEED       =  2.5f;
+const float SPEED       =  6.0f;
 const float SENSITIVITY =  0.1f;
 const float ZOOM        =  45.0f;
 
@@ -69,16 +71,29 @@ public:
     // Processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
     void ProcessKeyboard(Camera_Movement direction, float deltaTime)
     {
+        glm::vec3 frontTemp;
+        glm::vec3 rightTemp;
+
+        frontTemp.x = Front.x;
+        frontTemp.y = 0;
+        frontTemp.z = Front.z;
+        rightTemp.x = Right.x;
+        rightTemp.y = 0;
+        rightTemp.z = Right.z;
 
         float velocity = MovementSpeed * deltaTime;
         if (direction == FORWARD)
-            Position += Front * velocity;
+            Position += frontTemp * velocity;
         if (direction == BACKWARD)
-            Position -= Front * velocity;
+            Position -= frontTemp * velocity;
         if (direction == LEFT)
-            Position -= Right * velocity;
+            Position -= rightTemp * velocity;
         if (direction == RIGHT)
-            Position += Right * velocity;
+            Position += rightTemp * velocity;
+        if (direction == UP)
+            Position += WorldUp * velocity;
+        if (direction == DOWN)
+            Position -= WorldUp * velocity;
     }
 
     // Processes input received from a mouse input system. Expects the offset value in both the x and y direction.
