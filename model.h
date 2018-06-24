@@ -9,7 +9,7 @@
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
 
-#include "mesh.h"
+#include "src/mesh/mesh.h"
 #include "shader.h"
 
 #include <string>
@@ -21,7 +21,6 @@
 using namespace std;
 
 unsigned int TextureFromFile(const char *path, const string &directory, bool gamma = false);
-
 class Model
 {
 public:
@@ -193,7 +192,6 @@ private:
         return textures;
     }
 };
-
 
 unsigned int TextureFromFile(const char *path, const string &directory, bool gamma)
 {

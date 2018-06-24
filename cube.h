@@ -9,6 +9,7 @@ class Cube : public Shape3D {
 public:
 
 	Cube();
+
 };
 
 

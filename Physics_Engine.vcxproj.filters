@@ -40,6 +40,12 @@
     <Filter Include="Source Files\glsl">
       <UniqueIdentifier>{8ebe6dac-fec4-4123-8205-372a1dad26e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\src\Mesh">
+      <UniqueIdentifier>{e89cbb52-4973-43ae-8dfa-90d0e9c08bf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Mesh">
+      <UniqueIdentifier>{9980055c-eb1f-4b40-acf9-d13aa999fb81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -87,12 +93,6 @@
     <ClInclude Include="camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="mesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -113,6 +113,15 @@
     </ClInclude>
     <ClInclude Include="Vec2D.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh.h">
+      <Filter>Header Files\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mesh\blockMesh.h">
+      <Filter>Header Files\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>Header Files\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

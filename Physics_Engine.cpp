@@ -68,16 +68,19 @@ int main()
 
     // build and compile shaders
     // -------------------------
-    Shader ourShader("shaders/model.vs", "shaders/model.fs");
+    Shader ourShader("shaders/block.vs", "shaders/block.fs");
 
     // load models
     // -----------
     //Model ourModel("resources/textures/nanosuit.obj");
 
     Cube c;
-    Mesh m = c.createMesh();
+    c.addTexture("resources/blocks/grass_top.png");
+    c.addTexture("resources/blocks/grass_side.png");
+    c.addTexture("resources/blocks/grass_bot.png");
+    BlockMesh m = c.createBlockMesh();
 
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+  //  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     // render loop
     // -----------
@@ -100,6 +103,7 @@ int main()
         model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
         model = glm::scale(model, glm::vec3(2.2f, 2.2f, 2.2f));	// it's a bit too big for our scene, so scale it down
         ourShader.setMat4("model", model);
+
         m.Draw(ourShader);
         // --------------------
         /*
