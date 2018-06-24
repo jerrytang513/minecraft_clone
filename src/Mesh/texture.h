@@ -5,6 +5,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "../../stb_image.h"
+#include <iostream>
 
 class Texture {
 public:
@@ -31,6 +32,7 @@ public:
     stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
     // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
     unsigned char *data = stbi_load(path.c_str(), &width, &height, &nrChannels, 0);
+
 		GLenum format;
 		if (nrChannels == 1)
 				format = GL_RED;

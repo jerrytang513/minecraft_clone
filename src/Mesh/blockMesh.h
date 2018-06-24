@@ -33,11 +33,12 @@ struct Block{
 class BlockMesh{
 
 public:
-  vector<Block> vertices;
-  vector<unsigned int> indices;
-  vector<Texture> textures;
+  std::vector<Block> vertices;
+  std::vector<unsigned int> indices;
+  std::vector<Texture> textures;
   unsigned int VAO;
-  BlockMesh(std::vector<Block> vertices, vector<unsigned int> indices, vector<Texture> textures){
+  BlockMesh(){}
+  BlockMesh(std::vector<Block> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures){
     this->vertices = vertices;
     this->indices = indices;
     this->textures = textures;

@@ -188,6 +188,8 @@
     <ClInclude Include="vec3d.h" />
     <ClInclude Include="vec4d.h" />
     <ClInclude Include="window.h" />
+    <ClInclude Include="WorldGenerator\perlinNoise.h" />
+    <ClInclude Include="WorldGenerator\worldSpace.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="application.cc" />
@@ -214,6 +216,8 @@
     <ClCompile Include="vec3d.cc" />
     <ClCompile Include="vec4d.cc" />
     <ClCompile Include="window.cc" />
+    <ClCompile Include="WorldGenerator\perlinNoise.cc" />
+    <ClCompile Include="WorldGenerator\worldSpace.cc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment.glsl" />
@@ -227,6 +231,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\physics_engine_pre\src\graphics\asset\pics\container.jpg" />
+    <Image Include="resources\blocks\grass_bot.png" />
     <Image Include="smily.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

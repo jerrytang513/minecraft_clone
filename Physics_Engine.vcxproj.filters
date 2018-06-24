@@ -46,6 +46,9 @@
     <Filter Include="Header Files\Mesh">
       <UniqueIdentifier>{9980055c-eb1f-4b40-acf9-d13aa999fb81}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\blocks">
+      <UniqueIdentifier>{995c758e-87cb-4986-ad61-0a99d37b0a7b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -123,6 +126,12 @@
     <ClInclude Include="texture.h">
       <Filter>Header Files\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="WorldGenerator\perlinNoise.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldGenerator\worldSpace.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -182,6 +191,12 @@
     <ClCompile Include="Vec2D.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WorldGenerator\perlinNoise.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldGenerator\worldSpace.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="vertex.glsl">
@@ -215,6 +230,9 @@
     </Image>
     <Image Include="smily.jpg">
       <Filter>Source Files\src\graphics\asset\pics</Filter>
+    </Image>
+    <Image Include="resources\blocks\grass_bot.png">
+      <Filter>Resource Files\blocks</Filter>
     </Image>
   </ItemGroup>
 </Project>

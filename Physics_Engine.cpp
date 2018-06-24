@@ -9,6 +9,7 @@
 #include "cube.h"
 #include "camera.h"
 #include "model.h"
+#include "WorldGenerator/worldSpace.h"
 
 #include <iostream>
 
@@ -69,7 +70,7 @@ int main()
     // build and compile shaders
     // -------------------------
     Shader ourShader("shaders/block.vs", "shaders/block.fs");
-
+    WorldSpace ws(20,20,20);
     // load models
     // -----------
     //Model ourModel("resources/textures/nanosuit.obj");
@@ -99,12 +100,9 @@ int main()
         glm::mat4 view = camera.GetViewMatrix();
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
-        glm::mat4 model;
-        model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(2.2f, 2.2f, 2.2f));	// it's a bit too big for our scene, so scale it down
-        ourShader.setMat4("model", model);
 
-        m.Draw(ourShader);
+        ws.draw(ourShader);
+
         // --------------------
         /*
 
