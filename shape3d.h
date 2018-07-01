@@ -9,13 +9,19 @@
 #include <vector>
 #include <string>
 
+enum class Type{
+	AIR = 100,
+	GRASS_TOP = 0,
+	GRASS_SIDE = 1,
+	GRASS_BOT = 2,
+};
 
 class Shape3D {
 
 protected:
 
 	std::vector<Vertex> vertices;
-	std::vector<Block> blockVerticesArr;
+	std::vector<Block> verticesArray;
 	std::vector<unsigned int> indices;
 	std::vector<Texture> textures;
 
@@ -28,7 +34,6 @@ public:
 	std::vector<Texture> getTextures();
 	void addTexture(const char *path);
 	Mesh createMesh();
-	BlockMesh createBlockMesh();
 
 };
 

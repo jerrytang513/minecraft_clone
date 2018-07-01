@@ -19,8 +19,8 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow *window);
 
 // settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCR_WIDTH = 1500;
+const unsigned int SCR_HEIGHT = 800;
 
 // camera
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
@@ -65,12 +65,16 @@ int main()
 
     // configure global opengl state
     // -----------------------------
-    glEnable(GL_DEPTH_TEST);
 
+    glEnable(GL_DEPTH_TEST);
+    //glEnable(GL_CULL_FACE);
+
+    //glCullFace(GL_BACK);
+glDepthFunc(GL_LESS);
     // build and compile shaders
     // -------------------------
     Shader ourShader("shaders/block.vs", "shaders/block.fs");
-    WorldSpace ws(20,20,20);
+    WorldSpace ws(16,16,20);
     // load models
     // -----------
     //Model ourModel("resources/textures/nanosuit.obj");

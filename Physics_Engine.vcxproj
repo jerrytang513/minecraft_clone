@@ -189,6 +189,7 @@
     <ClInclude Include="vec4d.h" />
     <ClInclude Include="window.h" />
     <ClInclude Include="WorldGenerator\perlinNoise.h" />
+    <ClInclude Include="WorldGenerator\Renderer\blockRenderer.h" />
     <ClInclude Include="WorldGenerator\worldSpace.h" />
   </ItemGroup>
   <ItemGroup>
@@ -217,6 +218,7 @@
     <ClCompile Include="vec4d.cc" />
     <ClCompile Include="window.cc" />
     <ClCompile Include="WorldGenerator\perlinNoise.cc" />
+    <ClCompile Include="WorldGenerator\Renderer\blockRenderer.cc" />
     <ClCompile Include="WorldGenerator\worldSpace.cc" />
   </ItemGroup>
   <ItemGroup>

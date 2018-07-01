@@ -132,6 +132,9 @@
     <ClInclude Include="WorldGenerator\worldSpace.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WorldGenerator\Renderer\blockRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -195,6 +198,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WorldGenerator\worldSpace.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldGenerator\Renderer\blockRenderer.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
