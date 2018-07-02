@@ -7,17 +7,12 @@
 #include "../src/Mesh/blockMesh.h"
 #include "../shader.h"
 #include "Renderer/blockRenderer.h"
+#include "coordinate.h"
 
-struct Coordinate{
-  int x;
-  int y;
-  int z;
-  Cube cube;
-};
 // This class manages the blocks inside the world
 class WorldSpace{
   Cube c;
-  BlockMesh block;
+  BlockMesh mesh;
   BlockRenderer blockRenderer;
 
   PerlinNoise pn;

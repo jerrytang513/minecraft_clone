@@ -35,22 +35,28 @@ class BlockMesh{
 public:
   std::vector<Block> vertices;
   std::vector<unsigned int> indices;
-  int textureIndex;
-  unsigned int VAO;
+  std::vector<Texture> textures;
+
   BlockMesh(){}
-  BlockMesh(std::vector<Block> vertices, std::vector<unsigned int> indices, int textureIndex){
+  BlockMesh(std::vector<Block> vertices, std::vector<unsigned int> indices,  std::vector<Texture> textures){
     this->vertices = vertices;
     this->indices = indices;
-    this->textureIndex = textureIndex;
+    this->textures = textures;
     setupMesh();
   }
-  void Draw(BlockRenderer renderer)
-  {
-    renderer.setTextureIndex(textureIndex);
-    renderer.setVAO(VAO);
-    renderer.setIndices(indices);
-    renderer.draw();
+
+  std::vector<unsigned int>& getIndices(){
+    return indices;
   }
+
+  std::vector<Texture> getTextures(){
+    return textures;
+  }
+  unsigned int getVAO(){
+    return VAO;
+  }
+  
+
   void Draw(Shader shader)
   {
 
@@ -75,6 +81,7 @@ public:
 
 private:
     /*  Render data  */
+    unsigned int VAO;
     unsigned int VBO, EBO;
 
   void setupMesh(){

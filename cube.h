@@ -24,8 +24,6 @@ public:
 		5. front
 		6. back
 	*/
-	void addSide(int side);
-	BlockMesh createSideMesh();
 	Type getType();
 	void setType(int index);
 	bool getStatus();

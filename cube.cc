@@ -45,66 +45,13 @@ BlockMesh Cube::createBlockMesh(){
     16, 17, 18, 18, 19, 16,
     20, 21, 22, 22, 23, 20
   };
-	return BlockMesh(verticesArray, indices, 0);
+	std::vector<Texture> textures = {
+	    Texture("resources/blocks/grass_top.png"),
+	    Texture("resources/blocks/grass_side.png"),
+	    Texture("resources/blocks/grass_bot.png")
+	};
+	return BlockMesh(verticesArray, indices, textures);
 
-}
-
-void Cube::addSide(int side){
-  /*
-		Face Mesh Side data are  (int)
-		1. top
-		2. bottom
-		3. left
-		4. right
-		5. front
-		6. back
-	*/
-	visibleSides.emplace_back(side);
-  switch(side){
-    case 1:
-        verticesArray.emplace_back(Block({- 0.5f, 0.5f, 0.5f, 0.0f, 0.0f}));
-        verticesArray.emplace_back(Block({0.5f, 0.5f, 0.5f, 1.0f, 0.0f}));
-        verticesArray.emplace_back(Block({0.5f, 0.5f, - 0.5f, 1.0f, 1.0f}));
-        verticesArray.emplace_back(Block({- 0.5f, 0.5f, - 0.5f, 0.0f, 1.0f}));
-      std::cout << side << std::endl;
-    case 2:
-        verticesArray.emplace_back(Block({- 0.5f, -0.5f, 0.5f, 0.0f, 0.0f}));
-        verticesArray.emplace_back(Block({0.5f, -0.5f, 0.5f, 1.0f, 0.0f}));
-        verticesArray.emplace_back(Block({0.5f, -0.5f, - 0.5f, 1.0f, 1.0f}));
-        verticesArray.emplace_back(Block({- 0.5f, -0.5f, -0.5f, 0.0f, 1.0f}));
-      std::cout << side << std::endl;
-    case 3:
-        verticesArray.emplace_back(Block({- 0.5f, - 0.5f, - 0.5f, 1.0f, 0.0f}));
-        verticesArray.emplace_back(Block({- 0.5f, - 0.5f, 0.5f, 0.0f, 0.0f}));
-        verticesArray.emplace_back(Block({- 0.5f, 0.5f, 0.5f, 0.0f, 1.0f}));
-        verticesArray.emplace_back(Block({- 0.5f, 0.5f, - 0.5f, 1.0f, 1.0f}));
-      std::cout << side << std::endl;
-    case 4:
-        verticesArray.emplace_back(Block({ 0.5f, - 0.5f, 0.5f, 0.0f, 0.0f}));
-        verticesArray.emplace_back(Block({ 0.5f, - 0.5f, - 0.5f, 1.0f, 0.0f}));
-        verticesArray.emplace_back(Block({ 0.5f, 0.5f, - 0.5f, 1.0f, 1.0f}));
-        verticesArray.emplace_back(Block({ 0.5f, 0.5f, 0.5f, 0.0f, 1.0f}));
-      std::cout << side << std::endl;
-    case 5:
-      verticesArray.emplace_back(Block({ - 0.5f, - 0.5f, 0.5f, 0.0f, 0.0f}));
-      verticesArray.emplace_back(Block({ 0.5f, - 0.5f, 0.5f, 1.0f, 0.0f}));
-      verticesArray.emplace_back(Block({ 0.5f, 0.5f, 0.5f, 1.0f, 1.0f}));
-      verticesArray.emplace_back(Block({ - 0.5f, 0.5f, 0.5f, 0.0f, 1.0f}));
-      std::cout << side << std::endl;
-    case 6:
-        verticesArray.emplace_back(Block({ 0.5f, - 0.5f, - 0.5f, 1.0f, 0.0f}));
-        verticesArray.emplace_back(Block({ - 0.5f, - 0.5f, - 0.5f, 0.0f, 0.0f}));
-        verticesArray.emplace_back(Block({ - 0.5f, 0.5f, - 0.5f, 0.0f, 1.0f}));
-        verticesArray.emplace_back(Block({ 0.5f, 0.5f, - 0.5f, 1.0f, 1.0f}));
-      std::cout << side << std::endl;
-  }
-}
-
-BlockMesh Cube::createSideMesh(){
-  indices = {
-    0, 1, 2, 2, 3, 0
-  };
-  return BlockMesh(verticesArray, indices, type);
 }
 
 Type Cube::getType(){

@@ -75,20 +75,7 @@ glDepthFunc(GL_LESS);
     // -------------------------
     Shader ourShader("shaders/block.vs", "shaders/block.fs");
     WorldSpace ws(16,16,20);
-    // load models
-    // -----------
-    //Model ourModel("resources/textures/nanosuit.obj");
 
-    Cube c;
-    c.addTexture("resources/blocks/grass_top.png");
-    c.addTexture("resources/blocks/grass_side.png");
-    c.addTexture("resources/blocks/grass_bot.png");
-    BlockMesh m = c.createBlockMesh();
-
-  //  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-    // render loop
-    // -----------
     while (!glfwWindowShouldClose(window))
     {
         float currentFrame = glfwGetTime();
