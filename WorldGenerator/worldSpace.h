@@ -7,23 +7,22 @@
 #include "../src/Mesh/blockMesh.h"
 #include "../shader.h"
 #include "Renderer/blockRenderer.h"
-#include "coordinate.h"
+#include "Chunk/chunkManager.h"
+#include "Chunk/blockChunk.h"
+#include "blockInfo.h"
 
 // This class manages the blocks inside the world
 class WorldSpace{
   Cube c;
   BlockMesh mesh;
   BlockRenderer blockRenderer;
+  ChunkManager* chunkManager;
 
   PerlinNoise pn;
-  std::vector<Coordinate> coordinates;
 
 public:
   WorldSpace(int width, int length, int height);
-  std::vector<Coordinate> getCoordinates();
   void draw(Shader shader);
-
-
 
 };
 

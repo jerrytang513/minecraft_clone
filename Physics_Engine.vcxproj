@@ -188,6 +188,8 @@
     <ClInclude Include="vec3d.h" />
     <ClInclude Include="vec4d.h" />
     <ClInclude Include="window.h" />
+    <ClInclude Include="WorldGenerator\Chunk\blockChunk.h" />
+    <ClInclude Include="WorldGenerator\Chunk\chunkManager.h" />
     <ClInclude Include="WorldGenerator\perlinNoise.h" />
     <ClInclude Include="WorldGenerator\Renderer\blockRenderer.h" />
     <ClInclude Include="WorldGenerator\worldSpace.h" />
@@ -217,6 +219,8 @@
     <ClCompile Include="vec3d.cc" />
     <ClCompile Include="vec4d.cc" />
     <ClCompile Include="window.cc" />
+    <ClCompile Include="WorldGenerator\Chunk\blockChunk.cc" />
+    <ClCompile Include="WorldGenerator\Chunk\chunkManager.cc" />
     <ClCompile Include="WorldGenerator\perlinNoise.cc" />
     <ClCompile Include="WorldGenerator\Renderer\blockRenderer.cc" />
     <ClCompile Include="WorldGenerator\worldSpace.cc" />

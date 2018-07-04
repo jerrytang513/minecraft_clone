@@ -24,10 +24,21 @@ struct Block{
     Position = Vec3D(data[0], data[1], data[2]);
     TexCoords = Vec2D(data[3], data[4]);
   }
+  Block(std::initializer_list<float> temp, Vec2D texCoords){
+    float data[5];
+    std::copy(temp.begin(), temp.end(), data);
+    Position = Vec3D(data[0], data[1], data[2]);
+    TexCoords = texCoords;
+  }
   Block(float data[5]){
     Position = Vec3D(data[0], data[1], data[2]);
     TexCoords = Vec2D(data[3], data[4]);
   }
+  Block(float data[3], Vec2D texCoords){
+    Position = Vec3D(data[0], data[1], data[2]);
+    TexCoords = texCoords;
+  }
+
 };
 // The block has the data order (top, left, right, front, back, bottom)
 class BlockMesh{
@@ -55,7 +66,7 @@ public:
   unsigned int getVAO(){
     return VAO;
   }
-  
+
 
   void Draw(Shader shader)
   {

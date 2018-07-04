@@ -6,9 +6,6 @@ BlockRenderer::BlockRenderer(){
 
 void BlockRenderer::init(){
   textures = {
-    Texture("resources/blocks/grass_top.png"),
-    Texture("resources/blocks/grass_side.png"),
-    Texture("resources/blocks/grass_bot.png")
   };
 }
 
@@ -36,12 +33,25 @@ void BlockRenderer::setTextureIndex(int textureIndex){
   this->textureIndex = textureIndex;
 }
 
-void BlockRenderer::draw(){
+void BlockRenderer::draw(std::vector<BlockInfo> displayList){
   textures = mesh.getTextures();
   VAO = mesh.getVAO();
   glBindVertexArray(VAO);
   // bind appropriate textures
-  glActiveTexture(GL_TEXTURE0); // active proper texture unit before binding
+  glActiveTexture(GL_TEXTURE0);
+  glUniform1i(glGetUniformLocation(shader.ID, "Texture1"), 0);
+  glBindTexture(GL_TEXTURE_2D, textures[0].id);
+
+  for(auto it = displayList.begin(); it != displayList.end(); it++){
+
+    glm::mat4 model;
+    model = glm::translate(model, glm::vec3(it->x, it->y, it->z)); // translate it down so it's at the center of the scene
+    shader.setMat4("model", model);
+    glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+  }
+  /*
+  glActiveTexture(GL_TEXTURE0);
   glUniform1i(glGetUniformLocation(shader.ID, "Texture1"), 0);
   glBindTexture(GL_TEXTURE_2D, textures[0].id);
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -51,10 +61,9 @@ void BlockRenderer::draw(){
   glBindTexture(GL_TEXTURE_2D,0);
   glBindTexture(GL_TEXTURE_2D, textures[2].id);
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (void*)(sizeof(indices[0]) * 30));
-  // draw mesh
   glBindVertexArray(0);
+*/
 
-  // always good practice to set everything back to defaults once configured.
   glActiveTexture(GL_TEXTURE0);
 }
 

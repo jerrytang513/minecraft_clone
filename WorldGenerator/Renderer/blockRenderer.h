@@ -2,6 +2,7 @@
 #define BLOCKRENDERER_H_
 
 #include "../../src/Mesh/texture.h"
+#include "../blockInfo.h"
 #include "../../shader.h"
 #include <vector>
 #include "../../shape3d.h"
@@ -32,7 +33,7 @@ public:
   void setIndices(std::vector<unsigned int>& indices);
   void setBlockMesh(BlockMesh& mesh);
   void renderSides(std::vector<int> sides);
-  void draw();
+  void draw(std::vector<BlockInfo> displayList);
 };
 
 #endif
