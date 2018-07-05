@@ -17,6 +17,7 @@ class BlockChunk{
   std::vector<BlockInfo> displayList;
   bool needUpdate = true;
 
+
 public:
   BlockChunk();
   // Feed in Block Chunk size of height data, and block chunk will build the coords
@@ -29,5 +30,7 @@ public:
   void updateDisplayList();
   void draw(BlockRenderer renderer);
   void setUpdate(bool status);
+
+  //TODO Add chunk Mesh function
 };
 #endif

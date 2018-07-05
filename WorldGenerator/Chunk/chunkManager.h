@@ -11,7 +11,7 @@ class ChunkManager{
   std::vector<std::vector<std::vector<BlockChunk>>> chunks;
   BlockMesh mesh;
   int M_WIDTH;
-  int M_HEIGHT = 10;
+  int M_HEIGHT = 16;
   int M_LENGTH;
 
   void initializeHeights();
@@ -20,6 +20,7 @@ public:
   ChunkManager(int width, int length, std::vector<int> heights);
   void draw(BlockRenderer renderer);
   void addHeight(std::vector<int> heights);
+  std::vector<std::vector<std::vector<BlockChunk>>>& getChunks();
 };
 
 #endif

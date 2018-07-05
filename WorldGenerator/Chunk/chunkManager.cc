@@ -44,10 +44,14 @@ void ChunkManager::addHeight(std::vector<int> heights){
 
       for(int k = 0; k < chunkLevels; k++){
         std::cout << "CHUNKS " << i/16 << " " << k << " " << j / 16 << std:: endl;
-        chunks[i / 16][2][j / 16].addHeight(i % 16,16,j % 16);
+        chunks[i / 16][k][j / 16].addHeight(i % 16,16,j % 16);
       }
 
       chunks[i / 16][chunkLevels][j / 16].addHeight(i % 16,chunkLevels % 16,j % 16);
     }
   }
+}
+
+std::vector<std::vector<std::vector<BlockChunk>>>& ChunkManager::getChunks(){
+  return chunks;
 }
