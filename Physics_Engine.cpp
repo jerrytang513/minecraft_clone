@@ -62,7 +62,6 @@ int main()
     // ---------------------------------------
     glewExperimental = GL_TRUE;
     glewInit();
-
     // configure global opengl state
     // -----------------------------
 
@@ -74,7 +73,7 @@ glDepthFunc(GL_LESS);
     // build and compile shaders
     // -------------------------
     Shader ourShader("shaders/block.vs", "shaders/block.fs");
-    WorldSpace ws(32,32,20);
+    WorldSpace ws(64,64,20);
 
     while (!glfwWindowShouldClose(window))
     {

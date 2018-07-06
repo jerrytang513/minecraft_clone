@@ -64,6 +64,31 @@ void BlockChunk::draw(BlockRenderer renderer){
   }
   Shader shader = renderer.getShader();
   renderer.draw(displayList);
+}
 
+void BlockChunk::addFace(int i, int j, int k, Direction direction){
+  double faceDimension = 1.0 / 16.0;
+  std::vector<Vec3D> vec;
+  switch(direction){
+    case Direction::UP:
+      vec.emplace_back(Vec3D(-0.5f * faceDimension, 0.5f * faceDimension, 0.5f * faceDimension));
+      vec.emplace_back(Vec3D(0.5f * faceDimension, 0.5f * faceDimension, 0.5f * faceDimension));
+      vec.emplace_back(Vec3D(0.5f * faceDimension, 0.5f * faceDimension, -0.5f * faceDimension));
+      vec.emplace_back(Vec3D(-0.5f * faceDimension, 0.5f * faceDimension, -0.5f * faceDimension));
+    case Direction::DOWN:
+      vec.emplace_back(Vec3D(- 0.5f * faceDimension, - 0.5f * faceDimension, - 0.5f * faceDimension)),
+  		vec.emplace_back(Vec3D(- 0.5f * faceDimension, - 0.5f * faceDimension, 0.5f * faceDimension)),
+  		vec.emplace_back(Vec3D(- 0.5f * faceDimension, 0.5f * faceDimension, 0.5f * faceDimension)),
+  		vec.emplace_back(Vec3D(- 0.5f * faceDimension, 0.5f * faceDimension, - 0.5f * faceDimension)),
+    case Direction::LEFT:
 
+    case Direction::RIGHT:
+
+    case Direction::FRONT:
+
+    case Direction::BACK:
+
+    default:
+      break;
+  }
 }

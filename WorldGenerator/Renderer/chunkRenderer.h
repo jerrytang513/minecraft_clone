@@ -3,14 +3,6 @@
 #include "../Chunk/blockChunk.h"
 #include "../../src/Mesh/chunkMesh.h"
 
-enum class Direction{
-  TOP,
-  DOWN,
-  FRONT,
-  BACK,
-  LEFT,
-  RIGHT
-};
 
 class chunkRenderer{
   std::vector<std::vector<std::vector<BlockChunk>>>& m_chunks;

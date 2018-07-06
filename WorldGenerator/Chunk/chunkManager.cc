@@ -38,16 +38,17 @@ void ChunkManager::addHeight(std::vector<int> heights){
 
   for(int i = 0; i < M_WIDTH * 16; i++){
     for(int j = 0; j < M_LENGTH * 16; j++){
-      int height = heights[i * M_LENGTH * 16 + j];
 
+      int height = heights[i * M_LENGTH * 16 + j];
+      std::cout << "i " << i << " j " << j << " height " << height << std::endl;
       int chunkLevels = height / 16;
 
       for(int k = 0; k < chunkLevels; k++){
         std::cout << "CHUNKS " << i/16 << " " << k << " " << j / 16 << std:: endl;
         chunks[i / 16][k][j / 16].addHeight(i % 16,16,j % 16);
       }
-
-      chunks[i / 16][chunkLevels][j / 16].addHeight(i % 16,chunkLevels % 16,j % 16);
+      std::cout << height % 16 << std::endl;
+      chunks[i / 16][chunkLevels][j / 16].addHeight(i % 16,height % 16,j % 16);
     }
   }
 }

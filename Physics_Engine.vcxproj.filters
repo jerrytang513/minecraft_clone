@@ -141,6 +141,9 @@
     <ClInclude Include="WorldGenerator\Chunk\chunkManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WorldGenerator\NoiseGen\noiseGen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -213,6 +216,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WorldGenerator\Chunk\chunkManager.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldGenerator\NoiseGen\noiseGen.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

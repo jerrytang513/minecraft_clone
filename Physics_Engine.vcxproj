@@ -190,6 +190,7 @@
     <ClInclude Include="window.h" />
     <ClInclude Include="WorldGenerator\Chunk\blockChunk.h" />
     <ClInclude Include="WorldGenerator\Chunk\chunkManager.h" />
+    <ClInclude Include="WorldGenerator\NoiseGen\noiseGen.h" />
     <ClInclude Include="WorldGenerator\perlinNoise.h" />
     <ClInclude Include="WorldGenerator\Renderer\blockRenderer.h" />
     <ClInclude Include="WorldGenerator\worldSpace.h" />
@@ -221,6 +222,7 @@
     <ClCompile Include="window.cc" />
     <ClCompile Include="WorldGenerator\Chunk\blockChunk.cc" />
     <ClCompile Include="WorldGenerator\Chunk\chunkManager.cc" />
+    <ClCompile Include="WorldGenerator\NoiseGen\noiseGen.cc" />
     <ClCompile Include="WorldGenerator\perlinNoise.cc" />
     <ClCompile Include="WorldGenerator\Renderer\blockRenderer.cc" />
     <ClCompile Include="WorldGenerator\worldSpace.cc" />

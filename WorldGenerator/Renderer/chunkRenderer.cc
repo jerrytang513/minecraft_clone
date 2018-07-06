@@ -1,5 +1,6 @@
 #include "chunkRenderer.h"
 #include "../Chunk/chunkManager.h"
+#include "direction.h"
 
 ChunkRenderer::ChunkRenderer(){}
 
@@ -27,7 +28,7 @@ bool ShouldAddFace(int chunkX, int chunkY, int chunkZ, int i, int j, int k){
 }
 
 void generateChunkMesh(int chunkX, int chunkY, int chunkZ){
-  BlockChunk block = m_chunk[i][j][k];
+  BlockChunk block = m_chunks[i][j][k];
   for(int i = 0; i < 16; i++){
     for(int j = 0; j < 16; j++){
       for(int k = 0; k < 16; k++){
@@ -36,50 +37,50 @@ void generateChunkMesh(int chunkX, int chunkY, int chunkZ){
           // TODO Finish up the addFace Function
           if(i == 0){
             if(shouldAddFace(chunkX - 1, chunkY, chunkZ, 15, j, k))
-              m_chunk[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::LEFT);
+              m_chunks[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::LEFT);
           } else {
             if(!block[i-1][j][k].isVisible)
-              m_chunk[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::LEFT);
+              m_chunks[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::LEFT);
           }
 
           if(i == 15){
             if(shouldAddFace(chunkX + 1, chunkY, chunkZ, 0, j, k))
-              m_chunk[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::RIGHT);
+              m_chunks[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::RIGHT);
           } else {
             if(!block[i+1][j][k].isVisible)
-              m_chunk[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::RIGHT);
+              m_chunks[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::RIGHT);
           }
 
           if(j == 0){
               if(shouldAddFace(chunkX, chunkY - 1, chunkZ, i, 15, k))
-                m_chunk[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::DOWN);
+                m_chunks[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::DOWN);
           } else {
             if(!block[i][j-1][k].isVisible)
-                m_chunk[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::DOWN);
+                m_chunks[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::DOWN);
           }
 
           if(j == 15){
             if(shouldAddFace(chunkX, chunkY + 1, chunkZ, i, 0, k))
-              m_chunk[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::TOP);
+              m_chunks[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::TOP);
           } else {
             if(!block[i][j+1][k].isVisible)
-              m_chunk[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::TOP);
+              m_chunks[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::TOP);
           }
 
           if(k == 0){
               if(shouldAddFace(chunkX, chunkY, chunkZ - 1, i, j, 15))
-                m_chunk[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::BACK);
+                m_chunks[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::BACK);
           } else {
               if(!block[i][j][k-1].isVisible)
-                m_chunk[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::BACK);
+                m_chunks[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::BACK);
           }
 
           if(k == 15){
             if(shouldAddFace(chunkX, chunkY, chunkZ + 1, i, j, 0))
-              m_chunk[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::FRONT);
+              m_chunks[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::FRONT);
           } else {
             if(!block[i][j][k+1].isVisible)
-              m_chunk[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::FRONT);
+              m_chunks[chunkX][chunkY][chunkZ].addFace(i, j, k, Direction::FRONT);
           }
       }
     }

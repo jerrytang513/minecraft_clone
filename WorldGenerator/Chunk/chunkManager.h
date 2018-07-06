@@ -21,6 +21,7 @@ public:
   void draw(BlockRenderer renderer);
   void addHeight(std::vector<int> heights);
   std::vector<std::vector<std::vector<BlockChunk>>>& getChunks();
+  void addFace();
 };
 
 #endif

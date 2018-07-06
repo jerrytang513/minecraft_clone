@@ -2,8 +2,10 @@
 #define BLOCKCHUNK_H_
 
 #include "../blockInfo.h"
+#include "../../Vec3D.h"
 #include "../Renderer/blockRenderer.h"
 #include "../../shader.h"
+#include "direction.h"
 #include <vector>
 
 class BlockChunk{
@@ -30,7 +32,6 @@ public:
   void updateDisplayList();
   void draw(BlockRenderer renderer);
   void setUpdate(bool status);
-
-  //TODO Add chunk Mesh function
+  void addFace(int i, int j, int k, Direction direction);
 };
 #endif
