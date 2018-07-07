@@ -148,7 +148,7 @@ void Mat4::inverseMat(){
 
  det = values[0] * inverse[0] + values[1] * inverse[4] + values[2] * inverse[8] + values[3] * inverse[12];
 
- det = 1.0 / det;
+ det = 1.0f / det;
  for (int i = 0; i < 16; i++)
 		 values[i] = inverse[i] * det;
 }

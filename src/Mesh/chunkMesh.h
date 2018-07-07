@@ -19,10 +19,10 @@
 // The block has the data order (top, left, right, front, back, bottom)
 class ChunkMesh{
   std::vector<Vec3D> vertices;
-  std::vector<unsigned int> indices;
-  std::vector<Vec2D int> textureCoords;
-  std::vector<int> textureIndexes
-  std::vector<double> data;
+  std::vector<int> indices;
+  std::vector<Vec2D> textureCoords;
+  std::vector<int> textureIndexes;
+  std::vector<float> data;
   Shader m_shader;
   int chunkX;
   int chunkY;
@@ -31,7 +31,7 @@ class ChunkMesh{
 public:
 
   ChunkMesh(){}
-  ChunkMesh(std::vector<Vec3D> vertices, std::vector<unsigned int> indices,  std::vector<int> textureIndexes, std::vector<Vec2D> textureCoords, int chunkX, int chunkY, int chunkZ){
+  ChunkMesh(std::vector<Vec3D> vertices, std::vector<int> indices,  std::vector<int> textureIndexes, std::vector<Vec2D> textureCoords, int chunkX, int chunkY, int chunkZ){
     this->vertices = vertices;
     this->indices = indices;
     this->textureCoords = textureCoords;
@@ -40,12 +40,14 @@ public:
     this->chunkY = chunkY;
     this->chunkZ = chunkZ;
 
-    for(auto it = vertices.begin(), texCoordIt = textureCoords.begin(); it != vertices.end(); it++, texCoordIt ++){
-      data.emplace_back(*it->coord.x);
-      data.emplace_back(*it->coord.y);
-      data.emplace_back(*it->coord.z);
-      data.emplace_back(*texCoordIt->coord.x);
-      data.emplace_back(*texCoordIt->coord.y);
+    auto texCoordIt = textureCoords.begin();
+    for(auto it = vertices.begin(); it != vertices.end(); it++){
+      data.emplace_back(((Vec3D)(*it)).coord.x);
+      data.emplace_back(((Vec3D)(*it)).coord.y);
+      data.emplace_back(((Vec3D)(*it)).coord.z);
+      data.emplace_back(((Vec2D)(*texCoordIt)).coord.x);
+      data.emplace_back(((Vec2D)(*texCoordIt)).coord.y);
+      texCoordIt ++;
     }
     setupMesh();
   }
@@ -59,32 +61,31 @@ public:
   }
 
   Vec3D getChunkCoordinate(){
-    return Vec3D(chunkX, chunkY, chunkZ);
+    return Vec3D((float)chunkX, (float)chunkY, (float)chunkZ);
   }
 
-  std::map<unsigned int, unsigned int> getTextureIndexes(){
+  std::vector<int> getTextureIndexes(){
     return textureIndexes;
   }
 
   std::vector<unsigned int> getTextureIds(){
-    TextureManager *tm = TextureManger.getInstance();
     std::vector<unsigned int> textureIds;
-    for(auto it = textureIndexes.begin(); it != textureIndexes = end(); it ++){
-      textureIds.emplace_back(*it);
+    for(auto it = textureIndexes.begin(); it != textureIndexes.end(); it ++){
+      textureIds.emplace_back(TextureManager::getInstance().getTexture(*it).id);
     }
-    return texturesIds;
+    return textureIds;
   }
 
   unsigned int getVAO(){
     return VAO;
   }
 
-  int getNumtriangles(){
-    return vertices.size() / 3;
+  int getNumTriangles(){
+    return indices.size();
   }
 
 
-  std::vector<unsigned int>& const getIndices(){
+  std::vector<int> const getIndices(){
     return indices;
   }
 
@@ -104,17 +105,18 @@ private:
     // A great thing about structs is that their memory layout is sequential for all its items.
     // The effect is that we can simply pass a pointer to the struct and it translates perfectly to a glm::vec3/2 array which
     // again translates to 3/2 floats which translates to a byte array.
-    glBufferData(GL_ARRAY_BUFFER, data.size(), &data[0], GL_STATIC_DRAW);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(float), &data[0], GL_STATIC_DRAW);
 
     // set the vertex attribute pointers
     // vertex Positions
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, sizeof(double) * 5, (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 5, (void*)0);
     // vertex normals
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_DOUBLE, GL_FALSE, sizeof(double) * 5, (void*)3 * sizeof(double));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 5, (void*)(3 * sizeof(float)));
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(int), &indices[0], GL_STATIC_DRAW);
 
     glBindVertexArray(0);
   }

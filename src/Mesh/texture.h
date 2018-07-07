@@ -54,15 +54,15 @@ public:
     stbi_image_free(data);
 	}
 	std::vector<Vec2D> getCoordinates(Vec2D coordinate){
-		static const GLfloat TEX_PER_ROW      = 16;
+		static const GLfloat TEX_PER_ROW      = 16.0f;
 	 	static const GLfloat INDV_TEX_SIZE    = 1.0f / TEX_PER_ROW;
 	 	static const GLfloat PIXEL_SIZE       = 1.0f / (float)256;
 
-		 GLfloat xMin = (coordinate.values[0] * INDV_TEX_SIZE) + 0.5 * PIXEL_SIZE;
-		 GLfloat yMin = (coordinate.values[1] * INDV_TEX_SIZE) + 0.5 * PIXEL_SIZE;
+		 GLfloat xMin = (coordinate.values[0] * INDV_TEX_SIZE) + 0.5f * PIXEL_SIZE;
+		 GLfloat yMin = (coordinate.values[1] * INDV_TEX_SIZE) + 0.5f * PIXEL_SIZE;
 
-		 GLfloat xMax = (xMin + INDV_TEX_SIZE) - 0.5 * PIXEL_SIZE;
-		 GLfloat yMax = (yMin + INDV_TEX_SIZE) - 0.5 * PIXEL_SIZE;
+		 GLfloat xMax = (xMin + INDV_TEX_SIZE) - 0.5f * PIXEL_SIZE;
+		 GLfloat yMax = (yMin + INDV_TEX_SIZE) - 0.5f * PIXEL_SIZE;
 
 		 return
 		 {

@@ -4,21 +4,22 @@
 #include <vector>
 #include <map>
 #include "../../vec2d.h"
+#include "GL/glew.h"
+#include "../../src/Mesh/texture.h"
 
 // Singleton Class
-class TextureManger{
+class TextureManager{
 
   std::vector<Texture> textures;
-  static TextureManger* instance;
-
-  TextureManger* getInstance();
   TextureManager();
   void init();
+  bool isInit = false;
 
 public:
 
+  static TextureManager& getInstance();
   Texture getTexture(int index);
-  std::vector<Vec2D> getCoordinates(int index, Vec2D coordinate);
+  std::vector<Vec2D> getCoordinates(Vec2D coordinate);
 };
 
 #endif

@@ -4,10 +4,11 @@
 #include "../blockInfo.h"
 #include "../../Vec3D.h"
 #include "../Renderer/chunkRenderer.h"
+#include "../../src/Mesh/chunkMesh.h"
 #include "../../shader.h"
-#include "direction.h"
+#include "../Renderer/direction.h"
 #include <vector>
-#include "../Resource/textureManger.h"
+#include "../Resource/textureManager.h"
 
 class BlockChunk{
 
@@ -19,10 +20,10 @@ class BlockChunk{
 
   int indiceCount = 0;
 
-  ChunkMesh* mesh;
+  ChunkMesh* mesh = nullptr;
   bool needUpdate = true;
   std::vector<int> textureIndexes;
-  std::vector<Vec2D> texureCoordinates;
+  std::vector<Vec2D> textureCoordinates;
   std::vector<Vec3D> vertices;
   std::vector<int> indices;
 public:

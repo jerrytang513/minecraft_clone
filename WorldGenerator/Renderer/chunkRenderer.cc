@@ -3,23 +3,26 @@
 
 ChunkRenderer::ChunkRenderer(){}
 
-void setShaderID(unsigned int shaderID){
-  this->shaderID = shaderID;
+void ChunkRenderer::setShader(Shader shader){
+  this->shader = shader;
 }
 
-void ChunkRenderer::draw(const ChunkMesh& mesh){
+void ChunkRenderer::draw(ChunkMesh mesh){
   Vec3D chunkCoordinate = mesh.getChunkCoordinate();
-  unsigned int textureId = mesh.getTextureId();
+  std::vector<unsigned int> textureId = mesh.getTextureIds();
   unsigned int VAO = mesh.getVAO();
-  unsigned int numTraingles = mesh.getNumTriangles();
+  unsigned int numTriangles = mesh.getNumTriangles();
 
   glBindVertexArray(VAO);
   glActiveTexture(GL_TEXTURE0);
-  glUniform1i(glGetUniformLocation(shaderID, "Texture1"), 0);
-  glBindTexture(GL_TEXTURE_2D, textureId);
+  glUniform1i(glGetUniformLocation(shader.ID, "Texture1"), 0);
+  std::cout << textureId[0] << std::endl;
+  glBindTexture(GL_TEXTURE_2D, textureId[0]);
   glm::mat4 model;
   // Need to scale the chunk mesh by 16.
-  model = glm::translate(model, glm::vec3(chunkCoordinate.coord.x, chunkCoordinate.coord.y, chunkCoordinate.coord.z));
+  model = glm::scale(model, glm::vec3(16, 16, 16));
+  model = glm::translate(model, glm::vec3(chunkCoordinate.coord.x,chunkCoordinate.coord.y,chunkCoordinate.coord.z));
+
   shader.setMat4("model", model);
-  glDrawElements(GL_TRIANGLES, numTriangles, GL_UNSIGNED_INT, 0);
+  glDrawElements(GL_TRIANGLES, 10000, GL_UNSIGNED_INT, 0);
 }

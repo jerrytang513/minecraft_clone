@@ -13,7 +13,7 @@ WorldSpace::WorldSpace(int width, int length, int height){
 }
 
 void WorldSpace::setHeight(int width, int length, int height){
-  int seed = std::rand() * 100;
+  int seed = std::rand() * 1000;
   ng = new NoiseGenerator(seed);
  //std::vector<int> vec = pn.getCoordinates(width, length,  rand() * 200 , 4, 2);
  std::vector<int> vec;
@@ -24,13 +24,14 @@ void WorldSpace::setHeight(int width, int length, int height){
  }
  chunkManager = new ChunkManager(width / 16, length / 16, vec);
   // Generate and set the chunk mesh for every chunks
-  chunkManger.generateMesh();
+  std::cout << "INIT MESH " << std::endl;
+  chunkManager->initMesh();
 }
 
 
 void WorldSpace::draw(Shader shader){
 
-  chunkRenderer.setShader(shader.id);
-  chunkManager->draw(chunkRenderer);
+    chunkRenderer.setShader(shader);
+    chunkManager->draw(chunkRenderer);
 
 }

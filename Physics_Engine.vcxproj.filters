@@ -144,6 +144,18 @@
     <ClInclude Include="WorldGenerator\NoiseGen\noiseGen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WorldGenerator\Renderer\chunkRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldGenerator\Renderer\direction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldGenerator\Resource\textureManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mesh\chunkMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -219,6 +231,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WorldGenerator\NoiseGen\noiseGen.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldGenerator\Renderer\chunkRenderer.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldGenerator\Resource\textureManager.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,22 +1,23 @@
 #ifndef CHUNKRENDERER_H_
 #define CHUNKRENDERER_H_
-#include "../Chunk/blockChunk.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include "../../src/Mesh/chunkMesh.h"
-#include "../Resource/TextureManger.h"
-#include "../Chunk/chunkManager.h"
 #include "../../shader.h"
 #include "direction.h"
 
-class chunkRenderer{
+class ChunkRenderer{
   int m_width;
   int m_height;
   int m_length;
 
-  unsigned int shaderID;
+  Shader shader;
 public:
-  ChunkRenderer(){}
-  void setShaderID(unsigned int shaderID);
-  void draw(const ChunkMesh& mesh);
+  ChunkRenderer();
+  void setShader(Shader shader);
+  void draw(const ChunkMesh mesh);
 };
 
 #endif

@@ -22,7 +22,7 @@ public:
 	Application(char* title);
 	~Application();
 	virtual void render() = 0;
-	virtual void tick(double) = 0;
+	virtual void tick(float) = 0;
 
 	// Methods for input
 

@@ -55,7 +55,7 @@ BlockMesh Cube::createBlockMesh(){
     20, 21, 22, 22, 23, 20
   };
 
-	std::vector<double> texCoords = {
+	std::vector<float> texCoords = {
 
 	};
 	return BlockMesh(verticesArray, indices, textures);

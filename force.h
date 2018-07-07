@@ -32,18 +32,18 @@ public:
 
 class GravityForce :public Force {
 
-	const double earthGravity = -9.8;
-	double gravity;
-	double mass;
+	const float earthGravity = -9.8f;
+	float gravity;
+	float mass;
 
 public:
 
-	GravityForce(double mass);
-	GravityForce(double mass, double gravity);
-	double getGravity();
-	void setGravity(double gravity);
-	double getMass();
-	void setMass(double mass);
+	GravityForce(float mass);
+	GravityForce(float mass, float gravity);
+	float getGravity();
+	void setGravity(float gravity);
+	float getMass();
+	void setMass(float mass);
 
 };
 

@@ -21,16 +21,16 @@ void Application::run() {
 	auto last_time = chrono::high_resolution_clock::now();
 	auto current_time = chrono::high_resolution_clock::now();
 	auto last_tick_time = chrono::high_resolution_clock::now();
-	double ns = 1000000000.0 / 60.0;
-	double delta = 0;
+	float ns = 1000000000.0f / 60.0f;
+	float delta = 0.0f;
 	int frames = 0;
 	int updates = 0;
 	while (!glfwWindowShouldClose(curWin->getWindow())) {
 
 		auto now = chrono::high_resolution_clock::now();
-		delta += (double)(duration_cast<chrono::nanoseconds>(now - last_time).count() / ns);
+		delta += (float)(duration_cast<chrono::nanoseconds>(now - last_time).count() / ns);
 		while (delta >= 1) {
-			tick(duration_cast<chrono::nanoseconds>(chrono::high_resolution_clock::now() - last_tick_time).count() / 1000000000.0);
+			tick(duration_cast<chrono::nanoseconds>(chrono::high_resolution_clock::now() - last_tick_time).count() / 1000000000.0f);
 			last_tick_time = chrono::high_resolution_clock::now();
 			updates++;
 			delta--;

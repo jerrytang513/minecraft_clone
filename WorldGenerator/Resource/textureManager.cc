@@ -1,26 +1,28 @@
-#include "textureManger.h"
+#include "textureManager.h"
 
-TextureManger::TextureManger(){
+TextureManager::TextureManager(){
 
 }
 
-TextureManager TextureManger::getInstance(){
-  if(instance == nullptr){
-    instance = new TextureManager();
-  } else {
-    return instance;
+TextureManager& TextureManager::getInstance(){
+  static TextureManager textureManager;
+
+  if(!textureManager.isInit){
+	textureManager.init();
+	textureManager.isInit = true;
   }
+  return textureManager;
 }
 
 void TextureManager::init(){
   textures.emplace_back(Texture("resources/terrain.jpg"));
 }
 
-Texture getTexture(int index){
+Texture TextureManager::getTexture(int index){
   return textures[index];
 }
 
-std::vector<Vec2D> getCoordinates(Vec2D coordinate){
+std::vector<Vec2D> TextureManager::getCoordinates(Vec2D coordinate){
   static const GLfloat TEX_PER_ROW      = 16;
   static const GLfloat INDV_TEX_SIZE    = 1.0f / TEX_PER_ROW;
   static const GLfloat PIXEL_SIZE       = 1.0f / (float)256;

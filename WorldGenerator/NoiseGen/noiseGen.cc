@@ -19,30 +19,30 @@ void NoiseGenerator::setParameters(const NoiseParameters& params) noexcept
 
 
 //wtf?
-double NoiseGenerator::getNoise(int  n) const noexcept
+float NoiseGenerator::getNoise(int  n) const noexcept
 {
     n += m_seed;
     n = (n << 13) ^ n;
     auto newN = (n * (n * n * 60493 + 19990303) + 1376312589) & 0x7fffffff;
 
-    return 1.0 - ((double)newN / 1073741824.0);
+    return 1.0 - ((float)newN / 1073741824.0);
 }
 
-double NoiseGenerator::getNoise(double  x, double  z) const noexcept
+float NoiseGenerator::getNoise(float  x, float  z) const noexcept
 {
     return getNoise(x + z * 57);
 }
 
-double NoiseGenerator::lerp(double a, double b, double z) const noexcept
+float NoiseGenerator::lerp(float a, float b, float z) const noexcept
 {
-    double mu2 = (1 - std::cos(z * 3.14)) / 2;
+    float mu2 = (1 - std::cos(z * 3.14)) / 2;
     return (a * (1 - mu2) + b * mu2);
 }
 
-double NoiseGenerator::noise(double  x, double  z) const noexcept
+float NoiseGenerator::noise(float  x, float  z) const noexcept
 {
-    auto floorX = (double)((int)x); //This is kinda a cheap way to floor a double integer.
-    auto floorZ = (double)((int)z);
+    auto floorX = (float)((int)x); //This is kinda a cheap way to floor a float integer.
+    auto floorZ = (float)((int)z);
 
     auto    s = 0.0,
             t = 0.0,
@@ -60,7 +60,7 @@ double NoiseGenerator::noise(double  x, double  z) const noexcept
     return rec3;
 }
 
-double NoiseGenerator::getHeight(int x, int z, int chunkX, int chunkZ) const noexcept
+float NoiseGenerator::getHeight(int x, int z, int chunkX, int chunkZ) const noexcept
 {
     auto newX = (x + (chunkX * 16));
     auto newZ = (z + (chunkZ * 16));
@@ -74,8 +74,8 @@ double NoiseGenerator::getHeight(int x, int z, int chunkX, int chunkZ) const noe
     for (auto a = 0; a < m_noiseParameters.octaves - 1; a++) {    //This loops trough the octaves.
         auto frequency = pow(2.0, a);           //This increases the frequency with every loop of the octave.
         auto amplitude = pow(m_noiseParameters.roughness, a);  //This decreases the amplitude with every loop of the octave.
-        totalValue += noise(((double)newX) * frequency / m_noiseParameters.smoothness,
-                            ((double)newZ) * frequency / m_noiseParameters.smoothness)
+        totalValue += noise(((float)newX) * frequency / m_noiseParameters.smoothness,
+                            ((float)newZ) * frequency / m_noiseParameters.smoothness)
                       * amplitude;
     }
 
@@ -85,7 +85,7 @@ double NoiseGenerator::getHeight(int x, int z, int chunkX, int chunkZ) const noe
     return val > 0 ? val : 1;
 }
 
-double NoiseGenerator::getHeight(int x, int z) const noexcept
+float NoiseGenerator::getHeight(int x, int z) const noexcept
 {
     auto newX = x;
     auto newZ = z;
@@ -99,8 +99,8 @@ double NoiseGenerator::getHeight(int x, int z) const noexcept
     for (auto a = 0; a < m_noiseParameters.octaves - 1; a++) {    //This loops trough the octaves.
         auto frequency = pow(2.0, a);           //This increases the frequency with every loop of the octave.
         auto amplitude = pow(m_noiseParameters.roughness, a);  //This decreases the amplitude with every loop of the octave.
-        totalValue += noise(((double)newX) * frequency / m_noiseParameters.smoothness,
-                            ((double)newZ) * frequency / m_noiseParameters.smoothness)
+        totalValue += noise(((float)newX) * frequency / m_noiseParameters.smoothness,
+                            ((float)newZ) * frequency / m_noiseParameters.smoothness)
                       * amplitude;
     }
 
