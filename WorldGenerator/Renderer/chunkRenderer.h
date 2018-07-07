@@ -2,28 +2,21 @@
 #define CHUNKRENDERER_H_
 #include "../Chunk/blockChunk.h"
 #include "../../src/Mesh/chunkMesh.h"
-
+#include "../Resource/TextureManger.h"
+#include "../Chunk/chunkManager.h"
+#include "../../shader.h"
+#include "direction.h"
 
 class chunkRenderer{
-  std::vector<std::vector<std::vector<BlockChunk>>>& m_chunks;
   int m_width;
   int m_height;
   int m_length;
 
-  bool shouldAddFace()
+  unsigned int shaderID;
 public:
   ChunkRenderer(){}
-  Shader getShader();
-  void setShader(Shader& shader);
-  ChunkMesh getChunkMesh(BlockChunk chunk);
-  void draw(ChunkMesh mesh);
-  void generateChunkMesh(int chunkX, int chunkY, int chunkZ);
-
-
-
-
-
-
+  void setShaderID(unsigned int shaderID);
+  void draw(const ChunkMesh& mesh);
 };
 
 #endif

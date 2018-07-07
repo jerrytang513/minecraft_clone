@@ -11,16 +11,15 @@
 #include "NoiseGen/noiseGen.h"
 #include "../shader.h"
 #include "Renderer/blockRenderer.h"
+#include "Renderer/chunkRenderer.h"
 #include "Chunk/chunkManager.h"
 #include "Chunk/blockChunk.h"
 #include "blockInfo.h"
 
 // This class manages the blocks inside the world
 class WorldSpace{
-  Cube c;
-  BlockMesh mesh;
-  BlockRenderer blockRenderer;
   ChunkManager* chunkManager;
+  ChunkRenderer chunkRenderer;
 
   PerlinNoise pn;
   int seed;
@@ -28,6 +27,7 @@ class WorldSpace{
 
 public:
   WorldSpace(int width, int length, int height);
+  void setHeight(int width, int length, int height);
   void draw(Shader shader);
 
 };

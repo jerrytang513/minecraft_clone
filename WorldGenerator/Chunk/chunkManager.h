@@ -8,20 +8,21 @@
 
 class ChunkManager{
   // Need 3 dimensional chunks
-  std::vector<std::vector<std::vector<BlockChunk>>> chunks;
-  BlockMesh mesh;
+  std::vector<std::vector<std::vector<BlockChunk>>> m_chunks;
   int M_WIDTH;
   int M_HEIGHT = 16;
   int M_LENGTH;
 
   void initializeHeights();
+  bool shouldAddFace();
+
 public:
   ChunkManager(int width, int length);
   ChunkManager(int width, int length, std::vector<int> heights);
   void draw(BlockRenderer renderer);
   void addHeight(std::vector<int> heights);
-  std::vector<std::vector<std::vector<BlockChunk>>>& getChunks();
-  void addFace();
-};
+  const std::vector<std::vector<std::vector<BlockChunk>>>& getChunks();
+  void initMesh();
+  void generateChunkMesh(int chunkX, int chunkY, int chunkZ);};
 
 #endif
