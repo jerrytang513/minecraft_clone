@@ -73,7 +73,7 @@ int main()
 	// build and compile shaders
 	// -------------------------
 	Shader ourShader("shaders/block.vs", "shaders/block.fs");
-	WorldSpace ws(32, 32, 20);
+	WorldSpace ws(320, 320, 20);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -86,39 +86,15 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		ourShader.use();
 
-		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 500.0f);
 		glm::mat4 view = camera.GetViewMatrix();
 		ourShader.setMat4("projection", projection);
 		ourShader.setMat4("view", view);
-		std::cout << "CYCLE" << std::endl;
+		//std::cout << "CYCLE" << std::endl;
 
 		ws.draw(ourShader);
 
-		// --------------------
-		/*
-		// input
-		// -----
-		processInput(window);
-		// render
-		// ------
-		glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		// don't forget to enable shader before setting uniforms
-		ourShader.use();
-		// view/projection transformations
-		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-		glm::mat4 view = camera.GetViewMatrix();
-		ourShader.setMat4("projection", projection);
-		ourShader.setMat4("view", view);
-		// render the loaded model
-		glm::mat4 model;
-		model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
-		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// it's a bit too big for our scene, so scale it down
-		ourShader.setMat4("model", model);
-		ourModel.Draw(ourShader);
-		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
-		// -------------------------------------------------------------------------------
-		*/
+
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}

@@ -7,10 +7,15 @@
 #include <thread>
 #include <utility>
 #include <vector>
+#include <iostream>
 
-#include "safeQueue.h"
+#include "SafeQueue.h"
 
 class ThreadPool {
+public:
+  static ThreadPool* getInstance();
+  static ThreadPool* instance;
+
 private:
   class ThreadWorker {
   private:

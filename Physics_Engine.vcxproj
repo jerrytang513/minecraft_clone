@@ -215,6 +215,7 @@
     <ClCompile Include="placeholder.cc" />
     <ClCompile Include="quaternion.cc" />
     <ClCompile Include="shape3d.cc" />
+    <ClCompile Include="src\utility\threadPool.cc" />
     <ClCompile Include="stb_image.cc" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

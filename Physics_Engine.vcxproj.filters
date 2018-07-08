@@ -245,6 +245,9 @@
     <ClCompile Include="WorldGenerator\Resource\textureManager.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\utility\threadPool.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="vertex.glsl">

@@ -4,18 +4,20 @@
 #include "../Renderer/chunkRenderer.h"
 #include "../../src/Mesh/mesh.h"
 #include "../../src/utility/threadPool.h"
+#include "../../vec3d.h"
 #include "blockChunk.h"
 #include <vector>
 
 class ChunkManager{
   // Need 3 dimensional chunks
   std::vector<std::vector<std::vector<BlockChunk>>> m_chunks;
+  std::vector<Vec3D> renderList;
   int M_WIDTH;
   int M_HEIGHT;
   int M_LENGTH;
 
   void initializeHeights();
-  bool shouldAddFace(int chunkX, int chunkY, int chunkZ, int i, int j, int k);
+  bool shouldAddFace(int chunkX, int chunkY, int chunkZ);
 
 public:
   ChunkManager(int width, int length, std::vector<int> heights);

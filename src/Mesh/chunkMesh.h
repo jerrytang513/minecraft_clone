@@ -39,7 +39,6 @@ public:
     this->chunkX = chunkX;
     this->chunkY = chunkY;
     this->chunkZ = chunkZ;
-
     auto texCoordIt = textureCoords.begin();
     for(auto it = vertices.begin(); it != vertices.end(); it++){
       data.emplace_back(((Vec3D)(*it)).coord.x);
@@ -49,6 +48,8 @@ public:
       data.emplace_back(((Vec2D)(*texCoordIt)).coord.y);
       texCoordIt ++;
     }
+
+
     setupMesh();
   }
 
@@ -95,6 +96,7 @@ private:
     unsigned int VBO, EBO;
 
   void setupMesh(){
+
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
@@ -105,10 +107,12 @@ private:
     // A great thing about structs is that their memory layout is sequential for all its items.
     // The effect is that we can simply pass a pointer to the struct and it translates perfectly to a glm::vec3/2 array which
     // again translates to 3/2 floats which translates to a byte array.
+
     glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(float), &data[0], GL_STATIC_DRAW);
 
     // set the vertex attribute pointers
     // vertex Positions
+
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 5, (void*)0);
     // vertex normals

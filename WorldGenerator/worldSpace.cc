@@ -10,13 +10,13 @@ WorldSpace::WorldSpace(int width, int length, int height){
 }
 
 void WorldSpace::setHeight(int width, int length, int height){
-  int seed = std::rand() * 10;
+  int seed = std::rand() * 30;
   ng = new NoiseGenerator(seed);
  //std::vector<int> vec = pn.getCoordinates(width, length,  rand() * 200 , 4, 2);
  std::vector<int> vec;
  for(int i = 0; i < width; i++){
    for(int j = 0; j < length; j++){
-     vec.emplace_back(ng->getHeight(i,j) - 90);
+     vec.emplace_back(ng->getHeight(i,j) - 30);
    }
  }
  chunkManager = new ChunkManager(width / 16, length / 16, vec);

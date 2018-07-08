@@ -13,6 +13,7 @@
 class BlockChunk{
 
   std::vector<std::vector<std::vector<BlockInfo>>> blocks;
+  std::vector<std::vector<int>> highest;
 
   int initWidth;
   int initLength;
@@ -20,6 +21,7 @@ class BlockChunk{
 
   int indiceCount = 0;
   bool isActive = false;
+  bool isReady = false;
 
   ChunkMesh* mesh = nullptr;
   bool needUpdate = true;
@@ -31,16 +33,21 @@ public:
   BlockChunk();
   // Feed in Block Chunk size of height data, and block chunk will build the coords
   BlockChunk(int width, int height, int length, std::vector<int> heights);
+  std::vector<std::vector<int>>& getHighest();
 
   void setConfig(int width, int height, int length);
   void setIsActive(bool isActive);
   bool getIsActive();
+
+  void setIsReady(bool isReady);
+  bool getIsReady();
 
   std::vector<std::vector<std::vector<BlockInfo>>>& getBlockInfo();
   void addHeight(int width, int height, int length);
   void updateMesh();
   void setUpdate(bool status);
   void addFace(int i, int j, int k, Direction direction);
+  int getVerticeCount();
   ChunkMesh* getMesh();
 };
 #endif
