@@ -1,14 +1,26 @@
 #include "chunkManager.h"
 
 ChunkManager::ChunkManager(int width, int length,std::vector<int> heights):M_WIDTH{width},M_LENGTH{length}{
-  M_HEIGHT = 2;
-  std::vector<std::vector<std::vector<BlockChunk>>> temp {std::vector<std::vector<std::vector<BlockChunk>>>(M_WIDTH, std::vector<std::vector<BlockChunk>>(M_HEIGHT,std::vector<BlockChunk>(M_LENGTH,BlockChunk())))};
-  m_chunks = temp;
+  M_HEIGHT = 20;
+
+  for(int i = 0; i < M_WIDTH; i++){
+    std::vector<std::vector<BlockChunk>> height;
+    for(int j = 0; j < M_HEIGHT; j++){
+
+      std::vector<BlockChunk> len;
+      for(int k = 0; k < M_LENGTH; k++){
+        len.emplace_back(BlockChunk());
+      }
+      height.emplace_back(len);
+    }
+    m_chunks.emplace_back(height);
+  }
   initializeHeights();
   addHeight(heights);
 }
 
 void ChunkManager::initializeHeights(){
+
   for(int i = 0; i < M_WIDTH; i++){
     for(int j = 0; j < M_LENGTH; j++){
       for(int k = 0; k < M_HEIGHT; k++){
@@ -19,30 +31,36 @@ void ChunkManager::initializeHeights(){
 }
 
 void ChunkManager::draw(ChunkRenderer renderer){
-
+  std::vector<ChunkMesh*> meshes;
+  std::cout << m_chunks.size() << " " << m_chunks[0].size() << " " << m_chunks[0][0].size() << std::endl;
   for(int i = 0; i < M_WIDTH; i++){
-    for(int j = 0; j < M_LENGTH; j++){
-      for(int k = 0; k < M_HEIGHT; k++){
-        m_chunks[i][k][j].draw(renderer);
+    for(int k = 0; k < M_HEIGHT; k++){
+      for(int j = 0; j < M_LENGTH; j++){
+		  if (m_chunks[i][k][j].getIsActive())
+			   meshes.emplace_back(m_chunks[i][k][j].getMesh());
       }
     }
   }
+  renderer.draw(meshes);
+
 }
 
 void ChunkManager::addHeight(std::vector<int> heights){
 
   for(int i = 0; i < M_WIDTH * 16; i++){
     for(int j = 0; j < M_LENGTH * 16; j++){
-
       int height = heights[i * M_LENGTH * 16 + j];
       if ( height > M_HEIGHT * 16)
-        height = M_HEIGHT * 16;
+        height = M_HEIGHT * 16 - 1;
       int chunkLevels = height / 16;
 
       for(int k = 0; k < chunkLevels; k++){
-        m_chunks[i / 16][k][j / 16].addHeight(i % 16,16,j % 16);
+        m_chunks[i / 16][k][j / 16].setIsActive(true);
+        m_chunks[i / 16][k][j / 16].addHeight(i % 16,height,j % 16);
       }
+      m_chunks[i / 16][chunkLevels][j / 16].setIsActive(true);
       m_chunks[i / 16][chunkLevels][j / 16].addHeight(i % 16,height % 16,j % 16);
+
     }
   }
 }
@@ -52,14 +70,20 @@ const std::vector<std::vector<std::vector<BlockChunk>>> ChunkManager::getChunks(
 }
 
 void ChunkManager::initMesh(){
-
+  ThreadPool pool(8);
+  pool.init();
   for(int i = 0; i < M_WIDTH; i ++){
     for(int j = 0; j < M_HEIGHT; j++){
       for(int k = 0; k < M_LENGTH; k++){
-        generateChunkMesh(i, j, k);
+        if(m_chunks[i][j][k].getIsActive()){
+          auto future = pool.submit(
+          [this] (int i, int j, int k) { generateChunkMesh(i,j,k);}
+          );
+        }
       }
     }
   }
+  pool.shutdown();
 }
 
 // This Function Will check the other chunk block and
@@ -70,7 +94,7 @@ bool ChunkManager::shouldAddFace(int chunkX, int chunkY, int chunkZ, int i, int 
 }
 
 void ChunkManager::generateChunkMesh(int chunkX, int chunkY, int chunkZ) {
-	std::vector<std::vector<std::vector<BlockInfo>>> block = m_chunks[chunkX][chunkY][chunkZ].getBlockInfo();
+	std::vector<std::vector<std::vector<BlockInfo>>>& block = m_chunks[chunkX][chunkY][chunkZ].getBlockInfo();
 	for (int i = 0; i < 16; i++) {
 		for (int j = 0; j < 16; j++) {
 			for (int k = 0; k < 16; k++) {

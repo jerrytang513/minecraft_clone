@@ -19,6 +19,7 @@ class BlockChunk{
   int initHeight;
 
   int indiceCount = 0;
+  bool isActive = false;
 
   ChunkMesh* mesh = nullptr;
   bool needUpdate = true;
@@ -32,12 +33,14 @@ public:
   BlockChunk(int width, int height, int length, std::vector<int> heights);
 
   void setConfig(int width, int height, int length);
+  void setIsActive(bool isActive);
+  bool getIsActive();
 
-  std::vector<std::vector<std::vector<BlockInfo>>> getBlockInfo();
+  std::vector<std::vector<std::vector<BlockInfo>>>& getBlockInfo();
   void addHeight(int width, int height, int length);
   void updateMesh();
-  void draw(ChunkRenderer renderer);
   void setUpdate(bool status);
   void addFace(int i, int j, int k, Direction direction);
+  ChunkMesh* getMesh();
 };
 #endif

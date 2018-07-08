@@ -45,24 +45,11 @@ void BlockRenderer::draw(std::vector<BlockInfo> displayList){
   for(auto it = displayList.begin(); it != displayList.end(); it++){
 
     glm::mat4 model;
-    model = glm::translate(model, glm::vec3(it->x, it->y, it->z)); // translate it down so it's at the center of the scene
-    shader.setMat4("model", model);
+    //model = glm::translate(model, glm::vec3(it->x, it->y, it->z)); // translate it down so it's at the center of the scene
+    //shader.setMat4("model", model);
     glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 
   }
-  /*
-  glActiveTexture(GL_TEXTURE0);
-  glUniform1i(glGetUniformLocation(shader.ID, "Texture1"), 0);
-  glBindTexture(GL_TEXTURE_2D, textures[0].id);
-  glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-  glBindTexture(GL_TEXTURE_2D,0);
-  glBindTexture(GL_TEXTURE_2D, textures[1].id);
-  glDrawElements(GL_TRIANGLES, 24, GL_UNSIGNED_INT, (void*)(sizeof(indices[0]) * 6));
-  glBindTexture(GL_TEXTURE_2D,0);
-  glBindTexture(GL_TEXTURE_2D, textures[2].id);
-  glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (void*)(sizeof(indices[0]) * 30));
-  glBindVertexArray(0);
-*/
 
   glActiveTexture(GL_TEXTURE0);
 }

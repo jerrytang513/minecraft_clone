@@ -5,6 +5,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "../../src/Mesh/chunkMesh.h"
+#include "vector"
 #include "../../shader.h"
 #include "direction.h"
 
@@ -17,7 +18,7 @@ class ChunkRenderer{
 public:
   ChunkRenderer();
   void setShader(Shader shader);
-  void draw(const ChunkMesh mesh);
+  void draw(std::vector<ChunkMesh*> mesh);
 };
 
 #endif

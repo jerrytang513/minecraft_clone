@@ -8,20 +8,18 @@ BlockChunk::BlockChunk(int width,  int height, int length, std::vector<int> heig
   blocks = temp;
 }
 
-std::vector<std::vector<std::vector<BlockInfo>>> BlockChunk::getBlockInfo(){
+std::vector<std::vector<std::vector<BlockInfo>>>& BlockChunk::getBlockInfo(){
   return blocks;
 }
 
 void BlockChunk::addHeight(int width, int height, int length){
   if(height > 16)
     height = 16;
-  for(int i = 0; i < height; i++){
-    BlockInfo block;
-    block.x = width + initWidth;
-    block.y = i + initHeight;
-    block.z = length + initLength;
-    block.visible = true;
-    blocks[width][i][length] = block;
+  if(height < 0 || height - 1 < 0)
+    return;
+  for(int i = height - 1; i < height; i++){
+std::cout << i << std::endl;
+    blocks[width][i][length].visible = true;
   }
 }
 
@@ -31,21 +29,29 @@ void BlockChunk::setConfig(int width, int height, int length){
   initLength = length;
 }
 
+void BlockChunk::setIsActive(bool isActive){
+  this->isActive = isActive;
+}
+
+bool BlockChunk::getIsActive(){
+  return isActive;
+}
+
 void BlockChunk::setUpdate(bool status){
   needUpdate = status;
 }
 
 void BlockChunk::updateMesh(){
-  std::cout << "C SIZE" << indices.size() << "A SIZE " << vertices.size() << std::endl;
+
   mesh = new ChunkMesh(vertices, indices, textureIndexes, textureCoordinates, initWidth / 16, initHeight / 16, initLength / 16);
 }
 
-void BlockChunk::draw(ChunkRenderer renderer){
+ChunkMesh* BlockChunk::getMesh(){
   if(needUpdate){
     updateMesh();
     needUpdate = false;
   }
-  renderer.draw(*mesh);
+  return mesh;
 }
 
 void BlockChunk::addFace(int i, int j, int k, Direction direction){

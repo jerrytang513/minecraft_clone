@@ -3,6 +3,7 @@
 
 #include "../Renderer/chunkRenderer.h"
 #include "../../src/Mesh/mesh.h"
+#include "../../src/utility/threadPool.h"
 #include "blockChunk.h"
 #include <vector>
 
