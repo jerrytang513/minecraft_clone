@@ -1,7 +1,7 @@
 #include "chunkManager.h"
 
 ChunkManager::ChunkManager(int width, int length,std::vector<int> heights):M_WIDTH{width},M_LENGTH{length}{
-  M_HEIGHT = 20;
+  M_HEIGHT = 30;
   std::vector<std::vector<std::vector<BlockChunk>>> temp {std::vector<std::vector<std::vector<BlockChunk>>>(M_WIDTH, std::vector<std::vector<BlockChunk>>(M_HEIGHT,std::vector<BlockChunk>(M_LENGTH,BlockChunk())))};
   m_chunks = temp;
   /*

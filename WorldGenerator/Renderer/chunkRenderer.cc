@@ -13,7 +13,6 @@ void ChunkRenderer::draw(std::vector<ChunkMesh*> mesh){
     return;
 
   std::vector<unsigned int> textureId = mesh[0]->getTextureIds();
-std::cout << textureId[0];
   glActiveTexture(GL_TEXTURE0);
   glUniform1i(glGetUniformLocation(shader.ID, "Texture1"), 0);
   glBindTexture(GL_TEXTURE_2D, textureId[0]);

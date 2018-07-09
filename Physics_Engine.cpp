@@ -73,7 +73,7 @@ int main()
 	// build and compile shaders
 	// -------------------------
 	Shader ourShader("shaders/block.vs", "shaders/block.fs");
-	WorldSpace ws(320, 320, 20);
+	WorldSpace ws(256, 256, 20);
 
 	while (!glfwWindowShouldClose(window))
 	{
