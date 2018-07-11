@@ -16,7 +16,7 @@ void WorldSpace::setHeight(int width, int length, int height){
  std::vector<int> vec;
  for(int i = 0; i < width; i++){
    for(int j = 0; j < length; j++){
-     vec.emplace_back(ng->getHeight(i,j) - 30);
+     vec.emplace_back(ng->getHeight(i+10000,j+10000) - 30);
    }
  }
  chunkManager = new ChunkManager(width / 16, length / 16, vec);
@@ -30,5 +30,21 @@ void WorldSpace::draw(Shader shader){
 
     chunkRenderer.setShader(shader);
     chunkManager->draw(chunkRenderer);
+
+}
+
+void WorldSpace::moveFront(){
+
+}
+
+void WorldSpace::moveBack(){
+
+}
+
+void WorldSpace::moveLeft(){
+
+}
+
+void WorldSpace::moveRight(){
 
 }

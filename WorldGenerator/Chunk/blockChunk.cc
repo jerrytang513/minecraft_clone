@@ -74,10 +74,12 @@ void BlockChunk::updateMesh(){
 
   mesh = new ChunkMesh(vertices, indices, textureIndexes, textureCoordinates, initWidth / 16, initHeight / 16, initLength / 16);
 }
-
+//TODO change the renderList to be a map, so we can delete a mesh when needed.
 ChunkMesh* BlockChunk::getMesh(){
   if(needUpdate){
+    std::cout << "BEGIN" << std::endl;
     updateMesh();
+    std::cout << "END" << std::endl;
     needUpdate = false;
   }
   return mesh;

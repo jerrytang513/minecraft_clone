@@ -6,7 +6,7 @@
 
 class Event{
   EventID eventID;
-  virtual void init() = 0;
+  virtual void init();
 public:
   Event(EventID eventID);
   virtual void action(WorldSpace& ws) = 0;

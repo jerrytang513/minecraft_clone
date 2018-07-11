@@ -30,6 +30,14 @@ public:
   void setHeight(int width, int length, int height);
   void draw(Shader shader);
 
+// The front back left right location is constant inside the world space
+// Consider front and back to be moving along the length axis (z - axis)
+// Consider left and right to be moving along the width axis (x - axis)
+  void moveFront();
+  void moveBack();
+  void moveLeft();
+  void moveRight();
+
 };
 
 #endif
