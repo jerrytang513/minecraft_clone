@@ -1,0 +1,11 @@
+#ifndef WORLDGENERATOR_CHUNK_HEIGHTCHUNK_H_
+#define WORLDGENERATOR_CHUNK_HEIGHTCHUNK_H_
+
+class HeightChunk{
+
+
+
+
+};
+
+#endif

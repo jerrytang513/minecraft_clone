@@ -74,12 +74,10 @@ void BlockChunk::updateMesh(){
 
   mesh = new ChunkMesh(vertices, indices, textureIndexes, textureCoordinates, initWidth / 16, initHeight / 16, initLength / 16);
 }
-//TODO change the renderList to be a map, so we can delete a mesh when needed.
+
 ChunkMesh* BlockChunk::getMesh(){
   if(needUpdate){
-    std::cout << "BEGIN" << std::endl;
     updateMesh();
-    std::cout << "END" << std::endl;
     needUpdate = false;
   }
   return mesh;
@@ -138,7 +136,6 @@ void BlockChunk::addFace(int i, int j, int k, Direction direction){
     }
 
 	  textureCoordinates.insert(textureCoordinates.end(), texCoords.begin(), texCoords.end());
-
       // Add indice to it.
       indices.emplace_back(indiceCount);
       indices.emplace_back(indiceCount + 1);
@@ -147,33 +144,9 @@ void BlockChunk::addFace(int i, int j, int k, Direction direction){
       indices.emplace_back(indiceCount + 3);
       indices.emplace_back(indiceCount);
       indiceCount += 4;
-
       textureIndexes.emplace_back(0);
-
 }
 
 int BlockChunk::getVerticeCount(){
   return vertices.size();
-}
-
-void BlockChunk::setSeed(int seed){
-  this->seed = seed;
-}
-
-void BlockChunk::generateHeight(){
-//  ng = new NoiseGenerator(seed);
- //std::vector<int> vec = pn.getCoordinates(width, length,  rand() * 200 , 4, 2);
- /*NoiseGenerator &ng = NoiseGenerator::getInstance();
-
- std::vector<int> vec;
- for(int i = 0; i < width; i++){
-   for(int j = 0; j < length; j++){
-     vec.emplace_back(ng.getHeight(i+10000,j+10000) - 30);
-   }
- }
- chunkManager = new ChunkManager(width / 16, length / 16, vec);
-  // Generate and set the chunk mesh for every chunks
-  std::cout << "INIT MESH " << std::endl;
-  chunkManager->initMesh();*/
-
 }

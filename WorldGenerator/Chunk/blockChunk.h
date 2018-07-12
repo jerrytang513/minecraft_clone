@@ -1,5 +1,5 @@
-#ifndef BLOCKCHUNK_H_
-#define BLOCKCHUNK_H_
+#ifndef WORLDGENERATOR_CHUNK_BLOCKCHUNK_H_
+#define WORLDGENERATOR_CHUNK_BLOCKCHUNK_H_
 
 #include "../blockInfo.h"
 #include "../../Vec3D.h"
@@ -18,7 +18,6 @@ class BlockChunk{
   int initWidth;
   int initLength;
   int initHeight;
-  int seed;
 
   int indiceCount = 0;
   bool isActive = false;
@@ -42,10 +41,8 @@ public:
 
   void setIsReady(bool isReady);
   bool getIsReady();
-  void setSeed(int seed);
 
   std::vector<std::vector<std::vector<BlockInfo>>>& getBlockInfo();
-  void generateHeight();
   void addHeight(int width, int height, int length);
   void updateMesh();
   void setUpdate(bool status);

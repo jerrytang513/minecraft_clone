@@ -71,4 +71,35 @@ BlockChunk
 
 Data needed for initialization
 1. Seed
-2. Starting Location 
+2. Starting Location
+
+=========================================================================
+HeightChunk
+
+Feed in a
+
+TODO List :
+
+Each Chunk Contains an ID number.
+After a height chunk is deleted. Set its pointer in the grid to nullptr.
+ Initial width and initial length value can be stored inside the height chunk.
+Have a 2D world space grid of constant width and length
+All grids have needUpdate = false
+Each grid will contain a height chunk
+A height chunk will have the following functionalities
+- Generate initial Height
+  - Dynamically add heights and build up chunks.
+  - When a chunk is built or modified set it to need update
+  - If at least one chunk inside the height chunk need update, then the whole height chunk is set to need update.
+- Generate chunk mesh.
+When player moved, row of height chunks are created and rows of height chunks behind the user are destroyed.
+
+
+Once a chunk gets updated, call generateChunkMesh for surrounding 6 chunks and the current chunk.
+Each chunk contains an ID, generateChunkMesh will store this ID inside a hashmap, the generate and update mesh process will be :
+
+A chunk is updated.
+Check the status of surrounding 6 chunks. (Will be deleted, notActive, normal)
+If they are in normal stat, delete its mesh in the display list and generate their chunk mesh concurrently.
+
+1. Generate all heights concurrently, maintain a counter, if counter != 0 then some height has not been generated yet. Hold, until all heights are valid. 
