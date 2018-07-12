@@ -65,3 +65,10 @@ Functions:
 
 Texture getTexture(int index)
 std::vector<Vec2D> getCoordinates(int index, Vec2D cooridnate)
+
+=========================================================================
+BlockChunk
+
+Data needed for initialization
+1. Seed
+2. Starting Location 

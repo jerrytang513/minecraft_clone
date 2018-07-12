@@ -12,6 +12,15 @@ NoiseGenerator::NoiseGenerator(int seed)
     m_noiseParameters.roughness     = 0.53;
 }
 
+NoiseGenerator::NoiseGenerator()
+{
+    m_noiseParameters.octaves       = 7;
+    m_noiseParameters.amplitude     = 70;
+    m_noiseParameters.smoothness    = 235;
+    m_noiseParameters.heightOffset  = -5;
+    m_noiseParameters.roughness     = 0.53;
+}
+
 void NoiseGenerator::setParameters(const NoiseParameters& params) noexcept
 {
     m_noiseParameters = params;
@@ -108,4 +117,21 @@ float NoiseGenerator::getHeight(int x, int z) const noexcept
         (((totalValue / 2.1) + 1.2) * m_noiseParameters.amplitude) + m_noiseParameters.heightOffset;
 
     return val > 0 ? val : 1;
+}
+
+NoiseGenerator& NoiseGenerator::getInstance(){
+  static NoiseGenerator ng;
+  if(!ng.isInit){
+    std::cout << "Initializing Noise Generator" << std::endl;
+    ng.init();
+    ng.isInit = true;
+  }
+  return ng;
+}
+
+void NoiseGenerator::init(){
+  float min = 1.0f;
+  float max = 255.0f;
+  float random = rand() / max;
+  m_seed = (int)(min + random * (max - min));
 }

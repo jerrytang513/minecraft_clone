@@ -38,11 +38,11 @@ void ChunkManager::draw(ChunkRenderer renderer){
   if(renderList.size() == 0)
     return;
   for(int i = 0; i < renderList.size(); i++){
-    std::cout << "START" << std::endl;
+  //  std::cout << "START" << std::endl;
     meshes.emplace_back(m_chunks[renderList[i].coord.x][renderList[i].coord.y][renderList[i].coord.z].getMesh());
-    std::cout << "END" << std::endl;
+  //  std::cout << "END" << std::endl;
   }
-  //renderer.draw(meshes);
+  renderer.draw(meshes);
 }
 
 void ChunkManager::addHeight(std::vector<int> heights){

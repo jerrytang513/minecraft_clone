@@ -8,7 +8,7 @@ TextureManager& TextureManager::getInstance(){
   static TextureManager textureManager;
 
   if(!textureManager.isInit){
-    std::cout << "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH" << std::endl;
+    std::cout << "Initializing Texture Manager" << std::endl;
   	textureManager.init();
   	textureManager.isInit = true;
   }

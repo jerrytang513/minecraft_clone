@@ -155,3 +155,25 @@ void BlockChunk::addFace(int i, int j, int k, Direction direction){
 int BlockChunk::getVerticeCount(){
   return vertices.size();
 }
+
+void BlockChunk::setSeed(int seed){
+  this->seed = seed;
+}
+
+void BlockChunk::generateHeight(){
+//  ng = new NoiseGenerator(seed);
+ //std::vector<int> vec = pn.getCoordinates(width, length,  rand() * 200 , 4, 2);
+ /*NoiseGenerator &ng = NoiseGenerator::getInstance();
+
+ std::vector<int> vec;
+ for(int i = 0; i < width; i++){
+   for(int j = 0; j < length; j++){
+     vec.emplace_back(ng.getHeight(i+10000,j+10000) - 30);
+   }
+ }
+ chunkManager = new ChunkManager(width / 16, length / 16, vec);
+  // Generate and set the chunk mesh for every chunks
+  std::cout << "INIT MESH " << std::endl;
+  chunkManager->initMesh();*/
+
+}

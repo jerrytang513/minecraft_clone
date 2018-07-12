@@ -23,7 +23,6 @@ class WorldSpace{
 
   PerlinNoise pn;
   int seed;
-  NoiseGenerator *ng;
 
 public:
   WorldSpace(int width, int length, int height);

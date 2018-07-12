@@ -18,6 +18,7 @@ class BlockChunk{
   int initWidth;
   int initLength;
   int initHeight;
+  int seed;
 
   int indiceCount = 0;
   bool isActive = false;
@@ -41,8 +42,10 @@ public:
 
   void setIsReady(bool isReady);
   bool getIsReady();
+  void setSeed(int seed);
 
   std::vector<std::vector<std::vector<BlockInfo>>>& getBlockInfo();
+  void generateHeight();
   void addHeight(int width, int height, int length);
   void updateMesh();
   void setUpdate(bool status);
