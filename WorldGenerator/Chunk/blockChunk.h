@@ -46,6 +46,8 @@ public:
   void addHeight(int width, int height, int length);
   void updateMesh();
   void setUpdate(bool status);
+
+  // Add a face by specifying a direction
   void addFace(int i, int j, int k, Direction direction);
   int getVerticeCount();
   ChunkMesh* getMesh();
