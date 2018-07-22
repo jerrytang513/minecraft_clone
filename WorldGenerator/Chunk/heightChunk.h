@@ -5,6 +5,7 @@
 #include <memory>
 #include "../Renderer/direction.h"
 #include "blockChunk.h"
+#include "../NoiseGen/noiseGen.h"
 
 class HeightChunk{
 
@@ -14,9 +15,12 @@ class HeightChunk{
 
   int m_initWidth;
   int m_initLength;
+  int max_height = INT_MIN;
 
+  std::vector<int> height;
   std::vector<BlockChunk> m_chunks;
 
+  // Build the chunk
   void init();
 
   // This will add all the faces in the block chunk
@@ -47,8 +51,10 @@ public:
   // Get the block chunks
   BlockChunk& getBlockChunk(int height);
 
-  // Insert another block chunk and generate block chunk for current height chunk's block chunk
-  void testBlockChunks(BlockChunk& bc, Direction dir);
+  // Insert another block chunk and generate chunk mesh for the block chunk at height for current height chunk's block chunk
+  void testBlockChunksLeftRight(int height, BlockChunk& bc, Direction dir);
+  // Insert top and down chunk mesh for the block chunk at the height
+  void testBlockChunksTopDown(int height);
 
 
 };

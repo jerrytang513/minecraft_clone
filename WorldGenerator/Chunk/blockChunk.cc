@@ -24,6 +24,18 @@ BlockChunk::BlockChunk(int width,  int height, int length, std::vector<int> heig
   }
 }
 
+BlockChunk::BlockChunk(int width,  int height, int length):initWidth{width},initHeight{height},initLength{length}{
+  std::vector<std::vector<std::vector<BlockInfo>>> temp {std::vector<std::vector<std::vector<BlockInfo>>>(16, std::vector<std::vector<BlockInfo>>(16,std::vector<BlockInfo>(16,BlockInfo())))};
+  blocks = temp;
+  for(int width = 0; width < 16; width ++){
+    for(int height = 0; height < 16; height ++){
+      for(int length = 0; length < 16; length ++){
+        blocks[width][height][length].isVisible = true;
+      }
+    }
+  }
+}
+
 std::vector<std::vector<int>>& BlockChunk::getHighest(){
   return highest;
 }
