@@ -49,8 +49,9 @@ public:
       texCoordIt ++;
     }
 
-
-    setupMesh();
+    if(vertices.size() != 0){
+      setupMesh();
+    }
   }
 
   void setShaderID(unsigned int shaderID){

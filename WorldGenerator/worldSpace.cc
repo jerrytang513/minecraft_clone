@@ -12,18 +12,22 @@ WorldSpace::WorldSpace(int width, int length, int height){
 void WorldSpace::setHeight(int width, int length, int height){
   int seed = std::rand() * 30;
 //  ng = new NoiseGenerator(seed);
-  NoiseGenerator& ng = NoiseGenerator::getInstance();
+//  NoiseGenerator& ng = NoiseGenerator::getInstance();
  //std::vector<int> vec = pn.getCoordinates(width, length,  rand() * 200 , 4, 2);
- std::vector<int> vec;
- for(int i = 0; i < width; i++){
-   for(int j = 0; j < length; j++){
-     vec.emplace_back(ng.getHeight(i+10000,j+10000) - 30);
-   }
- }
- chunkManager = new ChunkManager(width / 16, length / 16, vec);
+// std::vector<int> vec;
+// for(int i = 0; i < width; i++){
+//   for(int j = 0; j < length; j++){
+//     vec.emplace_back(ng.getHeight(i+centerX,j+centerY) - 30);
+//   }
+// }
+// chunkManager = new ChunkManager(width / 16, length / 16, vec);
+chunkManager = new ChunkManager(width / 16, length / 16);
+
   // Generate and set the chunk mesh for every chunks
   std::cout << "INIT MESH " << std::endl;
   chunkManager->initMesh();
+  std::cout << "Finish Mesh Initialization " << std::endl;
+
 }
 
 

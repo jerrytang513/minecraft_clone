@@ -3,13 +3,16 @@
 
 #include <vector>
 #include <memory>
-#include "../Renderer/direction.h"
+#include <algorithm>
+
 #include "blockChunk.h"
+
+#include "../Renderer/direction.h"
 #include "../NoiseGen/noiseGen.h"
+#include "../../src/Mesh/chunkMesh.h"
 
 class HeightChunk{
 
-  unsigned int m_id;
   int m_width;
   int m_length;
 
@@ -17,7 +20,7 @@ class HeightChunk{
   int m_initLength;
   int max_height = INT_MIN;
 
-  std::vector<int> height;
+  std::vector<int> m_height;
   std::vector<BlockChunk> m_chunks;
 
   // Build the chunk
@@ -28,7 +31,7 @@ class HeightChunk{
 
 public:
 
-  HeightChunk(int m_id, int m_width, int m_height, int m_initWidth, int m_initHeight);
+  HeightChunk(int m_width, int m_height, int m_initWidth, int m_initHeight);
 
   // The World Space will render all of its height chunks, and height chunks will render all of its block chunks
   void render();
@@ -39,8 +42,8 @@ public:
   // Specify the block that need to be updated, and pass in 4 surrounding height chunks
   // If the shared_ptr to the surrounding height chunk is nullptr, then it means the side is facing edge.
   void updateBlockChunk(int height, std::shared_ptr<HeightChunk> left, std::shared_ptr<HeightChunk> right, std::shared_ptr<HeightChunk> front, std::shared_ptr<HeightChunk> back);
+  void updateHeightChunk(std::shared_ptr<HeightChunk> left, std::shared_ptr<HeightChunk> right, std::shared_ptr<HeightChunk> front, std::shared_ptr<HeightChunk> back);
 
-  unsigned int get_id();
 
   // Get the height of the height Chunk
   int getHeight();
@@ -56,6 +59,11 @@ public:
   // Insert top and down chunk mesh for the block chunk at the height
   void testBlockChunksTopDown(int height);
 
+  void testBlockChunksFrontBack(int height,  std::shared_ptr<HeightChunk> front,  std::shared_ptr<HeightChunk>  back);
+  void testBlockChunksLeftRight(int height, std::shared_ptr<HeightChunk> left,  std::shared_ptr<HeightChunk>  right);
+
+
+  std::vector<ChunkMesh*> getChunkMesh();
 
 };
 

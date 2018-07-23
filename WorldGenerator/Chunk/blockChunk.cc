@@ -22,17 +22,29 @@ BlockChunk::BlockChunk(int width,  int height, int length, std::vector<int> heig
     }
     highest.emplace_back(vec);
   }
+
+  // Set visible
+  for(int i = 0; i < 16; i++){
+    for(int j = 0; j < 16; j++){
+      addHeight(i, heights[i * 16 + j], j);
+    }
+  }
 }
 
-BlockChunk::BlockChunk(int width,  int height, int length):initWidth{width},initHeight{height},initLength{length}{
+BlockChunk::BlockChunk(int initWidth,  int initHeight, int initLength):initWidth{initWidth},initHeight{initHeight},initLength{initLength}{
   std::vector<std::vector<std::vector<BlockInfo>>> temp {std::vector<std::vector<std::vector<BlockInfo>>>(16, std::vector<std::vector<BlockInfo>>(16,std::vector<BlockInfo>(16,BlockInfo())))};
   blocks = temp;
-  for(int width = 0; width < 16; width ++){
-    for(int height = 0; height < 16; height ++){
-      for(int length = 0; length < 16; length ++){
-        blocks[width][height][length].isVisible = true;
-      }
+  for(int i = 0; i < 16; i++){
+    std::vector<int> vec;
+    for(int j = 0; j < 16; j++){
+      vec.emplace_back(0);
     }
+    highest.emplace_back(vec);
+  }
+  for(int width = 0; width < 16; width ++){
+      for(int length = 0; length < 16; length ++){
+        addHeight(width, 16, length);
+      }
   }
 }
 
@@ -83,8 +95,12 @@ void BlockChunk::setUpdate(bool status){
 }
 
 void BlockChunk::updateMesh(){
-
-  mesh = new ChunkMesh(vertices, indices, textureIndexes, textureCoordinates, initWidth / 16, initHeight / 16, initLength / 16);
+  if(vertices.size() == 0){
+    isReady = false;
+  } else {
+    isReady = true;
+    mesh = new ChunkMesh(vertices, indices, textureIndexes, textureCoordinates, initWidth / 16, initHeight / 16, initLength / 16);
+  }
 }
 
 ChunkMesh* BlockChunk::getMesh(){
@@ -92,7 +108,9 @@ ChunkMesh* BlockChunk::getMesh(){
     updateMesh();
     needUpdate = false;
   }
-  return mesh;
+  if(getIsReady())
+    return mesh;
+  else return nullptr;
 }
 
 void BlockChunk::addFace(int i, int j, int k, Direction direction){
@@ -157,6 +175,7 @@ void BlockChunk::addFace(int i, int j, int k, Direction direction){
       indices.emplace_back(indiceCount);
       indiceCount += 4;
       textureIndexes.emplace_back(0);
+
 }
 
 int BlockChunk::getVerticeCount(){

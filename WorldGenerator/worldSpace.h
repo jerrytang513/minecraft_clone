@@ -23,6 +23,8 @@ class WorldSpace{
 
   PerlinNoise pn;
   int seed;
+  int centerX = 100000;
+  int centerY = 100000;
 
 public:
   WorldSpace(int width, int length, int height);
