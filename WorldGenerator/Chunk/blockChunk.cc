@@ -26,7 +26,7 @@ BlockChunk::BlockChunk(int width,  int height, int length, std::vector<int> heig
   // Set visible
   for(int i = 0; i < 16; i++){
     for(int j = 0; j < 16; j++){
-      addHeight(i, heights[i * 16 + j], j);
+      addHeight(i, heights[j * 16 + i], j);
     }
   }
 }

@@ -19,12 +19,32 @@ void HeightChunk::init(){
   int left_over = max_height % 16;
 
   for(int i = 0; i < total_chunks; i++){
-    m_chunks.emplace_back(BlockChunk(m_width * 16, i * 16, m_length * 16));
+    std::vector<int> temp = m_height;
+	  std::for_each(temp.begin(), temp.end(), [i](int& val) {
+      if((val - i * 16) > 0){
+        if((val - i * 16) < 16){
+          val -= i * 16;
+        } else {
+          val = 16;
+        }
+      } else {
+        val = 0;
+      }
+    });
+    m_chunks.emplace_back(BlockChunk(m_width * 16, i * 16, m_length * 16, temp));
   }
   if(left_over > 0){
     std::vector<int> temp = m_height;
-	  std::for_each(temp.begin(), temp.end(), [total_chunks](int& val) {
-      val = (val - total_chunks * 16) > 0 ? val - total_chunks * 16 : 0;
+    std::for_each(temp.begin(), temp.end(), [total_chunks](int& val) {
+      if((val - total_chunks * 16) > 0){
+        if((val - total_chunks * 16) < 16){
+          val -= total_chunks * 16;
+        } else {
+          val = 16;
+        }
+      } else {
+        val = 0;
+      }
     });
     m_chunks.emplace_back(BlockChunk(m_width * 16, total_chunks * 16, m_length * 16, temp));
   }
@@ -38,8 +58,8 @@ void HeightChunk::generateHeight(){
   NoiseGenerator& ng = NoiseGenerator::getInstance();
 //  std::cout << "GenerateHeight for width "  << m_initWidth << " and length " << m_initLength << std::endl;
   // Generate all the heights, and get the maximum height.
-  for(int width = 0; width < 16; width ++ ){
-    for(int length = 0; length < 16; length ++ ){
+  for(int length = 0; length < 16; length ++ ){
+    for(int width = 0; width < 16; width ++ ){
       int new_height = ng.getHeight(width + m_initWidth, length + m_initLength);
       max_height = max_height < new_height ? new_height : max_height;
       m_height.emplace_back(new_height);
@@ -51,8 +71,8 @@ void HeightChunk::testBlockChunksFrontBack(int height, std::shared_ptr<HeightChu
 
   BlockChunk& blockChunk = m_chunks[height];
   std::vector<std::vector<std::vector<BlockInfo>>>& block = blockChunk.getBlockInfo();
-  bool hasFront = (front != nullptr);
-  bool hasBack = (back != nullptr);
+  bool hasFront = (front.get() != nullptr);
+  bool hasBack = (back.get() != nullptr);
 
   // Loop through all the blocks
   for(int i = 0; i < 16; i++){
@@ -69,6 +89,9 @@ void HeightChunk::testBlockChunksFrontBack(int height, std::shared_ptr<HeightChu
           } else {
             getBlockChunk(height).addFace(i, j, k, Direction::BACK);
           }
+          if(!block[i][j][k+1].visible){
+            getBlockChunk(height).addFace(i, j, k, Direction::FRONT);
+          }
         } else if(k == 15){
           if(hasBack){
             if(back.get()->hasHeight(height) && !back.get()->getBlockChunk(height).getBlockInfo()[i][j][0].visible)
@@ -76,6 +99,9 @@ void HeightChunk::testBlockChunksFrontBack(int height, std::shared_ptr<HeightChu
           } else {
             //Do nothing
             getBlockChunk(height).addFace(i, j, k, Direction::FRONT);
+          }
+          if(!block[i][j][k-1].visible){
+            getBlockChunk(height).addFace(i, j, k, Direction::BACK);
           }
         } else {
           // check within the block
@@ -96,8 +122,8 @@ void HeightChunk::testBlockChunksLeftRight(int height, std::shared_ptr<HeightChu
 
     BlockChunk& blockChunk = m_chunks[height];
     std::vector<std::vector<std::vector<BlockInfo>>>& block = blockChunk.getBlockInfo();
-    bool hasLeft = (left != nullptr);
-    bool hasRight = (right != nullptr);
+    bool hasLeft = (left.get() != nullptr);
+    bool hasRight = (right.get() != nullptr);
 
     // Loop through all the blocks
     for(int i = 0; i < 16; i++){
@@ -114,12 +140,19 @@ void HeightChunk::testBlockChunksLeftRight(int height, std::shared_ptr<HeightChu
             } else {
               getBlockChunk(height).addFace(i, j, k, Direction::LEFT);
             }
+            if(!block[i+1][j][k].visible){
+              getBlockChunk(height).addFace(i, j, k, Direction::RIGHT);
+            }
+
           } else if(i == 15){
             if(hasRight){
               if(right.get()->hasHeight(height) && !right.get()->getBlockChunk(height).getBlockInfo()[0][j][k].visible)
                 getBlockChunk(height).addFace(i, j, k, Direction::RIGHT);
             } else {
               getBlockChunk(height).addFace(i, j, k, Direction::RIGHT);
+            }
+            if(!block[i-1][j][k].visible){
+              getBlockChunk(height).addFace(i, j, k, Direction::LEFT);
             }
           } else {
             // check within the block
@@ -136,15 +169,15 @@ void HeightChunk::testBlockChunksLeftRight(int height, std::shared_ptr<HeightChu
     }
 }
 
-void HeightChunk::updateBlockChunk(int cur_height, std::shared_ptr<HeightChunk> left, std::shared_ptr<HeightChunk> right, std::shared_ptr<HeightChunk> front, std::shared_ptr<HeightChunk> back){
+void HeightChunk::updateBlockChunk(int height, std::shared_ptr<HeightChunk>& left, std::shared_ptr<HeightChunk>& right, std::shared_ptr<HeightChunk>& front, std::shared_ptr<HeightChunk>& back){
 
-  testBlockChunksFrontBack(cur_height, front, back);
-  testBlockChunksLeftRight(cur_height, left, right);
-  testBlockChunksTopDown(cur_height);
+  testBlockChunksFrontBack(height, front, back);
+  testBlockChunksLeftRight(height, left, right);
+  testBlockChunksTopDown(height);
 
 }
 
-void HeightChunk::updateHeightChunk(std::shared_ptr<HeightChunk> left, std::shared_ptr<HeightChunk> right, std::shared_ptr<HeightChunk> front, std::shared_ptr<HeightChunk> back){
+void HeightChunk::updateHeightChunk(std::shared_ptr<HeightChunk>& left, std::shared_ptr<HeightChunk>& right, std::shared_ptr<HeightChunk>& front, std::shared_ptr<HeightChunk>& back){
   for(int i = 0; i < m_chunks.size(); i++){
     updateBlockChunk(i, left, right, front, back);
   }
@@ -222,6 +255,9 @@ void HeightChunk::testBlockChunksTopDown(int height){
             if(!getBlockChunk(height-1).getBlockInfo()[i][15][k].visible)
               getBlockChunk(height).addFace(i, 0, k, Direction::DOWN);
           }
+          if(!block[i][j+1][k].visible){
+            getBlockChunk(height).addFace(i, j, k, Direction::UP);
+          }
         } else if(j == 15){
           if(height == m_chunks.size() - 1){
             if(getBlockChunk(height).getBlockInfo()[i][15][k].visible)
@@ -229,6 +265,9 @@ void HeightChunk::testBlockChunksTopDown(int height){
           } else {
             if(!getBlockChunk(height+1).getBlockInfo()[i][0][k].visible)
               getBlockChunk(height).addFace(i, 15, k, Direction::UP);
+          }
+          if(!block[i][j-1][k].visible){
+            getBlockChunk(height).addFace(i, j, k, Direction::DOWN);
           }
         } else {
           // check within the block

@@ -106,20 +106,16 @@ void ChunkManager::initMesh(){
       std::shared_ptr<HeightChunk> front;
       std::shared_ptr<HeightChunk> back;
       if(i == 0){
-        left = nullptr;
         right = m_heightChunks[i+1][j];
       }
       if(i == 15){
-        right = nullptr;
         left = m_heightChunks[i-1][j];
       }
       if(j == 0){
-        front = nullptr;
         back = m_heightChunks[i][j + 1];
       }
       if(j == 15){
         front = m_heightChunks[i][j - 1];
-        back = nullptr;
       }
       if(i > 0 && i < 15){
         left = m_heightChunks[i-1][j];

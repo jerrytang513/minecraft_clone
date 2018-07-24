@@ -41,8 +41,8 @@ public:
 
   // Specify the block that need to be updated, and pass in 4 surrounding height chunks
   // If the shared_ptr to the surrounding height chunk is nullptr, then it means the side is facing edge.
-  void updateBlockChunk(int height, std::shared_ptr<HeightChunk> left, std::shared_ptr<HeightChunk> right, std::shared_ptr<HeightChunk> front, std::shared_ptr<HeightChunk> back);
-  void updateHeightChunk(std::shared_ptr<HeightChunk> left, std::shared_ptr<HeightChunk> right, std::shared_ptr<HeightChunk> front, std::shared_ptr<HeightChunk> back);
+  void updateBlockChunk(int height, std::shared_ptr<HeightChunk>& left, std::shared_ptr<HeightChunk>& right, std::shared_ptr<HeightChunk>& front, std::shared_ptr<HeightChunk>& back);
+  void updateHeightChunk(std::shared_ptr<HeightChunk>& left, std::shared_ptr<HeightChunk>& right, std::shared_ptr<HeightChunk>& front, std::shared_ptr<HeightChunk>& back);
 
 
   // Get the height of the height Chunk
