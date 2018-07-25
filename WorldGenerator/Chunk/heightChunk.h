@@ -4,6 +4,9 @@
 #include <vector>
 #include <memory>
 #include <algorithm>
+#include <mutex>
+#include <thread>
+#include <chrono>
 
 #include "blockChunk.h"
 
@@ -19,6 +22,11 @@ class HeightChunk{
   int m_initWidth;
   int m_initLength;
   int max_height = INT_MIN;
+
+  bool m_isHeightReady;
+  bool m_isMeshReady;
+  bool m_isNeedUpdate;
+  bool m_isProcessing;
 
   std::vector<int> m_height;
   std::vector<BlockChunk> m_chunks;
@@ -41,8 +49,8 @@ public:
 
   // Specify the block that need to be updated, and pass in 4 surrounding height chunks
   // If the shared_ptr to the surrounding height chunk is nullptr, then it means the side is facing edge.
-  void updateBlockChunk(int height, std::shared_ptr<HeightChunk>& left, std::shared_ptr<HeightChunk>& right, std::shared_ptr<HeightChunk>& front, std::shared_ptr<HeightChunk>& back);
-  void updateHeightChunk(std::shared_ptr<HeightChunk>& left, std::shared_ptr<HeightChunk>& right, std::shared_ptr<HeightChunk>& front, std::shared_ptr<HeightChunk>& back);
+  void updateBlockChunk(int height, std::shared_ptr<HeightChunk> left, std::shared_ptr<HeightChunk> right, std::shared_ptr<HeightChunk> front, std::shared_ptr<HeightChunk> back);
+  void updateHeightChunk(std::shared_ptr<HeightChunk> left, std::shared_ptr<HeightChunk> right, std::shared_ptr<HeightChunk> front, std::shared_ptr<HeightChunk> back);
 
 
   // Get the height of the height Chunk
@@ -62,9 +70,13 @@ public:
   void testBlockChunksFrontBack(int height,  std::shared_ptr<HeightChunk> front,  std::shared_ptr<HeightChunk>  back);
   void testBlockChunksLeftRight(int height, std::shared_ptr<HeightChunk> left,  std::shared_ptr<HeightChunk>  right);
 
-
   std::vector<ChunkMesh*> getChunkMesh();
 
+  bool isHeightReady();
+  bool isMeshReady();
+  bool isNeedUpdate();
+  void setIsNeedUpdate(bool m_isNeedUpdate);
+  bool isProcessing();
 };
 
 #endif

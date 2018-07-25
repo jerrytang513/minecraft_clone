@@ -37,25 +37,19 @@ void ChunkManager::initializeHeights(){
 }
 
 void ChunkManager::draw(ChunkRenderer renderer){
-  std::cout << "Render Chunk Meshes " << std::endl;
+//  std::cout << "Render Chunk Meshes " << std::endl;
   std::vector<ChunkMesh*> meshes;
-  /*if(renderList.size() == 0)
-    return;
-  for(int i = 0; i < renderList.size(); i++){
-  //  std::cout << "START" << std::endl;
-    meshes.emplace_back(m_chunks[renderList[i].coord.x][renderList[i].coord.y][renderList[i].coord.z].getMesh());
-  //  std::cout << "END" << std::endl;
-  }
-  renderer.draw(meshes);
-  */
+  initMesh();
   for(int width = 0; width < 16; width++){
     for(int length = 0; length < 16; length++){
-      std::vector<ChunkMesh*> temp = m_heightChunks[width][length].get()->getChunkMesh();
-      if(temp.size() != 0)
-        meshes.insert(meshes.end(), temp.begin(), temp.end());
+      if(m_heightChunks[width][length].get()->isMeshReady() && !m_heightChunks[width][length].get()->isNeedUpdate()){
+        std::vector<ChunkMesh*> temp = m_heightChunks[width][length].get()->getChunkMesh();
+        if(temp.size() != 0)
+          meshes.insert(meshes.end(), temp.begin(), temp.end());
+      }
     }
   }
-  std::cout << " All Chunk Mesh received, ready to draw" << meshes.size() << std::endl;
+//  std::cout << " All Chunk Mesh received, ready to draw" << meshes.size() << std::endl;
 
   renderer.draw(meshes);
 }
@@ -100,6 +94,8 @@ void ChunkManager::initMesh(){
 */
   for(int i = 0; i < 16; i ++){
     for(int j = 0; j < 16; j++){
+      if(!m_heightChunks[i][j].get()->isHeightReady() || !m_heightChunks[i][j].get()->isNeedUpdate() || m_heightChunks[i][j].get()->isProcessing())
+        continue;
     //  std::cout << " I " << i << " J " << j << std::endl;
       std::shared_ptr<HeightChunk> left;
       std::shared_ptr<HeightChunk> right;
@@ -126,7 +122,8 @@ void ChunkManager::initMesh(){
         back = m_heightChunks[i][j+1];
       }
       // Generate Chunk Mesh
-      m_heightChunks[i][j].get()->updateHeightChunk(left,right,front,back);
+	  ThreadPool::getInstance()->submit([this, i, j, left, right, front, back] { m_heightChunks[i][j].get()->updateHeightChunk(left,right,front,back); });
+      //m_heightChunks[i][j].get()->updateHeightChunk(left,right,front,back);
 
     }
   }

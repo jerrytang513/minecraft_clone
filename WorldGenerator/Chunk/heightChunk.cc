@@ -4,7 +4,11 @@ HeightChunk::HeightChunk(int m_width, int m_length, int m_initWidth, int m_initL
   m_width{m_width},
   m_length{m_length},
   m_initWidth{m_initWidth},
-  m_initLength{m_initLength}
+  m_initLength{m_initLength},
+  m_isHeightReady{false},
+  m_isMeshReady{false},
+  m_isNeedUpdate{true},
+  m_isProcessing{false}
   {
     generateHeight();
     init();
@@ -48,6 +52,7 @@ void HeightChunk::init(){
     });
     m_chunks.emplace_back(BlockChunk(m_width * 16, total_chunks * 16, m_length * 16, temp));
   }
+  m_isHeightReady = true;
 }
 
 void HeightChunk::render(){
@@ -169,18 +174,27 @@ void HeightChunk::testBlockChunksLeftRight(int height, std::shared_ptr<HeightChu
     }
 }
 
-void HeightChunk::updateBlockChunk(int height, std::shared_ptr<HeightChunk>& left, std::shared_ptr<HeightChunk>& right, std::shared_ptr<HeightChunk>& front, std::shared_ptr<HeightChunk>& back){
+void HeightChunk::updateBlockChunk(int height, std::shared_ptr<HeightChunk> left, std::shared_ptr<HeightChunk> right, std::shared_ptr<HeightChunk> front, std::shared_ptr<HeightChunk> back){
 
   testBlockChunksFrontBack(height, front, back);
   testBlockChunksLeftRight(height, left, right);
   testBlockChunksTopDown(height);
-
 }
 
-void HeightChunk::updateHeightChunk(std::shared_ptr<HeightChunk>& left, std::shared_ptr<HeightChunk>& right, std::shared_ptr<HeightChunk>& front, std::shared_ptr<HeightChunk>& back){
-  for(int i = 0; i < m_chunks.size(); i++){
+void HeightChunk::updateHeightChunk(std::shared_ptr<HeightChunk> left, std::shared_ptr<HeightChunk> right, std::shared_ptr<HeightChunk> front, std::shared_ptr<HeightChunk> back){
+
+  m_isProcessing = true;
+
+	for(int i = 0; i < m_chunks.size(); i++){
+
+
     updateBlockChunk(i, left, right, front, back);
+
   }
+  m_isMeshReady = true;
+  m_isNeedUpdate = false;
+  m_isProcessing = false;
+
 }
 
 int HeightChunk::getHeight(){
@@ -291,4 +305,24 @@ std::vector<ChunkMesh*> HeightChunk::getChunkMesh(){
       temp.emplace_back(m_chunks[i].getMesh());
   }
   return temp;
+}
+
+bool HeightChunk::isHeightReady(){
+  return m_isHeightReady;
+}
+
+bool HeightChunk::isMeshReady(){
+  return m_isMeshReady;
+}
+
+bool HeightChunk::isNeedUpdate(){
+  return m_isNeedUpdate;
+}
+
+bool HeightChunk::isProcessing(){
+  return m_isProcessing;
+}
+
+void HeightChunk::setIsNeedUpdate(bool m_isNeedUpdate){
+  this->m_isNeedUpdate = m_isNeedUpdate;
 }
