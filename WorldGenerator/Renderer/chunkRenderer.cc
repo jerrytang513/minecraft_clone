@@ -7,6 +7,13 @@ void ChunkRenderer::setShader(Shader shader){
   this->shader = shader;
 }
 
+void ChunkRenderer::draw(int tempSize, std::vector<ChunkMesh*> mesh){
+  std::cout << "HERE" << std::endl;
+  std::vector<ChunkMesh*>::const_iterator first = mesh.begin();
+  std::vector<ChunkMesh*>::const_iterator second = mesh.begin() + tempSize;
+  draw(std::vector<ChunkMesh*>(first, second));
+}
+
 void ChunkRenderer::draw(std::vector<ChunkMesh*> mesh){
   //std::cout << mesh.size() << std::endl;
   if(mesh.size() == 0)

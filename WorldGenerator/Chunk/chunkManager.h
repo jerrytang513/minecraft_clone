@@ -16,13 +16,19 @@ class ChunkManager{
   std::vector<std::vector<std::vector<BlockChunk>>> m_chunks;
   std::vector<std::vector<std::shared_ptr<HeightChunk>>> m_heightChunks;
 
-  std::vector<Vec3D> renderList;
+  std::vector<ChunkMesh*> renderList;
   int M_WIDTH;
   int M_HEIGHT;
   int M_LENGTH;
 
   int centerX;
   int centerY;
+
+  bool isHeightReady;
+  bool isChunkReady;
+  bool isProcessing;
+  bool isProcessing2;
+  bool isNeedUpdate;
 
   void initializeHeights();
   bool shouldAddFace(int chunkX, int chunkY, int chunkZ);
@@ -34,6 +40,15 @@ public:
   void addHeight(std::vector<int> heights);
   const std::vector<std::vector<std::vector<BlockChunk>>> getChunks();
   void initMesh();
+  void initHeight();
+  void addChunks();
   void generateChunkMesh(int chunkX, int chunkY, int chunkZ);
+
+  // Used to load and unload height chunks
+  void moveFront();
+  void moveBack();
+  void moveLeft();
+  void moveRight();
+
 };
 #endif

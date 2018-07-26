@@ -9,7 +9,7 @@ ChunkManager::ChunkManager(int width, int length,std::vector<int> heights):M_WID
   addHeight(heights);
 }
 
-ChunkManager::ChunkManager(int width, int length):M_WIDTH{width},M_LENGTH{length}{
+ChunkManager::ChunkManager(int width, int length) :M_WIDTH{ width }, M_LENGTH{ length }, isHeightReady{ false }, isChunkReady{ false }, isProcessing{ false }, isNeedUpdate{true}{
 
   // These two values are use to generate the height, it is m_hightChunks[0][0] location.
   centerX = 100000;
@@ -39,7 +39,22 @@ void ChunkManager::initializeHeights(){
 void ChunkManager::draw(ChunkRenderer renderer){
 //  std::cout << "Render Chunk Meshes " << std::endl;
   std::vector<ChunkMesh*> meshes;
-  initMesh();
+
+  if(!isHeightReady && !isProcessing){
+    ThreadPool::getInstance()->submit([this] {initHeight();});
+  }
+
+  // Check if height info is ready, so can generate chunk mesh
+  // If chunk Mesh is already ready, than don't need to do that again
+  if(isHeightReady && !isChunkReady){
+    initMesh();
+    isChunkReady = true;
+  }
+
+  if(isHeightReady && isNeedUpdate && isChunkReady){
+
+  }
+
   for(int width = 0; width < 16; width++){
     for(int length = 0; length < 16; length++){
       if(m_heightChunks[width][length].get()->isMeshReady() && !m_heightChunks[width][length].get()->isNeedUpdate()){
@@ -53,6 +68,19 @@ void ChunkManager::draw(ChunkRenderer renderer){
 
   renderer.draw(meshes);
 }
+
+void ChunkManager::addChunks(){
+  for(int width = 0; width < 16; width++){
+    for(int length = 0; length < 16; length++){
+      if(m_heightChunks[width][length].get()->isMeshReady() && !m_heightChunks[width][length].get()->isNeedUpdate()){
+        std::vector<ChunkMesh*> temp = m_heightChunks[width][length].get()->getChunkMesh();
+        if(temp.size() != 0)
+          renderList.insert(renderList.end(), temp.begin(), temp.end());
+      }
+    }
+  }
+}
+
 
 void ChunkManager::addHeight(std::vector<int> heights){
   for(int i = 0; i < M_WIDTH * 16; i++){
@@ -77,21 +105,19 @@ const std::vector<std::vector<std::vector<BlockChunk>>> ChunkManager::getChunks(
   return m_chunks;
 }
 
-void ChunkManager::initMesh(){
-
-
-  TextureManager::getInstance();
-/*
-  for(int i = 0; i < M_WIDTH; i ++){
-    for(int j = 0; j < M_HEIGHT; j++){
-  		for (int k = 0; k < M_LENGTH; k++) {
-        if (m_chunks[i][j][k].getIsActive()) {
-  				ThreadPool::getInstance()->submit([this, i, j, k] { generateChunkMesh(i, j, k); });
-  			}
-  		}
+void ChunkManager::initHeight(){
+  isProcessing = true;
+  for(int i = 0; i < 16; i++){
+    for(int j = 0; j < 16; j++){
+		m_heightChunks[i][j].get()->generateHeight();
     }
   }
-*/
+  isHeightReady = true;
+  isProcessing = false;
+}
+
+void ChunkManager::initMesh(){
+  TextureManager::getInstance();
   for(int i = 0; i < 16; i ++){
     for(int j = 0; j < 16; j++){
       if(!m_heightChunks[i][j].get()->isHeightReady() || !m_heightChunks[i][j].get()->isNeedUpdate() || m_heightChunks[i][j].get()->isProcessing())
@@ -205,7 +231,23 @@ void ChunkManager::generateChunkMesh(int chunkX, int chunkY, int chunkZ) {
 		}
 	}
   if(m_chunks[chunkX][chunkY][chunkZ].getVerticeCount() != 0){
-    renderList.emplace_back(Vec3D(chunkX, chunkY, chunkZ));
+  //  renderList.emplace_back(Vec3D(chunkX, chunkY, chunkZ));
     m_chunks[chunkX][chunkY][chunkZ].setIsReady(true);
   }
+}
+
+void ChunkManager::moveFront(){
+
+}
+
+void ChunkManager::moveBack(){
+
+}
+
+void ChunkManager::moveLeft(){
+
+}
+
+void ChunkManager::moveRight(){
+  
 }

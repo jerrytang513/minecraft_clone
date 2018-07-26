@@ -9,10 +9,7 @@ HeightChunk::HeightChunk(int m_width, int m_length, int m_initWidth, int m_initL
   m_isMeshReady{false},
   m_isNeedUpdate{true},
   m_isProcessing{false}
-  {
-    generateHeight();
-    init();
-  }
+  {}
 
 BlockChunk& HeightChunk::getBlockChunk(int height){
   return m_chunks[height];
@@ -70,6 +67,7 @@ void HeightChunk::generateHeight(){
       m_height.emplace_back(new_height);
     }
   }
+  init();
 }
 
 void HeightChunk::testBlockChunksFrontBack(int height, std::shared_ptr<HeightChunk> front,  std::shared_ptr<HeightChunk>  back){

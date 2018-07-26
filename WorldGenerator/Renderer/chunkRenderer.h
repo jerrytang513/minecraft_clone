@@ -19,6 +19,8 @@ public:
   ChunkRenderer();
   void setShader(Shader shader);
   void draw(std::vector<ChunkMesh*> mesh);
+  void draw(int tempSize, std::vector<ChunkMesh*> mesh);
+
 };
 
 #endif
