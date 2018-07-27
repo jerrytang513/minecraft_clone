@@ -77,6 +77,9 @@ public:
   bool isNeedUpdate();
   void setIsNeedUpdate(bool m_isNeedUpdate);
   bool isProcessing();
+
+  int getWidth();
+  int getLength();
 };
 
 #endif

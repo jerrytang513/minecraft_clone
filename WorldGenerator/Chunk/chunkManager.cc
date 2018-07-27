@@ -238,16 +238,27 @@ void ChunkManager::generateChunkMesh(int chunkX, int chunkY, int chunkZ) {
 
 void ChunkManager::moveFront(){
 
+  for(int width = 0; width < 15; width ++ ){
+    for(int length = 0; length < 16; length ++ ){
+		m_heightChunks[width][length] = m_heightChunks[width+1][length];
+    }
+  }
+
+  for(int length = 0; length < 16; length++){
+    int newWidth = m_heightChunks[14][length].get()->getWidth() + 1;
+    int newLength = m_heightChunks[14][length].get()->getLength();
+	m_heightChunks[15][length] = std::make_shared<HeightChunk>(newWidth, newLength, centerX + 16 * newWidth, centerY + 16 * newLength);
+  }
 }
 
 void ChunkManager::moveBack(){
-
+  int removeRow = 15;
 }
 
 void ChunkManager::moveLeft(){
-
+  int removeCol = 0;
 }
 
 void ChunkManager::moveRight(){
-  
+  int removeCol = 15;
 }

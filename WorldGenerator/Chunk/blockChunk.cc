@@ -12,6 +12,12 @@ BlockChunk::BlockChunk(){
   }
 
 }
+
+BlockChunk::~BlockChunk(){
+  delete mesh;
+}
+
+
 BlockChunk::BlockChunk(int width,  int height, int length, std::vector<int> heights):initWidth{width},initHeight{height},initLength{length}{
   std::vector<std::vector<std::vector<BlockInfo>>> temp {std::vector<std::vector<std::vector<BlockInfo>>>(16, std::vector<std::vector<BlockInfo>>(16,std::vector<BlockInfo>(16,BlockInfo())))};
   blocks = temp;

@@ -1,5 +1,9 @@
 #include "heightChunk.h"
 
+
+// What is the different between m_width and m_initWidth ?
+// m_width : m_width * 16 is used to specify the blockChunks' left down corner in the current world space.
+// m_initWidth : left down corner of the height space, used to calculate the height
 HeightChunk::HeightChunk(int m_width, int m_length, int m_initWidth, int m_initLength):
   m_width{m_width},
   m_length{m_length},
@@ -323,4 +327,12 @@ bool HeightChunk::isProcessing(){
 
 void HeightChunk::setIsNeedUpdate(bool m_isNeedUpdate){
   this->m_isNeedUpdate = m_isNeedUpdate;
+}
+
+int HeightChunk::getWidth(){
+  return m_width;
+}
+
+int HeightChunk::getLength(){
+  return m_length;
 }

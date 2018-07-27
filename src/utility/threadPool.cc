@@ -3,7 +3,7 @@
 
 ThreadPool* ThreadPool::getInstance(){
   if(instance == nullptr){
-	  instance = new ThreadPool(4);
+	  instance = new ThreadPool(2);
     instance->init();
   }
   return instance;

@@ -31,6 +31,7 @@ class BlockChunk{
   std::vector<int> indices;
 public:
   BlockChunk();
+  ~BlockChunk();
   // Feed in Block Chunk size of height data, and block chunk will build the coords
   BlockChunk(int width, int height, int length, std::vector<int> heights);
   // Fill all blocks
