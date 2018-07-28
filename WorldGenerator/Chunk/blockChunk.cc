@@ -32,7 +32,7 @@ BlockChunk::BlockChunk(int width,  int height, int length, std::vector<int> heig
   // Set visible
   for(int i = 0; i < 16; i++){
     for(int j = 0; j < 16; j++){
-      addHeight(i, heights[j * 16 + i], j);
+      addHeight(j, heights[i * 16 + j], i);
     }
   }
 }
@@ -47,8 +47,8 @@ BlockChunk::BlockChunk(int initWidth,  int initHeight, int initLength):initWidth
     }
     highest.emplace_back(vec);
   }
-  for(int width = 0; width < 16; width ++){
-      for(int length = 0; length < 16; length ++){
+  for(int length = 0; length < 16; length ++){
+    for(int width = 0; width < 16; width ++){
         addHeight(width, 16, length);
       }
   }
@@ -121,7 +121,6 @@ ChunkMesh* BlockChunk::getMesh(){
 
 void BlockChunk::addFace(int i, int j, int k, Direction direction){
   float faceDimension = 1.0f / 16.0f;
-
   std::vector<Vec2D> texCoords;
 
   switch(direction){
@@ -147,18 +146,18 @@ void BlockChunk::addFace(int i, int j, int k, Direction direction){
       texCoords = TextureManager::getInstance().getCoordinates(Vec2D(3,15));
       break;
     case Direction::FRONT:
-      vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f  + faceDimension * j, -0.5f + faceDimension * (k + 1)));
-      vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f  + faceDimension * j, -0.5f + faceDimension * (k + 1)));
-      vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f + faceDimension * (j + 1), -0.5f + faceDimension * (k + 1)));
-      vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f + faceDimension * (j + 1), -0.5f + faceDimension * (k + 1)));
-      texCoords = TextureManager::getInstance().getCoordinates(Vec2D(3,15));
+      vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f  + faceDimension * j, -0.5f + faceDimension * k));
+      vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f  + faceDimension * j, -0.5f + faceDimension * k));
+      vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f + faceDimension * (j + 1), -0.5f + faceDimension * k));
+      vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f + faceDimension * (j + 1), -0.5f + faceDimension * k));
+      texCoords = TextureManager::getInstance().getCoordinates(Vec2D(0,15));
       break;
     case Direction::BACK:
-      vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f  + faceDimension * j, -0.5f  + faceDimension * k));
-      vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f  + faceDimension * j, -0.5f  + faceDimension * k));
-      vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f + faceDimension * (j + 1), -0.5f  + faceDimension * k));
-      vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f + faceDimension * (j + 1), -0.5f  + faceDimension * k));
-      texCoords = TextureManager::getInstance().getCoordinates(Vec2D(3,15));
+      vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f  + faceDimension * j, -0.5f  + faceDimension * (k + 1)));
+      vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f  + faceDimension * j, -0.5f  + faceDimension * (k + 1)));
+      vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f + faceDimension * (j + 1), -0.5f  + faceDimension * (k + 1)));
+      vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f + faceDimension * (j + 1), -0.5f  + faceDimension * (k + 1)));
+      texCoords = TextureManager::getInstance().getCoordinates(Vec2D(2,15));
       break;
 	case Direction::DOWN:
       vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f  + faceDimension * j, -0.5f + faceDimension * k));
@@ -186,4 +185,14 @@ void BlockChunk::addFace(int i, int j, int k, Direction direction){
 
 int BlockChunk::getVerticeCount(){
   return vertices.size();
+}
+
+void BlockChunk::clear(){
+  needUpdate = true;
+  delete mesh;
+  mesh = nullptr;
+
+  std::cout << "ALL CLEAR " << std::endl;
+  std::cout << "INIT WIDTH LENGTH " << initWidth << " " << initLength << std::endl;
+
 }

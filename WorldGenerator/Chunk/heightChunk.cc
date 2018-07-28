@@ -1,9 +1,5 @@
 #include "heightChunk.h"
 
-
-// What is the different between m_width and m_initWidth ?
-// m_width : m_width * 16 is used to specify the blockChunks' left down corner in the current world space.
-// m_initWidth : left down corner of the height space, used to calculate the height
 HeightChunk::HeightChunk(int m_width, int m_length, int m_initWidth, int m_initLength):
   m_width{m_width},
   m_length{m_length},
@@ -62,7 +58,6 @@ void HeightChunk::render(){
 
 void HeightChunk::generateHeight(){
   NoiseGenerator& ng = NoiseGenerator::getInstance();
-//  std::cout << "GenerateHeight for width "  << m_initWidth << " and length " << m_initLength << std::endl;
   // Generate all the heights, and get the maximum height.
   for(int length = 0; length < 16; length ++ ){
     for(int width = 0; width < 16; width ++ ){
@@ -92,31 +87,31 @@ void HeightChunk::testBlockChunksFrontBack(int height, std::shared_ptr<HeightChu
           // It is at the front, check if has left exist
           if(hasFront){
             if(front.get()->hasHeight(height) && !front.get()->getBlockChunk(height).getBlockInfo()[i][j][15].visible)
-              getBlockChunk(height).addFace(i, j, k, Direction::BACK);
+              getBlockChunk(height).addFace(i, j, k, Direction::FRONT);
           } else {
-            getBlockChunk(height).addFace(i, j, k, Direction::BACK);
+            //getBlockChunk(height).addFace(i, j, k, Direction::BACK);
           }
           if(!block[i][j][k+1].visible){
-            getBlockChunk(height).addFace(i, j, k, Direction::FRONT);
+            getBlockChunk(height).addFace(i, j, k, Direction::BACK);
           }
         } else if(k == 15){
           if(hasBack){
             if(back.get()->hasHeight(height) && !back.get()->getBlockChunk(height).getBlockInfo()[i][j][0].visible)
-              getBlockChunk(height).addFace(i, j, k, Direction::FRONT);
+              getBlockChunk(height).addFace(i, j, k, Direction::BACK);
           } else {
             //Do nothing
-            getBlockChunk(height).addFace(i, j, k, Direction::FRONT);
+            //getBlockChunk(height).addFace(i, j, k, Direction::FRONT);
           }
           if(!block[i][j][k-1].visible){
-            getBlockChunk(height).addFace(i, j, k, Direction::BACK);
+            getBlockChunk(height).addFace(i, j, k, Direction::FRONT);
           }
         } else {
           // check within the block
-          if(!block[i][j][k-1].visible){
-            getBlockChunk(height).addFace(i, j, k, Direction::BACK);
+        if(!block[i][j][k-1].visible){
+          getBlockChunk(height).addFace(i, j, k, Direction::FRONT);
           }
           if(!block[i][j][k+1].visible){
-            getBlockChunk(height).addFace(i, j, k, Direction::FRONT);
+            getBlockChunk(height).addFace(i, j, k, Direction::BACK);
           }
 
         }
@@ -145,7 +140,7 @@ void HeightChunk::testBlockChunksLeftRight(int height, std::shared_ptr<HeightChu
               if(left.get()->hasHeight(height) && !left.get()->getBlockChunk(height).getBlockInfo()[15][j][k].visible)
                 getBlockChunk(height).addFace(i, j, k, Direction::LEFT);
             } else {
-              getBlockChunk(height).addFace(i, j, k, Direction::LEFT);
+              //getBlockChunk(height).addFace(i, j, k, Direction::LEFT);
             }
             if(!block[i+1][j][k].visible){
               getBlockChunk(height).addFace(i, j, k, Direction::RIGHT);
@@ -156,7 +151,7 @@ void HeightChunk::testBlockChunksLeftRight(int height, std::shared_ptr<HeightChu
               if(right.get()->hasHeight(height) && !right.get()->getBlockChunk(height).getBlockInfo()[0][j][k].visible)
                 getBlockChunk(height).addFace(i, j, k, Direction::RIGHT);
             } else {
-              getBlockChunk(height).addFace(i, j, k, Direction::RIGHT);
+              //getBlockChunk(height).addFace(i, j, k, Direction::RIGHT);
             }
             if(!block[i-1][j][k].visible){
               getBlockChunk(height).addFace(i, j, k, Direction::LEFT);
@@ -181,6 +176,16 @@ void HeightChunk::updateBlockChunk(int height, std::shared_ptr<HeightChunk> left
   testBlockChunksFrontBack(height, front, back);
   testBlockChunksLeftRight(height, left, right);
   testBlockChunksTopDown(height);
+}
+
+std::vector<ChunkMesh*> HeightChunk::getChunkMesh(){
+  std::vector<ChunkMesh*> temp;
+  for(int i = 0; i < m_chunks.size(); i++){
+    ChunkMesh* chunkMesh = m_chunks[i].getMesh();
+    if(chunkMesh != nullptr)
+      temp.emplace_back(m_chunks[i].getMesh());
+  }
+  return temp;
 }
 
 void HeightChunk::updateHeightChunk(std::shared_ptr<HeightChunk> left, std::shared_ptr<HeightChunk> right, std::shared_ptr<HeightChunk> front, std::shared_ptr<HeightChunk> back){
@@ -263,9 +268,8 @@ void HeightChunk::testBlockChunksTopDown(int height){
           continue;
 
         if(j == 0){
-          // It is at the front, check if has left exist
           if(height == 0){
-              getBlockChunk(height).addFace(i, 0, k, Direction::DOWN);
+              //getBlockChunk(height).addFace(i, 0, k, Direction::DOWN);
           } else {
 
             if(!getBlockChunk(height-1).getBlockInfo()[i][15][k].visible)
@@ -299,16 +303,6 @@ void HeightChunk::testBlockChunksTopDown(int height){
   }
 }
 
-std::vector<ChunkMesh*> HeightChunk::getChunkMesh(){
-  std::vector<ChunkMesh*> temp;
-  for(int i = 0; i < m_chunks.size(); i++){
-    ChunkMesh* chunkMesh = m_chunks[i].getMesh();
-    if(chunkMesh != nullptr)
-      temp.emplace_back(m_chunks[i].getMesh());
-  }
-  return temp;
-}
-
 bool HeightChunk::isHeightReady(){
   return m_isHeightReady;
 }
@@ -328,11 +322,21 @@ bool HeightChunk::isProcessing(){
 void HeightChunk::setIsNeedUpdate(bool m_isNeedUpdate){
   this->m_isNeedUpdate = m_isNeedUpdate;
 }
-
 int HeightChunk::getWidth(){
   return m_width;
 }
 
 int HeightChunk::getLength(){
   return m_length;
+}
+
+void HeightChunk::clearMesh(){
+  m_isNeedUpdate = true;
+  m_isHeightReady = true;
+  m_isMeshReady = false;
+  m_isProcessing = false;
+	for (int i = 0; i < m_chunks.size(); i++) {
+
+    m_chunks[i].clear();
+  }
 }

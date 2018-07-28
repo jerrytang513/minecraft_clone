@@ -54,5 +54,6 @@ public:
   void addFace(int i, int j, int k, Direction direction);
   int getVerticeCount();
   ChunkMesh* getMesh();
+  void clear();
 };
 #endif

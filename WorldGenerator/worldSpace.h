@@ -28,7 +28,6 @@ class WorldSpace{
 
 public:
   WorldSpace(int width, int length, int height);
-  void setHeight(int width, int length, int height);
   void draw(Shader shader);
 
 // The front back left right location is constant inside the world space
@@ -38,6 +37,7 @@ public:
   void moveBack();
   void moveLeft();
   void moveRight();
+  void click();
 
 };
 

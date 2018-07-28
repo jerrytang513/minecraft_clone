@@ -30,17 +30,16 @@ class ChunkManager{
   bool isProcessing2;
   bool isNeedUpdate;
 
-  void initializeHeights();
   bool shouldAddFace(int chunkX, int chunkY, int chunkZ);
 
 public:
   ChunkManager(int width, int length);
-  ChunkManager(int width, int length, std::vector<int> heights);
   void draw(ChunkRenderer renderer);
   void addHeight(std::vector<int> heights);
   const std::vector<std::vector<std::vector<BlockChunk>>> getChunks();
-  void initMesh();
+  void initMesh(int startWidth, int startLength, int width, int length);
   void initHeight();
+  void updateChunks(int startWidth, int startLength, int width, int length);
   void addChunks();
   void generateChunkMesh(int chunkX, int chunkY, int chunkZ);
 

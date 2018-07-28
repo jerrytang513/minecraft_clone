@@ -14,6 +14,13 @@
 #include "../NoiseGen/noiseGen.h"
 #include "../../src/Mesh/chunkMesh.h"
 
+enum class STATUS{
+  NONE,
+  PROCESSING,
+  HEIGHTREADY,
+  MESHREADY
+};
+
 class HeightChunk{
 
   int m_width;
@@ -30,7 +37,9 @@ class HeightChunk{
 
   std::vector<int> m_height;
   std::vector<BlockChunk> m_chunks;
+  std::vector<ChunkMesh*> m_meshes;
 
+  STATUS curStatus;
   // Build the chunk
   void init();
 
@@ -80,6 +89,8 @@ public:
 
   int getWidth();
   int getLength();
+  STATUS getStatus();
+  void clearMesh();
 };
 
 #endif

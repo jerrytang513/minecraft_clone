@@ -17,13 +17,15 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow *window);
-
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 // settings
 const unsigned int SCR_WIDTH = 1500;
 const unsigned int SCR_HEIGHT = 800;
 
 // camera
 Camera camera(glm::vec3(0.0f, 30.0f, 0.0f));
+
+
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
@@ -43,6 +45,7 @@ int main()
 
 	// glfw window creation
 	// --------------------
+	WorldSpace* ws = new WorldSpace(256, 256, 20);
 	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "OPENGL", NULL, NULL);
 	if (window == NULL)
 	{
@@ -51,9 +54,11 @@ int main()
 		return -1;
 	}
 	glfwMakeContextCurrent(window);
+	glfwSetWindowUserPointer(window, ws);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
+	glfwSetMouseButtonCallback(window, mouse_button_callback);
 
 	// tell GLFW to capture our mouse
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -73,7 +78,6 @@ int main()
 	// build and compile shaders
 	// -------------------------
 	Shader ourShader("shaders/block.vs", "shaders/block.fs");
-	WorldSpace ws(256, 256, 20);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -90,9 +94,8 @@ int main()
 		glm::mat4 view = camera.GetViewMatrix();
 		ourShader.setMat4("projection", projection);
 		ourShader.setMat4("view", view);
-		//std::cout << "CYCLE" << std::endl;
 
-		ws.draw(ourShader);
+		ws->draw(ourShader);
 
 
 		glfwSwapBuffers(window);
@@ -161,4 +164,11 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	camera.ProcessMouseScroll(yoffset);
+}
+
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+{
+	WorldSpace* ws = (WorldSpace*)glfwGetWindowUserPointer(window);
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+        ws->click();
 }
