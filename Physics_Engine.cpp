@@ -1,5 +1,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <memory>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -10,6 +11,9 @@
 #include "camera.h"
 #include "model.h"
 #include "WorldGenerator/worldSpace.h"
+
+#include "Events/eventManager.h"
+#include "src/Entity/player.h"
 
 #include <iostream>
 
@@ -23,8 +27,13 @@ const unsigned int SCR_WIDTH = 1500;
 const unsigned int SCR_HEIGHT = 800;
 
 // camera
-Camera camera(glm::vec3(0.0f, 30.0f, 0.0f));
+//Camera camera(glm::vec3(0.0f, 30.0f, 0.0f));
+std::shared_ptr<Player> player = std::make_shared<Player>();
+std::shared_ptr<Camera> camera = player.get()->getCamera();
+EventManager event;
 
+Vec3D curPosition = player.get()->getStartingPosition();
+Vec3D newPosition = Vec3D(0.0f,0.0f,0.0f);
 
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
@@ -36,6 +45,7 @@ float lastFrame = 0.0f;
 
 int main()
 {
+
 	// glfw: initialize and configure
 	// ------------------------------
 	glfwInit();
@@ -45,7 +55,11 @@ int main()
 
 	// glfw window creation
 	// --------------------
-	WorldSpace* ws = new WorldSpace(256, 256, 20);
+	std::shared_ptr<WorldSpace> ws = std::make_shared<WorldSpace>(256, 256, 20);
+
+	event.attachEntity(player);
+	event.attachWorldSpace(ws);
+
 	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "OPENGL", NULL, NULL);
 	if (window == NULL)
 	{
@@ -54,7 +68,7 @@ int main()
 		return -1;
 	}
 	glfwMakeContextCurrent(window);
-	glfwSetWindowUserPointer(window, ws);
+	glfwSetWindowUserPointer(window, ws.get());
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
@@ -90,12 +104,12 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		ourShader.use();
 
-		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 50000.0f);
-		glm::mat4 view = camera.GetViewMatrix();
+		glm::mat4 projection = glm::perspective(glm::radians(camera.get()->Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 50000.0f);
+		glm::mat4 view = camera.get()->GetViewMatrix();
 		ourShader.setMat4("projection", projection);
 		ourShader.setMat4("view", view);
 
-		ws->draw(ourShader);
+		ws.get()->draw(ourShader);
 
 
 		glfwSwapBuffers(window);
@@ -115,18 +129,24 @@ void processInput(GLFWwindow *window)
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		camera.ProcessKeyboard(FORWARD, deltaTime);
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS){
+		event.movement(FORWARD, deltaTime);
+
+	}
+
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		camera.ProcessKeyboard(BACKWARD, deltaTime);
+		event.movement(BACKWARD, deltaTime);
+
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		camera.ProcessKeyboard(LEFT, deltaTime);
+		event.movement(LEFT, deltaTime);
+
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		camera.ProcessKeyboard(RIGHT, deltaTime);
+		event.movement(RIGHT, deltaTime);
+
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-		camera.ProcessKeyboard(DOWN, deltaTime);
+		camera.get()->ProcessKeyboard(DOWN, deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-		camera.ProcessKeyboard(UP, deltaTime);
+		camera.get()->ProcessKeyboard(UP, deltaTime);
 
 }
 
@@ -155,20 +175,19 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 
 	lastX = xpos;
 	lastY = ypos;
-
-	camera.ProcessMouseMovement(xoffset, yoffset);
+	camera.get()->ProcessMouseMovement(xoffset, yoffset);
 }
 
 // glfw: whenever the mouse scroll wheel scrolls, this callback is called
 // ----------------------------------------------------------------------
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-	camera.ProcessMouseScroll(yoffset);
+	camera.get()->ProcessMouseScroll(yoffset);
 }
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {
-	WorldSpace* ws = (WorldSpace*)glfwGetWindowUserPointer(window);
-    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
-        ws->click();
+//	WorldSpace* ws = (WorldSpace*)glfwGetWindowUserPointer(window);
+//    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+//        ws->click();
 }

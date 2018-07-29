@@ -7,6 +7,8 @@
 
 #include <vector>
 
+#include "vec3d.h"
+
 // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
 enum Camera_Movement {
     FORWARD,
@@ -94,6 +96,10 @@ public:
             Position += WorldUp * velocity;
         if (direction == DOWN)
             Position -= WorldUp * velocity;
+    }
+
+    Vec3D getPosition(){
+      return Vec3D(Position.x, Position.y, Position.z);
     }
 
     // Processes input received from a mouse input system. Expects the offset value in both the x and y direction.

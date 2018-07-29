@@ -23,7 +23,7 @@ class BlockChunk{
   bool isActive = false;
   bool isReady = false;
 
-  ChunkMesh* mesh = nullptr;
+  std::shared_ptr<ChunkMesh> mesh;
   bool needUpdate = true;
   std::vector<int> textureIndexes;
   std::vector<Vec2D> textureCoordinates;
@@ -53,7 +53,9 @@ public:
   // Add a face by specifying a direction
   void addFace(int i, int j, int k, Direction direction);
   int getVerticeCount();
-  ChunkMesh* getMesh();
+  std::shared_ptr<ChunkMesh> getMesh();
   void clear();
+
+  bool canRender();
 };
 #endif

@@ -19,18 +19,18 @@ void WorldSpace::moveFront(){
 }
 
 void WorldSpace::moveBack(){
-
+  chunkManager->moveBack();
 }
 
 void WorldSpace::moveLeft(){
-
+  chunkManager->moveLeft();
 }
 
 void WorldSpace::moveRight(){
-
+  chunkManager->moveRight();
 }
 
 void WorldSpace::click(){
-  std::cout << "This is only for testing" << std::endl;
-  moveFront();
+
+
 }

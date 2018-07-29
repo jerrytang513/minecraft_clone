@@ -37,7 +37,7 @@ class HeightChunk{
 
   std::vector<int> m_height;
   std::vector<BlockChunk> m_chunks;
-  std::vector<ChunkMesh*> m_meshes;
+  std::vector<ChunkMesh> m_meshes;
 
   STATUS curStatus;
   // Build the chunk
@@ -79,7 +79,7 @@ public:
   void testBlockChunksFrontBack(int height,  std::shared_ptr<HeightChunk> front,  std::shared_ptr<HeightChunk>  back);
   void testBlockChunksLeftRight(int height, std::shared_ptr<HeightChunk> left,  std::shared_ptr<HeightChunk>  right);
 
-  std::vector<ChunkMesh*> getChunkMesh();
+  std::vector<std::shared_ptr<ChunkMesh>> getChunkMesh();
 
   bool isHeightReady();
   bool isMeshReady();

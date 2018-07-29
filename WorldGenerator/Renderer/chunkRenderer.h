@@ -1,5 +1,8 @@
 #ifndef CHUNKRENDERER_H_
 #define CHUNKRENDERER_H_
+
+#include <memory>
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -18,8 +21,7 @@ class ChunkRenderer{
 public:
   ChunkRenderer();
   void setShader(Shader shader);
-  void draw(std::vector<ChunkMesh*> mesh);
-  void draw(int tempSize, std::vector<ChunkMesh*> mesh);
+  void draw(std::vector<std::shared_ptr<ChunkMesh>> mesh);
 
 };
 

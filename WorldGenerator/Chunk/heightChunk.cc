@@ -21,7 +21,9 @@ void HeightChunk::init(){
 
   for(int i = 0; i < total_chunks; i++){
     std::vector<int> temp = m_height;
-	  std::for_each(temp.begin(), temp.end(), [i](int& val) {
+    std::vector<int>::iterator tbegin = temp.begin();
+    std::vector<int>::iterator tend = temp.end();
+	  std::for_each(tbegin, tend, [i](int& val) {
       if((val - i * 16) > 0){
         if((val - i * 16) < 16){
           val -= i * 16;
@@ -36,7 +38,9 @@ void HeightChunk::init(){
   }
   if(left_over > 0){
     std::vector<int> temp = m_height;
-    std::for_each(temp.begin(), temp.end(), [total_chunks](int& val) {
+    std::vector<int>::iterator tbegin = temp.begin();
+    std::vector<int>::iterator tend = temp.end();
+    std::for_each(tbegin, tend, [total_chunks](int& val) {
       if((val - total_chunks * 16) > 0){
         if((val - total_chunks * 16) < 16){
           val -= total_chunks * 16;
@@ -178,12 +182,10 @@ void HeightChunk::updateBlockChunk(int height, std::shared_ptr<HeightChunk> left
   testBlockChunksTopDown(height);
 }
 
-std::vector<ChunkMesh*> HeightChunk::getChunkMesh(){
-  std::vector<ChunkMesh*> temp;
+std::vector<std::shared_ptr<ChunkMesh>> HeightChunk::getChunkMesh(){
+  std::vector<std::shared_ptr<ChunkMesh>> temp;
   for(int i = 0; i < m_chunks.size(); i++){
-    ChunkMesh* chunkMesh = m_chunks[i].getMesh();
-    if(chunkMesh != nullptr)
-      temp.emplace_back(m_chunks[i].getMesh());
+    temp.emplace_back(m_chunks[i].getMesh());
   }
   return temp;
 }

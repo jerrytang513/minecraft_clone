@@ -169,6 +169,8 @@
     <ClInclude Include="collision.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="cubeCollision.h" />
+    <ClInclude Include="Events\eventId.h" />
+    <ClInclude Include="Events\eventManager.h" />
     <ClInclude Include="force.h" />
     <ClInclude Include="forceManager.h" />
     <ClInclude Include="GraphicsManager.h" />
@@ -178,6 +180,8 @@
     <ClInclude Include="quaternion.h" />
     <ClInclude Include="shader_s.h" />
     <ClInclude Include="shape3d.h" />
+    <ClInclude Include="src\Entity\entity.h" />
+    <ClInclude Include="src\Entity\player.h" />
     <ClInclude Include="src\Mesh\blockMesh.h" />
     <ClInclude Include="src\Mesh\chunkMesh.h" />
     <ClInclude Include="src\utility\safeQueue.h" />
@@ -208,6 +212,7 @@
     <ClCompile Include="collision.cc" />
     <ClCompile Include="cube.cc" />
     <ClCompile Include="cubeCollision.cc" />
+    <ClCompile Include="Events\eventManager.cc" />
     <ClCompile Include="force.cc" />
     <ClCompile Include="GraphicsManager.cc" />
     <ClCompile Include="mat4.cc" />
@@ -216,6 +221,8 @@
     <ClCompile Include="placeholder.cc" />
     <ClCompile Include="quaternion.cc" />
     <ClCompile Include="shape3d.cc" />
+    <ClCompile Include="src\Entity\entity.cc" />
+    <ClCompile Include="src\Entity\player.cc" />
     <ClCompile Include="src\utility\threadPool.cc" />
     <ClCompile Include="stb_image.cc" />
     <ClCompile Include="stdafx.cpp">

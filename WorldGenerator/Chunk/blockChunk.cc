@@ -14,7 +14,6 @@ BlockChunk::BlockChunk(){
 }
 
 BlockChunk::~BlockChunk(){
-  delete mesh;
 }
 
 
@@ -105,18 +104,16 @@ void BlockChunk::updateMesh(){
     isReady = false;
   } else {
     isReady = true;
-    mesh = new ChunkMesh(vertices, indices, textureIndexes, textureCoordinates, initWidth / 16, initHeight / 16, initLength / 16);
+    mesh = std::make_shared<ChunkMesh>(vertices, indices, textureIndexes, textureCoordinates, initWidth / 16, initHeight / 16, initLength / 16);
   }
 }
 
-ChunkMesh* BlockChunk::getMesh(){
+std::shared_ptr<ChunkMesh> BlockChunk::getMesh(){
   if(needUpdate){
     updateMesh();
     needUpdate = false;
   }
-  if(getIsReady())
     return mesh;
-  else return nullptr;
 }
 
 void BlockChunk::addFace(int i, int j, int k, Direction direction){
@@ -150,14 +147,14 @@ void BlockChunk::addFace(int i, int j, int k, Direction direction){
       vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f  + faceDimension * j, -0.5f + faceDimension * k));
       vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f + faceDimension * (j + 1), -0.5f + faceDimension * k));
       vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f + faceDimension * (j + 1), -0.5f + faceDimension * k));
-      texCoords = TextureManager::getInstance().getCoordinates(Vec2D(0,15));
+      texCoords = TextureManager::getInstance().getCoordinates(Vec2D(3,15));
       break;
     case Direction::BACK:
       vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f  + faceDimension * j, -0.5f  + faceDimension * (k + 1)));
       vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f  + faceDimension * j, -0.5f  + faceDimension * (k + 1)));
       vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f + faceDimension * (j + 1), -0.5f  + faceDimension * (k + 1)));
       vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f + faceDimension * (j + 1), -0.5f  + faceDimension * (k + 1)));
-      texCoords = TextureManager::getInstance().getCoordinates(Vec2D(2,15));
+      texCoords = TextureManager::getInstance().getCoordinates(Vec2D(3,15));
       break;
 	case Direction::DOWN:
       vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f  + faceDimension * j, -0.5f + faceDimension * k));
@@ -189,10 +186,4 @@ int BlockChunk::getVerticeCount(){
 
 void BlockChunk::clear(){
   needUpdate = true;
-  delete mesh;
-  mesh = nullptr;
-
-  std::cout << "ALL CLEAR " << std::endl;
-  std::cout << "INIT WIDTH LENGTH " << initWidth << " " << initLength << std::endl;
-
 }

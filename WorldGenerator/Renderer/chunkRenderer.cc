@@ -7,26 +7,29 @@ void ChunkRenderer::setShader(Shader shader){
   this->shader = shader;
 }
 
-void ChunkRenderer::draw(int tempSize, std::vector<ChunkMesh*> mesh){
-  std::vector<ChunkMesh*>::const_iterator first = mesh.begin();
-  std::vector<ChunkMesh*>::const_iterator second = mesh.begin() + tempSize;
-  draw(std::vector<ChunkMesh*>(first, second));
-}
 
-void ChunkRenderer::draw(std::vector<ChunkMesh*> mesh){
-  //std::cout << mesh.size() << std::endl;
+void ChunkRenderer::draw(std::vector<std::shared_ptr<ChunkMesh>> mesh){
   if(mesh.size() == 0)
     return;
 
-  std::vector<unsigned int> textureId = mesh[0]->getTextureIds();
+  std::vector<unsigned int> textureId;
+  for(int i = 0; i < mesh.size(); i++){
+    if(mesh[i].get() != nullptr){
+      textureId = mesh[i].get()->getTextureIds();
+      break;
+    }
+    if(i == mesh.size() - 1)
+      return;
+  }
   glActiveTexture(GL_TEXTURE0);
   glUniform1i(glGetUniformLocation(shader.ID, "Texture1"), 0);
   glBindTexture(GL_TEXTURE_2D, textureId[0]);
-
   for(auto it = mesh.begin(); it != mesh.end(); it++){
-    Vec3D chunkCoordinate = (*it)->getChunkCoordinate();
-    unsigned int VAO = (*it)->getVAO();
-    unsigned int numTriangles = (*it)->getNumTriangles();
+    if((*it).get() == nullptr || !((*it)).get()->getCanRender())
+      continue;
+    Vec3D chunkCoordinate = (*it).get()->getChunkCoordinate();
+    unsigned int VAO = (*it).get()->getVAO();
+    unsigned int numTriangles = (*it).get()->getNumTriangles();
     glBindVertexArray(VAO);
     glm::mat4 model;
     // Need to scale the chunk mesh by 16.
@@ -35,7 +38,4 @@ void ChunkRenderer::draw(std::vector<ChunkMesh*> mesh){
     shader.setMat4("model", model);
     glDrawElements(GL_TRIANGLES, numTriangles, GL_UNSIGNED_INT, 0);
   }
-
-
-
 }

@@ -28,8 +28,15 @@ class ChunkMesh{
   int chunkY;
   int chunkZ;
   unsigned int shaderID;
+  bool canRender = false;
 public:
 
+  void setCanRender(bool canRender){
+    this->canRender = canRender;
+  }
+  bool getCanRender(){
+    return canRender;
+  }
   ChunkMesh(){}
   ChunkMesh(std::vector<Vec3D> vertices, std::vector<int> indices,  std::vector<int> textureIndexes, std::vector<Vec2D> textureCoords, int chunkX, int chunkY, int chunkZ){
     this->vertices = vertices;
@@ -124,6 +131,8 @@ private:
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(int), &indices[0], GL_STATIC_DRAW);
 
     glBindVertexArray(0);
+    canRender = true;
+
   }
 
 };

@@ -3,6 +3,7 @@
 #include <utility>
 #include <vector>
 #include <cstdlib>
+#include <mutex>
 
 #include "../cube.h"
 #include <GL/glew.h>
@@ -16,6 +17,8 @@
 #include "Chunk/blockChunk.h"
 #include "blockInfo.h"
 
+#include "../src/utility/threadPool.h"
+
 // This class manages the blocks inside the world
 class WorldSpace{
   ChunkManager* chunkManager;
@@ -25,6 +28,8 @@ class WorldSpace{
   int seed;
   int centerX = 100000;
   int centerY = 100000;
+
+  std::recursive_mutex  movementMutex;
 
 public:
   WorldSpace(int width, int length, int height);

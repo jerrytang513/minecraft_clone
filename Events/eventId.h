@@ -5,8 +5,7 @@ enum class EventID{
   MOVEFRONT,
   MOVEBACK,
   MOVELEFT,
-  MOVERIGHT,
-  MOVEMENT
+  MOVERIGHT
 
 };
 #endif

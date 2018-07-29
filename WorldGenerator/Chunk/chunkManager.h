@@ -16,7 +16,7 @@ class ChunkManager{
   std::vector<std::vector<std::vector<BlockChunk>>> m_chunks;
   std::vector<std::vector<std::shared_ptr<HeightChunk>>> m_heightChunks;
 
-  std::vector<ChunkMesh*> renderList;
+  std::vector<std::shared_ptr<ChunkMesh>> renderList;
   int M_WIDTH;
   int M_HEIGHT;
   int M_LENGTH;
