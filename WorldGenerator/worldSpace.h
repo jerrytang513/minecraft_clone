@@ -34,6 +34,7 @@ class WorldSpace{
 public:
   WorldSpace(int width, int length, int height);
   void draw(Shader shader);
+  void render(Shader shader);
 
 // The front back left right location is constant inside the world space
 // Consider front and back to be moving along the length axis (z - axis)

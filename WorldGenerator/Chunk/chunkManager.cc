@@ -16,6 +16,27 @@ ChunkManager::ChunkManager(int width, int length) :M_WIDTH{ width }, M_LENGTH{ l
 
 }
 
+// ********** testing
+void ChunkManager::render(ChunkRenderer renderer){
+  std::vector<std::shared_ptr<ChunkMesh>> meshes;
+  for(int width = 0; width < 16; width ++){
+    for(int length = 0; length < 16; length ++){
+      if(!m_heightChunks[length][width].get()->isProcessing() && !m_heightChunks[length][width].get()->isMeshReady()){
+        ThreadPool::getInstance(0)->submit([this, length, width] {m_heightChunks[length][width].get()->testGenMesh();});
+      } else if(m_heightChunks[length][width].get()->isMeshReady()){
+
+		  std::vector<std::shared_ptr<ChunkMesh>> temp = m_heightChunks[length][width].get()->getChunkMesh();
+		  std::vector<std::shared_ptr<ChunkMesh>>::iterator tbegin = temp.begin();
+		  std::vector<std::shared_ptr<ChunkMesh>>::iterator tend = temp.end();
+
+		  meshes.insert(meshes.end(), tbegin, tend);
+	  }
+    }
+  }
+  renderer.draw(meshes);
+}
+
+// ********* Testing
 void ChunkManager::draw(ChunkRenderer renderer){
   std::vector<std::shared_ptr<ChunkMesh>> meshes;
 
@@ -227,10 +248,12 @@ void ChunkManager::updateChunks(int startWidth, int startLength, int width, int 
 }
 
 void ChunkManager::moveFront(){
+  std::cout << "FR" << std::endl;
+
   updateChunks(0, 15, 16, 16);
-  for(int length = 0; length < 15; length ++ ){
-    for(int width = 0; width < 16; width ++ ){
-		    m_heightChunks[length][width] = m_heightChunks[length+1][width];
+  for(int width = 15; width > 0; width -- ){
+    for(int length = 0; length < 16; length ++ ){
+		    m_heightChunks[length][width] = m_heightChunks[length][width - 1];
     }
   }
 
@@ -247,6 +270,8 @@ void ChunkManager::moveFront(){
 
 
 void ChunkManager::moveBack(){
+  std::cout << "BA" << std::endl;
+
   updateChunks(0, 0, 16, 1);
   for(int length = 15; length > 0; length -- ){
     for(int width = 0; width < 16; width ++ ){
@@ -266,6 +291,7 @@ void ChunkManager::moveBack(){
 }
 
 void ChunkManager::moveLeft(){
+  std::cout << "LE" << std::endl;
   updateChunks(0, 0, 1, 16);
   for(int width = 15; width > 0; width -- ){
     for(int length = 0; length < 16; length ++ ){
@@ -281,10 +307,12 @@ void ChunkManager::moveLeft(){
      m_heightChunks[length][0].get()->generateHeight();
      // Set the mesh
   }
-  initMesh(0, 0, 1, 16);
+  initMesh(0, 0, 2, 16);
 }
 
 void ChunkManager::moveRight(){
+  std::cout << "RI" << std::endl;
+
   updateChunks(15, 0, 16, 16);
   for(int width = 0; width < 15; width ++ ){
     for(int length = 0; length < 16; length ++ ){

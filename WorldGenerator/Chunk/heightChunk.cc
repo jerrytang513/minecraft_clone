@@ -56,9 +56,6 @@ void HeightChunk::init(){
   m_isHeightReady = true;
 }
 
-void HeightChunk::render(){
-
-}
 
 void HeightChunk::generateHeight(){
   NoiseGenerator& ng = NoiseGenerator::getInstance();
@@ -180,7 +177,93 @@ void HeightChunk::updateBlockChunk(int height, std::shared_ptr<HeightChunk> left
   testBlockChunksFrontBack(height, front, back);
   testBlockChunksLeftRight(height, left, right);
   testBlockChunksTopDown(height);
+
 }
+
+
+//*************** Testing Area
+
+void HeightChunk::testGenMesh(){
+  m_isProcessing = true;
+  m_isHeightReady = true;
+  generateHeight();
+  genTopDownFace();
+  genLeftRightFace();
+  genFrontBackFace();
+  m_isMeshReady = true;
+  m_isProcessing = false;
+}
+
+void HeightChunk::genTopDownFace(){
+
+}
+
+void HeightChunk::genLeftRightFace(){
+  for(int i = 0; i < m_chunks.size(); i++){
+    BlockChunk& blockChunk = m_chunks[i];
+    std::vector<std::vector<std::vector<BlockInfo>>>& block = blockChunk.getBlockInfo();
+
+    // Loop through all chunks
+    for(int x = 0; x < 16; x++){
+      for(int y = 0; y < 16; y++){
+        for(int z = 0; z < 16; z++){
+
+          // LEFT RIGHT
+          if(x == 0){
+            getBlockChunk(i).addFace(x, y, z, Direction::LEFT);
+            if(!block[x+1][y][z].visible){
+              getBlockChunk(i).addFace(x, y, z, Direction::RIGHT);
+            }
+          } else if(x == 15){
+            getBlockChunk(i).addFace(x, y, z, Direction::RIGHT);
+            if(!block[x-1][y][z].visible){
+              getBlockChunk(i).addFace(x, y, z, Direction::LEFT);
+            }
+          } else {
+            if(!block[x-1][y][z].visible){
+              getBlockChunk(i).addFace(x, y, z, Direction::LEFT);
+            }
+            if(!block[x+1][y][z].visible){
+              getBlockChunk(i).addFace(x, y, z, Direction::RIGHT);
+            }
+          }
+          // Front Back
+          if(z == 0){
+            getBlockChunk(i).addFace(x, y, z, Direction::FRONT);
+            if(!block[x][y][z+1].visible){
+              getBlockChunk(i).addFace(x, y, z, Direction::BACK);
+            }
+          } else if(z == 15){
+            getBlockChunk(i).addFace(x, y, z, Direction::BACK);
+            if(!block[x][y][z-1].visible){
+              getBlockChunk(i).addFace(x, y, z, Direction::FRONT);
+            }
+          } else {
+            if(!block[x][y][z-1].visible){
+              getBlockChunk(i).addFace(x, y, z, Direction::FRONT);
+            }
+            if(!block[x][y][z+1].visible){
+              getBlockChunk(i).addFace(x, y, z, Direction::BACK);
+            }
+          }
+
+        }
+      }
+    }
+
+
+
+  }
+}
+
+void HeightChunk::genFrontBackFace(){}
+
+
+
+
+//***************
+
+
 
 std::vector<std::shared_ptr<ChunkMesh>> HeightChunk::getChunkMesh(){
   std::vector<std::shared_ptr<ChunkMesh>> temp;

@@ -5,18 +5,14 @@ EventManager::EventManager(){}
 // This function will receive the action request and then base on the new location information,
 // decide if actions need to be made.
 void EventManager::movement(Camera_Movement dir, double deltaTime){
+  std::cout << "MOVEMNET" << std::endl;
   // Get the current Position of the entity
-  Vec3D curPosition = entity.get()->getPosition();
 
   // Process the event and move the camera
   std::shared_ptr<Camera> camera = entity.get()->getCamera();
-  camera.get()->ProcessKeyboard(dir, deltaTime);
 
   // Get the new position of the camera
   Vec3D newPosition = camera.get()->getPosition();
-
-  // Compute the different
-  Vec3D difference = newPosition - curPosition;
 
   // update the entity to have its new position
   entity.get()->updatePosition(newPosition);
@@ -24,19 +20,19 @@ void EventManager::movement(Camera_Movement dir, double deltaTime){
   if(newPosition.coord.x > entity.get()->getRightChunkBound()){
 
     entity.get()->updateLeftRightBound(16);
-    ThreadPool::getInstance(0)->submit([this] {ws.get()->moveRight();});
+    ws.get()->moveRight();
 
   } else if(newPosition.coord.x < entity.get()->getLeftChunkBound()){
     entity.get()->updateLeftRightBound(-16);
-    ThreadPool::getInstance(0)->submit([this] {ws.get()->moveLeft();});
+    ws.get()->moveLeft();
   }
 
   if(newPosition.coord.z > entity.get()->getBackChunkBound()){
     entity.get()->updateFrontBackBound(16);
-    ThreadPool::getInstance(0)->submit([this] {ws.get()->moveFront();});
+    ws.get()->moveFront();
   } else if(newPosition.coord.z < entity.get()->getFrontChunkBound()){
     entity.get()->updateFrontBackBound(-16);
-    ThreadPool::getInstance(0)->submit([this] {ws.get()->moveBack();});
+    ws.get()->moveBack();
   }
 
 }

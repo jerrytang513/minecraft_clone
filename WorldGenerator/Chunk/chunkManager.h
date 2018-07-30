@@ -35,6 +35,7 @@ class ChunkManager{
 public:
   ChunkManager(int width, int length);
   void draw(ChunkRenderer renderer);
+  void render(ChunkRenderer renderer);
   void addHeight(std::vector<int> heights);
   const std::vector<std::vector<std::vector<BlockChunk>>> getChunks();
   void initMesh(int startWidth, int startLength, int width, int length);

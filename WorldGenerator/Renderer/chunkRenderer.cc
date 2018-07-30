@@ -9,6 +9,7 @@ void ChunkRenderer::setShader(Shader shader){
 
 
 void ChunkRenderer::draw(std::vector<std::shared_ptr<ChunkMesh>> mesh){
+  std::cout << mesh.size() << std::endl;
   if(mesh.size() == 0)
     return;
 
@@ -21,6 +22,7 @@ void ChunkRenderer::draw(std::vector<std::shared_ptr<ChunkMesh>> mesh){
     if(i == mesh.size() - 1)
       return;
   }
+
   glActiveTexture(GL_TEXTURE0);
   glUniform1i(glGetUniformLocation(shader.ID, "Texture1"), 0);
   glBindTexture(GL_TEXTURE_2D, textureId[0]);

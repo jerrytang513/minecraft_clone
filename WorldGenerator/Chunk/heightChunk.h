@@ -51,7 +51,6 @@ public:
   HeightChunk(int m_width, int m_height, int m_initWidth, int m_initHeight);
 
   // The World Space will render all of its height chunks, and height chunks will render all of its block chunks
-  void render();
 
   // This will use the noise generator to generate its height and build block chunks
   void generateHeight();
@@ -81,6 +80,13 @@ public:
 
   std::vector<std::shared_ptr<ChunkMesh>> getChunkMesh();
 
+//*** For testing purpose
+  void testGenMesh();
+  void genTopDownFace();
+  void genLeftRightFace();
+  void genFrontBackFace();
+
+//***
   bool isHeightReady();
   bool isMeshReady();
   bool isNeedUpdate();
