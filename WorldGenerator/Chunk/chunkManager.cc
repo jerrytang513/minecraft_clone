@@ -121,9 +121,11 @@ void ChunkManager::initHeight(){
 
 void ChunkManager::initMesh(int startWidth, int startLength, int width, int length){
   TextureManager::getInstance();
+  // Avoid the m_heightChunks value change during the initMesh process
+  std::vector<std::vector<std::shared_ptr<HeightChunk>>> temp = m_heightChunks;
   for(int i = startLength; i < length; i ++){
     for(int j = startWidth; j < width; j++){
-      if(!m_heightChunks[i][j].get()->isHeightReady() || !m_heightChunks[i][j].get()->isNeedUpdate() || m_heightChunks[i][j].get()->isProcessing())
+      if(!temp[i][j].get()->isHeightReady() || !temp[i][j].get()->isNeedUpdate() || temp[i][j].get()->isProcessing())
         continue;
     //  std::cout << " I " << i << " J " << j << std::endl;
       std::shared_ptr<HeightChunk> left;
@@ -131,41 +133,41 @@ void ChunkManager::initMesh(int startWidth, int startLength, int width, int leng
       std::shared_ptr<HeightChunk> front;
       std::shared_ptr<HeightChunk> back;
       if(i == 0){
-        back = m_heightChunks[i+1][j];
+        back = temp[i+1][j];
         // Test if processsing matters:
         if(!back.get()->isHeightReady() || back.get()->isNeedUpdate())
           continue;
       }
       if(i == 15){
-        front = m_heightChunks[i-1][j];
+        front = temp[i-1][j];
         if(!front.get()->isHeightReady() || front.get()->isNeedUpdate())
           continue
       }
       if(j == 0){
-        right = m_heightChunks[i][j + 1];
+        right = temp[i][j + 1];
         if(!right.get()->isHeightReady() || right.get()->isNeedUpdate())
           continue
       }
       if(j == 15){
-        left = m_heightChunks[i][j - 1];
+        left = temp[i][j - 1];
         if(!left.get()->isHeightReady() || left.get()->isNeedUpdate())
           continue
       }
       if(i > 0 && i < 15){
-        front = m_heightChunks[i-1][j];
-        back = m_heightChunks[i+1][j];
+        front = temp[i-1][j];
+        back = temp[i+1][j];
         if(!front.get()->isHeightReady() || front.get()->isNeedUpdate() || !back.get()->isHeightReady() || back.get()->isNeedUpdate())
           continue
       }
       if(j > 0 && j < 15){
-        left = m_heightChunks[i][j-1];
-        right = m_heightChunks[i][j+1];
+        left = temp[i][j-1];
+        right = temp[i][j+1];
       }
 
       // Additional safe guard
 
       // Generate Chunk Mesh
-	  ThreadPool::getInstance(0)->submit([this, i, j, left, right, front, back] { m_heightChunks[i][j].get()->updateHeightChunk(left,right,front,back); });
+	  ThreadPool::getInstance(0)->submit([this, i, j, left, right, front, back] { temp[i][j].get()->updateHeightChunk(left,right,front,back); });
       //m_heightChunks[i][j].get()->updateHeightChunk(left,right,front,back);
 
     }
