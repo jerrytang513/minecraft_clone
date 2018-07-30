@@ -46,10 +46,10 @@ void ChunkManager::draw(ChunkRenderer renderer){
 
   // Check if height info is ready, so can generate chunk mesh
   // If chunk Mesh is already ready, than don't need to do that again
-  if(isHeightReady && !isChunkReady){
+  //if(isHeightReady && !isChunkReady){
     initMesh(0, 0, 16, 16);
-    isChunkReady = true;
-  }
+    //isChunkReady = true;
+  //}
 
   if(isHeightReady && isNeedUpdate && isChunkReady){
 
@@ -132,24 +132,38 @@ void ChunkManager::initMesh(int startWidth, int startLength, int width, int leng
       std::shared_ptr<HeightChunk> back;
       if(i == 0){
         back = m_heightChunks[i+1][j];
+        // Test if processsing matters:
+        if(!back.get()->isHeightReady() || back.get()->isNeedUpdate())
+          continue;
       }
       if(i == 15){
         front = m_heightChunks[i-1][j];
+        if(!front.get()->isHeightReady() || front.get()->isNeedUpdate())
+          continue
       }
       if(j == 0){
         right = m_heightChunks[i][j + 1];
+        if(!right.get()->isHeightReady() || right.get()->isNeedUpdate())
+          continue
       }
       if(j == 15){
         left = m_heightChunks[i][j - 1];
+        if(!left.get()->isHeightReady() || left.get()->isNeedUpdate())
+          continue
       }
       if(i > 0 && i < 15){
         front = m_heightChunks[i-1][j];
         back = m_heightChunks[i+1][j];
+        if(!front.get()->isHeightReady() || front.get()->isNeedUpdate() || !back.get()->isHeightReady() || back.get()->isNeedUpdate())
+          continue
       }
       if(j > 0 && j < 15){
         left = m_heightChunks[i][j-1];
         right = m_heightChunks[i][j+1];
       }
+
+      // Additional safe guard
+
       // Generate Chunk Mesh
 	  ThreadPool::getInstance(0)->submit([this, i, j, left, right, front, back] { m_heightChunks[i][j].get()->updateHeightChunk(left,right,front,back); });
       //m_heightChunks[i][j].get()->updateHeightChunk(left,right,front,back);

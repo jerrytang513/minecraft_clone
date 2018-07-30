@@ -143,7 +143,7 @@ int main()
 		ourShader.setMat4("projection", projection);
 		ourShader.setMat4("view", view);
 
-		ws.get()->render(ourShader);
+		ws.get()->draw(ourShader);
 
 
 		glfwSwapBuffers(window);
