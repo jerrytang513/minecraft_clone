@@ -95,6 +95,8 @@ public:
 
   int getWidth();
   int getLength();
+  int getInitWidth();
+  int getInitLength();
   STATUS getStatus();
   void clearMesh();
 };

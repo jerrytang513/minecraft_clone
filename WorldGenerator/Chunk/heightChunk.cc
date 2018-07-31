@@ -419,9 +419,17 @@ void HeightChunk::clearMesh(){
   m_isNeedUpdate = true;
   m_isHeightReady = true;
   m_isMeshReady = false;
-  m_isProcessing = false;
+  //m_isProcessing = false;
 	for (int i = 0; i < m_chunks.size(); i++) {
 
     m_chunks[i].clear();
   }
+}
+
+int HeightChunk::getInitWidth(){
+  return m_initWidth;
+}
+
+int HeightChunk::getInitLength(){
+  return m_initLength;
 }
