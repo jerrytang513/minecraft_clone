@@ -29,10 +29,10 @@ void EventManager::movement(Camera_Movement dir, double deltaTime){
 
   if(newPosition.coord.z > entity.get()->getBackChunkBound()){
     entity.get()->updateFrontBackBound(16);
-    ws.get()->moveFront();
+    ws.get()->moveBack();
   } else if(newPosition.coord.z < entity.get()->getFrontChunkBound()){
     entity.get()->updateFrontBackBound(-16);
-    ws.get()->moveBack();
+    ws.get()->moveFront();
   }
 
 }

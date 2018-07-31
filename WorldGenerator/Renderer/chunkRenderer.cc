@@ -9,7 +9,6 @@ void ChunkRenderer::setShader(Shader shader){
 
 
 void ChunkRenderer::draw(std::vector<std::shared_ptr<ChunkMesh>> mesh){
-  std::cout << mesh.size() << std::endl;
   if(mesh.size() == 0)
     return;
 

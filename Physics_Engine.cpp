@@ -52,22 +52,22 @@ void eventHandler(){
 	for(int i = 0; i < frontTime.size(); i++){
 		ThreadPool::getInstance(0)->submit([] {event.movement(FORWARD, deltaTime);});
 
-		//event.movement(FORWARD, deltaTime);
+		event.movement(FORWARD, deltaTime);
 	}
 	for(int i = 0; i < backTime.size(); i++){
 		ThreadPool::getInstance(0)->submit([] {event.movement(BACKWARD, deltaTime);});
 
-		//event.movement(BACKWARD, deltaTime);
+		event.movement(BACKWARD, deltaTime);
 	}
 	for(int i = 0; i < leftTime.size(); i++){
 		ThreadPool::getInstance(0)->submit([] {event.movement(LEFT, deltaTime);});
 
-		//event.movement(LEFT, deltaTime);
+		event.movement(LEFT, deltaTime);
 	}
 	for(int i = 0; i < rightTime.size(); i++){
 		ThreadPool::getInstance(0)->submit([] {event.movement(RIGHT, deltaTime);});
 
-		//event.movement(RIGHT, deltaTime);
+		event.movement(RIGHT, deltaTime);
 	}
 	frontTime.clear();
 	backTime.clear();
