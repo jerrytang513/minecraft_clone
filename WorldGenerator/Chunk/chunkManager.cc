@@ -65,7 +65,7 @@ void ChunkManager::draw(ChunkRenderer renderer){
 
   if(!isHeightReady && !isProcessing){
     isProcessing = true;
-    ThreadPool::getInstance(0)->submit([this] {initHeight();});
+    initHeight();
   }
   // Check if height info is ready, so can generate chunk mesh
   // If chunk Mesh is already ready, than don't need to do that again
@@ -179,11 +179,12 @@ void ChunkManager::initHeight(){
 }
 
 void ChunkManager::updateChunks(int startWidth, int startLength, int width, int length){
-  for(int i = startLength; i < length; i++){
+  /*for(int i = startLength; i < length; i++){
     for(int j = startWidth; j < width; j++){
       m_heightChunks[i][j].get()->clearMesh();
     }
-  }
+  }*/
+
 }
 
 void ChunkManager::processBack(){
