@@ -14,6 +14,7 @@
 #include "../NoiseGen/noiseGen.h"
 #include "../../src/Mesh/chunkMesh.h"
 
+
 enum class STATUS{
   NONE,
   PROCESSING,
@@ -92,6 +93,7 @@ public:
   bool isNeedUpdate();
   void setIsNeedUpdate(bool m_isNeedUpdate);
   bool isProcessing();
+  void setIsProcessing(bool m_isProcessing);
 
   int getWidth();
   int getLength();
@@ -99,6 +101,8 @@ public:
   int getInitLength();
   STATUS getStatus();
   void clearMesh();
+
+
 };
 
 #endif

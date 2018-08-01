@@ -14,11 +14,6 @@ void WorldSpace::draw(Shader shader){
     chunkManager->draw(chunkRenderer);
 }
 
-void WorldSpace::render(Shader shader){
-  chunkRenderer.setShader(shader);
-  chunkManager->render(chunkRenderer);
-}
-
 void WorldSpace::moveFront(){
   chunkManager->moveFront();
 }

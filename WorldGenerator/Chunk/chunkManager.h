@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <memory>
+#include <mutex>
+#include <queue>
 
 #include "blockChunk.h"
 #include "heightChunk.h"
@@ -10,6 +12,13 @@
 #include "../../src/Mesh/mesh.h"
 #include "../../src/utility/threadPool.h"
 #include "../../vec3d.h"
+
+enum class SIGNAL{
+    LEFT,
+    RIGHT,
+    FRONT,
+    BACK
+};
 
 class ChunkManager{
   // Need 3 dimensional chunks
@@ -29,20 +38,18 @@ class ChunkManager{
   bool isProcessing;
   bool isProcessing2;
   bool isNeedUpdate;
+  std::queue<SIGNAL> signal_queue;
 
-  bool shouldAddFace(int chunkX, int chunkY, int chunkZ);
 
+  std::mutex boardLock;
 public:
   ChunkManager(int width, int length);
   void draw(ChunkRenderer renderer);
-  void render(ChunkRenderer renderer);
-  void addHeight(std::vector<int> heights);
-  const std::vector<std::vector<std::vector<BlockChunk>>> getChunks();
   void initMesh(int startWidth, int startLength, int width, int length);
   void initHeight();
   void updateChunks(int startWidth, int startLength, int width, int length);
   void addChunks();
-  void generateChunkMesh(int chunkX, int chunkY, int chunkZ);
+  bool hasProcess();
 
   // Used to load and unload height chunks
   void moveFront();
@@ -50,5 +57,10 @@ public:
   void moveLeft();
   void moveRight();
 
+
+  void processBack();
+  void processFront();
+  void processLeft();
+  void processRight();
 };
 #endif

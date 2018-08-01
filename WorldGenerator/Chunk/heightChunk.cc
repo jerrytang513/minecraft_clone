@@ -276,7 +276,6 @@ std::vector<std::shared_ptr<ChunkMesh>> HeightChunk::getChunkMesh(){
 void HeightChunk::updateHeightChunk(std::shared_ptr<HeightChunk> left, std::shared_ptr<HeightChunk> right, std::shared_ptr<HeightChunk> front, std::shared_ptr<HeightChunk> back){
 
   m_isProcessing = true;
-
 	for(int i = 0; i < m_chunks.size(); i++){
 
 
@@ -294,7 +293,7 @@ int HeightChunk::getHeight(){
 }
 
 bool HeightChunk::hasHeight(int height){
-  return (height < m_chunks.size());
+  return (height < (int)m_chunks.size());
 }
 
 void HeightChunk::testBlockChunksLeftRight(int cur_height, BlockChunk& bc, Direction dir){
@@ -402,6 +401,10 @@ bool HeightChunk::isNeedUpdate(){
 
 bool HeightChunk::isProcessing(){
   return m_isProcessing;
+}
+
+void HeightChunk::setIsProcessing(bool m_isProcessing){
+  this->m_isProcessing = m_isProcessing;
 }
 
 void HeightChunk::setIsNeedUpdate(bool m_isNeedUpdate){
