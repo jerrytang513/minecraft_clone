@@ -104,7 +104,7 @@ void BlockChunk::updateMesh(){
     isReady = false;
   } else {
     isReady = true;
-    mesh = std::make_shared<ChunkMesh>(vertices, indices, textureIndexes, textureCoordinates, initWidth / 16, initHeight / 16, initLength / 16);
+    mesh = std::make_shared<ChunkMesh>(vertices, normals, indices, textureIndexes, textureCoordinates, initWidth / 16, initHeight / 16, initLength / 16);
   }
 }
 
@@ -126,6 +126,7 @@ void BlockChunk::addFace(int i, int j, int k, Direction direction){
       vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f + faceDimension * (j + 1), -0.5f + faceDimension * (k + 1)));
       vertices.emplace_back(Vec3D(-0.5f  + faceDimension * (i + 1), -0.5f + faceDimension * (j + 1), -0.5f  + faceDimension * k));
       vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f + faceDimension * (j + 1), -0.5f  + faceDimension * k));
+      normals.emplace_back(Vec3D(0.0f, 1.0f, 0.0f));
       texCoords = TextureManager::getInstance().getCoordinates(Vec2D(0,15));
       break;
     case Direction::LEFT:
@@ -134,6 +135,7 @@ void BlockChunk::addFace(int i, int j, int k, Direction direction){
   		vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f + faceDimension * (j + 1), -0.5f + faceDimension * (k + 1)));
   		vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f + faceDimension * (j + 1), -0.5f  + faceDimension * k));
       texCoords = TextureManager::getInstance().getCoordinates(Vec2D(3,15));
+      normals.emplace_back(Vec3D(-1.0f, 0.0f, 0.0f));
       break;
     case Direction::RIGHT:
       vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f  + faceDimension * j, -0.5f + faceDimension * (k + 1)));
@@ -141,6 +143,7 @@ void BlockChunk::addFace(int i, int j, int k, Direction direction){
       vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f + faceDimension * (j + 1), -0.5f  + faceDimension * k));
       vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f + faceDimension * (j + 1), -0.5f + faceDimension * (k + 1)));
       texCoords = TextureManager::getInstance().getCoordinates(Vec2D(3,15));
+      normals.emplace_back(Vec3D(1.0f, 0.0f, 0.0f));
       break;
     case Direction::FRONT:
       vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f  + faceDimension * j, -0.5f + faceDimension * k));
@@ -148,6 +151,7 @@ void BlockChunk::addFace(int i, int j, int k, Direction direction){
       vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f + faceDimension * (j + 1), -0.5f + faceDimension * k));
       vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f + faceDimension * (j + 1), -0.5f + faceDimension * k));
       texCoords = TextureManager::getInstance().getCoordinates(Vec2D(3,15));
+      normals.emplace_back(Vec3D(0.0f, 0.0f, -1.0f));
       break;
     case Direction::BACK:
       vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f  + faceDimension * j, -0.5f  + faceDimension * (k + 1)));
@@ -155,6 +159,7 @@ void BlockChunk::addFace(int i, int j, int k, Direction direction){
       vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f + faceDimension * (j + 1), -0.5f  + faceDimension * (k + 1)));
       vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f + faceDimension * (j + 1), -0.5f  + faceDimension * (k + 1)));
       texCoords = TextureManager::getInstance().getCoordinates(Vec2D(3,15));
+      normals.emplace_back(Vec3D(0.0f, 0.0f, 1.0f));
       break;
 	case Direction::DOWN:
       vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f  + faceDimension * j, -0.5f + faceDimension * k));
@@ -162,6 +167,7 @@ void BlockChunk::addFace(int i, int j, int k, Direction direction){
       vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f  + faceDimension * j, -0.5f + faceDimension * (k + 1)));
       vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f  + faceDimension * j, -0.5f  + faceDimension * (k + 1)));
       texCoords = TextureManager::getInstance().getCoordinates(Vec2D(2,15));
+      normals.emplace_back(Vec3D(0.0f, -1.0f, 0.0f));
       break;
     default:
       break;

@@ -28,6 +28,8 @@ class BlockChunk{
   std::vector<int> textureIndexes;
   std::vector<Vec2D> textureCoordinates;
   std::vector<Vec3D> vertices;
+  std::vector<Vec3D> normals;
+
   std::vector<int> indices;
 public:
   BlockChunk();

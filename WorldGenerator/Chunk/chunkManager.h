@@ -39,7 +39,7 @@ class ChunkManager{
   bool isProcessing2;
   bool isNeedUpdate;
   std::queue<SIGNAL> signal_queue;
-
+  void checkSignal();
 
   std::mutex boardLock;
 public:

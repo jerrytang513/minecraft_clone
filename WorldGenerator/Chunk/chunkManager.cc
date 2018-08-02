@@ -31,8 +31,7 @@ bool ChunkManager::hasProcess(){
   return false;
 }
 
-void ChunkManager::draw(ChunkRenderer renderer){
-  std::vector<std::shared_ptr<ChunkMesh>> meshes;
+void ChunkManager::checkSignal(){
   bool processSignal = hasProcess();
   if(!processSignal && !signal_queue.empty()){
     // make some changes to the chunk map
@@ -42,18 +41,22 @@ void ChunkManager::draw(ChunkRenderer renderer){
     switch(curSignal){
       case SIGNAL::FRONT:
         std::cout << "Process Front " << std::endl;
+
         processFront();
         break;
       case SIGNAL::BACK:
         std::cout << "Process Back " << std::endl;
+
         processBack();
         break;
       case SIGNAL::LEFT:
         std::cout << "Process Left " << std::endl;
+
         processLeft();
         break;
       case SIGNAL::RIGHT:
         std::cout << "Process Right " << std::endl;
+
         processRight();
         break;
       default:
@@ -61,7 +64,12 @@ void ChunkManager::draw(ChunkRenderer renderer){
     }
 
   }
+}
+void ChunkManager::draw(ChunkRenderer renderer){
+  std::vector<std::shared_ptr<ChunkMesh>> meshes;
 
+  checkSignal();
+  ThreadPool::getInstance(0)->submit([this] { checkSignal(); });
 
   if(!isHeightReady && !isProcessing){
     isProcessing = true;
@@ -70,7 +78,9 @@ void ChunkManager::draw(ChunkRenderer renderer){
   // Check if height info is ready, so can generate chunk mesh
   // If chunk Mesh is already ready, than don't need to do that again
   if(isHeightReady){
-    initMesh(0, 0, 16, 16);
+    ThreadPool::getInstance(0)->submit([this] { initMesh(0, 0, 16, 16); });
+
+
   }
 
   if(isHeightReady && isNeedUpdate && isChunkReady){
