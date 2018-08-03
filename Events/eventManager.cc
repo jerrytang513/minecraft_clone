@@ -5,7 +5,6 @@ EventManager::EventManager(){}
 // This function will receive the action request and then base on the new location information,
 // decide if actions need to be made.
 void EventManager::movement(Camera_Movement dir, double deltaTime){
-  std::cout << "MOVEMNET" << std::endl;
   // Get the current Position of the entity
 
   // Process the event and move the camera

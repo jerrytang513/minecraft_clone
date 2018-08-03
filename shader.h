@@ -9,6 +9,12 @@
 #include <sstream>
 #include <iostream>
 
+#include "vec2d.h"
+#include "vec3d.h"
+#include "vec4d.h"
+//#include "mat3.h"
+//#include "mat4.h"
+
 class Shader
 {
 public:
@@ -128,6 +134,10 @@ public:
     {
         glUniform2f(glGetUniformLocation(ID, name.c_str()), x, y);
     }
+    void setVec2(const std::string &name, const Vec2D &value) const
+    {
+        glUniform2f(glGetUniformLocation(ID, name.c_str()), value.values[0], value.values[1]);
+    }
     // ------------------------------------------------------------------------
     void setVec3(const std::string &name, const glm::vec3 &value) const
     {
@@ -136,6 +146,10 @@ public:
     void setVec3(const std::string &name, float x, float y, float z) const
     {
         glUniform3f(glGetUniformLocation(ID, name.c_str()), x, y, z);
+    }
+    void setVec3(const std::string&name, const Vec3D value) const
+    {
+       glUniform3f(glGetUniformLocation(ID, name.c_str()), value.coord.x, value.coord.y, value.coord.z);
     }
     // ------------------------------------------------------------------------
     void setVec4(const std::string &name, const glm::vec4 &value) const

@@ -39,6 +39,9 @@ class ChunkManager{
   bool isProcessing2;
   bool isNeedUpdate;
   std::queue<SIGNAL> signal_queue;
+  std::mutex signalMutex;
+  std::mutex processMutex;
+
   void checkSignal();
 
   std::mutex boardLock;

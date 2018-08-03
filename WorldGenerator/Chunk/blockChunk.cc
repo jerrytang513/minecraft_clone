@@ -151,7 +151,7 @@ void BlockChunk::addFace(int i, int j, int k, Direction direction){
       vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f + faceDimension * (j + 1), -0.5f + faceDimension * k));
       vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f + faceDimension * (j + 1), -0.5f + faceDimension * k));
       texCoords = TextureManager::getInstance().getCoordinates(Vec2D(3,15));
-      normals.emplace_back(Vec3D(0.0f, 0.0f, -1.0f));
+      normals.emplace_back(Vec3D(0.0f, 0.0f, 1.0f));
       break;
     case Direction::BACK:
       vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f  + faceDimension * j, -0.5f  + faceDimension * (k + 1)));
@@ -159,7 +159,7 @@ void BlockChunk::addFace(int i, int j, int k, Direction direction){
       vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f + faceDimension * (j + 1), -0.5f  + faceDimension * (k + 1)));
       vertices.emplace_back(Vec3D(-0.5f + faceDimension * (i + 1), -0.5f + faceDimension * (j + 1), -0.5f  + faceDimension * (k + 1)));
       texCoords = TextureManager::getInstance().getCoordinates(Vec2D(3,15));
-      normals.emplace_back(Vec3D(0.0f, 0.0f, 1.0f));
+      normals.emplace_back(Vec3D(0.0f, 0.0f, -1.0f));
       break;
 	case Direction::DOWN:
       vertices.emplace_back(Vec3D(-0.5f  + faceDimension * i, -0.5f  + faceDimension * j, -0.5f + faceDimension * k));

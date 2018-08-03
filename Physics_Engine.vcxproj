@@ -182,6 +182,7 @@
     <ClInclude Include="shape3d.h" />
     <ClInclude Include="src\Entity\entity.h" />
     <ClInclude Include="src\Entity\player.h" />
+    <ClInclude Include="src\Entity\sun.h" />
     <ClInclude Include="src\Mesh\blockMesh.h" />
     <ClInclude Include="src\Mesh\chunkMesh.h" />
     <ClInclude Include="src\utility\safeQueue.h" />
@@ -223,6 +224,7 @@
     <ClCompile Include="shape3d.cc" />
     <ClCompile Include="src\Entity\entity.cc" />
     <ClCompile Include="src\Entity\player.cc" />
+    <ClCompile Include="src\Entity\sun.cc" />
     <ClCompile Include="src\utility\threadPool.cc" />
     <ClCompile Include="stb_image.cc" />
     <ClCompile Include="stdafx.cpp">

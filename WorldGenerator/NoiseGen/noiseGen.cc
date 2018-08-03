@@ -3,7 +3,6 @@
 #include <cmath>
 
 NoiseGenerator::NoiseGenerator(int seed)
-    :   m_seed  (seed)
 {
     m_noiseParameters.octaves       = 7;
     m_noiseParameters.amplitude     = 70;
@@ -121,17 +120,18 @@ float NoiseGenerator::getHeight(int x, int z) const noexcept
 
 NoiseGenerator& NoiseGenerator::getInstance(){
   static NoiseGenerator ng;
-  if(!ng.isInit){
-    std::cout << "Initializing Noise Generator" << std::endl;
-    ng.init();
-    ng.isInit = true;
-  }
+  std::call_once(initInstanceFlag, &NoiseGenerator::init);
+
   return ng;
 }
 
 void NoiseGenerator::init(){
+  std::cout << "Initializing Noise Generator" << std::endl;
   float min = 1.0f;
   float max = 255.0f;
   float random = rand() / max;
   m_seed = (int)(min + random * (max - min));
 }
+
+std::once_flag NoiseGenerator::initInstanceFlag;
+int NoiseGenerator::m_seed;

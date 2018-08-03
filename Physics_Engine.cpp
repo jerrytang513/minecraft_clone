@@ -50,25 +50,22 @@ std::vector<double> rightTime;
 
 void eventHandler(){
 	for(int i = 0; i < frontTime.size(); i++){
-		//ThreadPool::getInstance(0)->submit([] {event.movement(FORWARD, deltaTime);});
-		std::cout << "F " << std::endl;
+		ThreadPool::getInstance(0)->submit([] {event.movement(FORWARD, deltaTime);});
+
 		event.movement(FORWARD, deltaTime);
 	}
 	for(int i = 0; i < backTime.size(); i++){
-		//ThreadPool::getInstance(0)->submit([] {event.movement(BACKWARD, deltaTime);});
-		std::cout << "B " << std::endl;
+		ThreadPool::getInstance(0)->submit([] {event.movement(BACKWARD, deltaTime);});
 
 		event.movement(BACKWARD, deltaTime);
 	}
 	for(int i = 0; i < leftTime.size(); i++){
-		//ThreadPool::getInstance(0)->submit([] {event.movement(LEFT, deltaTime);});
-		std::cout << "L " << std::endl;
+		ThreadPool::getInstance(0)->submit([] {event.movement(LEFT, deltaTime);});
 
 		event.movement(LEFT, deltaTime);
 	}
 	for(int i = 0; i < rightTime.size(); i++){
-		//ThreadPool::getInstance(0)->submit([] {event.movement(RIGHT, deltaTime);});
-		std::cout << "R " << std::endl;
+		ThreadPool::getInstance(0)->submit([] {event.movement(RIGHT, deltaTime);});
 
 		event.movement(RIGHT, deltaTime);
 	}
@@ -127,10 +124,10 @@ int main()
 	// build and compile shaders
 	// -------------------------
 	Shader ourShader("shaders/block.vs", "shaders/block.fs");
-	glm::vec3 lightPos(50.0f, 1000.0f, 50.0f);
 
 	while (!glfwWindowShouldClose(window))
 	{
+
 		float currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
@@ -143,24 +140,8 @@ int main()
 
 		glm::mat4 projection = glm::perspective(glm::radians(camera.get()->Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 50000.0f);
 		glm::mat4 view = camera.get()->GetViewMatrix();
-		Vec3D viewPos = camera.get()->getPosition();
-		glm::vec3 viewPosition(viewPos.coord.x, viewPos.coord.y, viewPos.coord.z);
-
 		ourShader.setMat4("projection", projection);
 		ourShader.setMat4("view", view);
-		ourShader.setVec3("viewPos", viewPosition);
-
-		// set material
-		ourShader.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
-		ourShader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
-		ourShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
-		ourShader.setFloat("material.shininess", 32.0f);
-		// set light
-		ourShader.setVec3("light.position", lightPos);
-		ourShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
-		ourShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
-		ourShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-
 
 		ws.get()->draw(ourShader);
 
