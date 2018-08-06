@@ -11,9 +11,9 @@ ChunkManager::ChunkManager(int width, int length) :
   // These two values are use to generate the height, it is m_hightChunks[0][0] location.
   centerX = 100000;
   centerY = 100000;
-  for(int length = 0; length < 16; length ++){
+  for(int length = 0; length < M_LENGTH; length ++){
     std::vector<std::shared_ptr<HeightChunk>> temp;
-    for(int width = 0; width < 16; width ++){
+    for(int width = 0; width < M_WIDTH; width ++){
       temp.emplace_back(std::make_shared<HeightChunk>(width, length, centerX + 16 * width, centerY + 16 * length));
     }
     m_heightChunks.emplace_back(temp);
@@ -22,8 +22,8 @@ ChunkManager::ChunkManager(int width, int length) :
 }
 
 bool ChunkManager::hasProcess(){
-  for(int i = 0; i < 16; i++){
-    for(int j = 0; j < 16; j++){
+  for(int i = 0; i < M_LENGTH; i++){
+    for(int j = 0; j < M_WIDTH; j++){
       if(!m_heightChunks[i][j].get()->isMeshReady())
         return true;
     }
@@ -71,15 +71,15 @@ void ChunkManager::draw(ChunkRenderer renderer){
   // If chunk Mesh is already ready, than don't need to do that again
 
   if(isHeightReady){
-    initMesh(0, 0, 16, 16);
+    initMesh(0, 0, M_WIDTH, M_LENGTH);
   }
 
 
   if(isHeightReady && isNeedUpdate && isChunkReady){
 
   }
-    for(int length = 0; length < 16; length++){
-      for(int width = 0; width < 16; width++){
+    for(int length = 0; length < M_LENGTH; length++){
+      for(int width = 0; width < M_WIDTH; width++){
 
       if(m_heightChunks[length][width].get() != nullptr && m_heightChunks[length][width].get()->isMeshReady()){
         std::vector<std::shared_ptr<ChunkMesh>> temp = m_heightChunks[length][width].get()->getChunkMesh();
@@ -157,8 +157,8 @@ void ChunkManager::initMesh(int startWidth, int startLength, int width, int leng
 
 
 void ChunkManager::addChunks(){
-  for(int width = 0; width < 16; width++){
-    for(int length = 0; length < 16; length++){
+  for(int width = 0; width < M_WIDTH; width++){
+    for(int length = 0; length < M_LENGTH; length++){
       if(m_heightChunks[width][length].get()->isMeshReady() && !m_heightChunks[width][length].get()->isNeedUpdate()){
         std::vector<std::shared_ptr<ChunkMesh>> temp = m_heightChunks[width][length].get()->getChunkMesh();
         std::vector<std::shared_ptr<ChunkMesh>>::iterator tbegin = temp.begin();
@@ -172,8 +172,8 @@ void ChunkManager::addChunks(){
 
 void ChunkManager::initHeight(){
   isProcessing = true;
-  for(int i = 0; i < 16; i++){
-    for(int j = 0; j < 16; j++){
+  for(int i = 0; i < M_LENGTH; i++){
+    for(int j = 0; j < M_WIDTH; j++){
 		ThreadPool::getInstance(0)->submit([this, i, j] { m_heightChunks[i][j].get()->generateHeight(); });
     }
   }
@@ -190,38 +190,56 @@ void ChunkManager::updateChunks(int startWidth, int startLength, int width, int 
 
 }
 
+void ChunkManager::waitForHeight(int firstWidth, int firstLength, int secondWidth, int secondLength, SIGNAL signal){
+  m_heightChunks[firstWidth][firstLength].get()->generateHeight();
+  switch(signal){
+    case SIGNAL::LEFT:
+      break;
+    case SIGNAL::RIGHT:
+      break;
+    case SIGNAL::FRONT:
+      break;
+    case SIGNAL::BACK:
+      break;
+    default:
+      break;
+  };
+  //m_heightChunks[secondWidth][secondLength].
+}
+
 void ChunkManager::processBack(){
   processLock.lock();
-  for(int length = 0; length < 15; length ++ ){
-    for(int width = 0; width < 16; width ++ ){
+  for(int length = 0; length < M_LENGTH - 1; length ++ ){
+    for(int width = 0; width < M_WIDTH; width ++ ){
         m_heightChunks[length][width] = m_heightChunks[length + 1][width];
     }
   }
-  updateChunks(0, 14, 16, 15);
+  updateChunks(0, M_LENGTH - 2, M_WIDTH, M_LENGTH - 1);
 
-  for(int width = 0; width < 16; width++){
-    int newWidth = m_heightChunks[15][width].get()->getWidth();
-    int newLength = m_heightChunks[15][width].get()->getLength() + 1;
-    int newCenterX = m_heightChunks[15][width].get()->getInitWidth();
-    int newCenterY = m_heightChunks[15][width].get()->getInitLength() + 16;
-     m_heightChunks[15][width] = std::make_shared<HeightChunk>(newWidth, newLength, newCenterX, newCenterY);
+  for(int width = 0; width < M_WIDTH; width++){
+    int newWidth = m_heightChunks[M_LENGTH - 1][width].get()->getWidth();
+    int newLength = m_heightChunks[M_LENGTH - 1][width].get()->getLength() + 1;
+    int newCenterX = m_heightChunks[M_LENGTH - 1][width].get()->getInitWidth();
+    int newCenterY = m_heightChunks[M_LENGTH - 1][width].get()->getInitLength() + 16;
+     m_heightChunks[M_LENGTH - 1][width] = std::make_shared<HeightChunk>(newWidth, newLength, newCenterX, newCenterY);
      // Build the height
-     ThreadPool::getInstance(0)->submit([this, width] { m_heightChunks[15][width].get()->generateHeight();});
-     // Set the mesh
+     ThreadPool::getInstance(0)->submit([this, width] { m_heightChunks[M_LENGTH - 1][width].get()->generateHeight();});
+
+
   }
   processLock.unlock();
 }
 
 void ChunkManager::processFront(){
   processLock.lock();
-  for(int length = 15; length > 0; length -- ){
-    for(int width = 0; width < 16; width ++ ){
+  for(int length = M_LENGTH - 1; length > 0; length -- ){
+    for(int width = 0; width < M_WIDTH; width ++ ){
         m_heightChunks[length][width] = m_heightChunks[length-1][width];
     }
   }
-  updateChunks(0, 1, 16, 2);
+  updateChunks(0, 1, M_WIDTH, 2);
 
-  for(int width = 0; width < 16; width++){
+  for(int width = 0; width < M_WIDTH; width++){
     int newWidth = m_heightChunks[0][width].get()->getWidth();
     int newLength = m_heightChunks[0][width].get()->getLength() - 1;
     int newCenterX = m_heightChunks[0][width].get()->getInitWidth();
@@ -236,14 +254,14 @@ void ChunkManager::processFront(){
 
 void ChunkManager::processLeft(){
   processLock.lock();
-  for(int width = 15; width > 0; width -- ){
-    for(int length = 0; length < 16; length ++ ){
+  for(int width = M_WIDTH - 1; width > 0; width -- ){
+    for(int length = 0; length < M_LENGTH; length ++ ){
         m_heightChunks[length][width] = m_heightChunks[length][width-1];
     }
   }
-  updateChunks(1, 0, 2, 16);
+  updateChunks(1, 0, 2, M_LENGTH);
 
-  for(int length = 0; length < 16; length++){
+  for(int length = 0; length < M_LENGTH; length++){
     int newWidth = m_heightChunks[length][0].get()->getWidth() - 1;
     int newLength = m_heightChunks[length][0].get()->getLength();
     int newCenterX = m_heightChunks[length][0].get()->getInitWidth() - 16;
@@ -258,18 +276,20 @@ void ChunkManager::processLeft(){
 
 void ChunkManager::processRight(){
   processLock.lock();
-  for(int width = 0; width < 15; width ++ ){
-    for(int length = 0; length < 16; length ++ ){
+  for(int width = 0; width < M_WIDTH - 1; width ++ ){
+    for(int length = 0; length < M_LENGTH; length ++ ){
         m_heightChunks[length][width] = m_heightChunks[length][width+1];
     }
   }
-  updateChunks(14, 0, 15, 16);
-  for(int length = 0; length < 16; length++){
-    int newWidth = m_heightChunks[length][14].get()->getWidth() + 1;
-    int newLength = m_heightChunks[length][14].get()->getLength();
-     m_heightChunks[length][15] = std::make_shared<HeightChunk>(newWidth, newLength, centerX + 16 * newWidth, centerY + 16 * newLength);
+  updateChunks(M_WIDTH - 2, 0, M_WIDTH - 1, M_LENGTH);
+  for(int length = 0; length < M_LENGTH; length++){
+    int newWidth = m_heightChunks[length][M_WIDTH - 1].get()->getWidth() + 1;
+    int newLength = m_heightChunks[length][M_WIDTH - 1].get()->getLength();
+    int newCenterX = m_heightChunks[length][M_WIDTH - 1].get()->getInitWidth() + 16;
+    int newCenterY = m_heightChunks[length][M_WIDTH - 1].get()->getInitLength();
+     m_heightChunks[length][M_WIDTH - 1] = std::make_shared<HeightChunk>(newWidth, newLength, newCenterX, newCenterY);
      // Build the height
-     ThreadPool::getInstance(0)->submit([this, length] { m_heightChunks[length][15].get()->generateHeight();});
+     ThreadPool::getInstance(0)->submit([this, length] { m_heightChunks[length][M_WIDTH - 1].get()->generateHeight();});
   }
   processLock.unlock();
 }
@@ -288,4 +308,28 @@ void ChunkManager::moveLeft(){
 
 void ChunkManager::moveRight(){
   signal_queue.push(SIGNAL::RIGHT);
+}
+
+void ChunkManager::moveFront(int num){
+  for(int i = 0; i < num; i++){
+    moveFront();
+  }
+}
+
+void ChunkManager::moveBack(int num){
+  for(int i = 0; i < num; i++){
+    moveBack();
+  }
+}
+
+void ChunkManager::moveLeft(int num){
+  for(int i = 0; i < num; i++){
+    moveLeft();
+  }
+}
+
+void ChunkManager::moveRight(int num){
+  for(int i = 0; i < num; i++){
+    moveRight();
+  }
 }

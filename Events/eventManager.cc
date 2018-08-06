@@ -1,6 +1,6 @@
 #include "eventManager.h"
 
-EventManager::EventManager(){}
+EventManager::EventManager():leftRightCount{0},frontBackCount{0}{}
 
 // This function will receive the action request and then base on the new location information,
 // decide if actions need to be made.
@@ -17,21 +17,35 @@ void EventManager::movement(Camera_Movement dir, double deltaTime){
   entity.get()->updatePosition(newPosition);
 
   if(newPosition.coord.x > entity.get()->getRightChunkBound()){
-
     entity.get()->updateLeftRightBound(16);
-    ws.get()->moveRight();
-
+    leftRightCount ++;
   } else if(newPosition.coord.x < entity.get()->getLeftChunkBound()){
     entity.get()->updateLeftRightBound(-16);
-    ws.get()->moveLeft();
+    leftRightCount --;
+  }
+
+  if(leftRightCount == 3){
+    ws.get()->moveRight();
+    leftRightCount = 0;
+  } else if(leftRightCount == -3){
+    ws.get()->moveLeft(3);
+    leftRightCount = 0;
   }
 
   if(newPosition.coord.z > entity.get()->getBackChunkBound()){
     entity.get()->updateFrontBackBound(16);
-    ws.get()->moveBack();
+    frontBackCount ++;
   } else if(newPosition.coord.z < entity.get()->getFrontChunkBound()){
     entity.get()->updateFrontBackBound(-16);
-    ws.get()->moveFront();
+    frontBackCount --;
+  }
+
+  if(frontBackCount == 3){
+    ws.get()->moveBack(3);
+    frontBackCount = 0;
+  } else if(frontBackCount == -3){
+    ws.get()->moveFront(3);
+    frontBackCount = 0;
   }
 
 }

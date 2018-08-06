@@ -11,6 +11,9 @@ class EventManager{
   std::shared_ptr<Entity> entity;
   std::shared_ptr<WorldSpace> ws;
   Vec3D curPosition;
+
+  int leftRightCount;
+  int frontBackCount;
 public:
   EventManager();
 

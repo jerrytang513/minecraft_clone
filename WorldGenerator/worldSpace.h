@@ -42,6 +42,12 @@ public:
   void moveBack();
   void moveLeft();
   void moveRight();
+
+  void moveFront(int num);
+  void moveBack(int num);
+  void moveLeft(int num);
+  void moveRight(int num);
+
   void click();
 
 };

@@ -6,7 +6,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 WorldSpace::WorldSpace(int width, int length, int height){
-  chunkManager = new ChunkManager(width / 16, length / 16);
+  chunkManager = new ChunkManager(21, 21);
 }
 
 void WorldSpace::draw(Shader shader){
@@ -33,4 +33,20 @@ void WorldSpace::moveRight(){
 void WorldSpace::click(){
 
 
+}
+
+void WorldSpace::moveFront(int num){
+  chunkManager->moveFront(num);
+}
+
+void WorldSpace::moveBack(int num){
+  chunkManager->moveBack(num);
+}
+
+void WorldSpace::moveLeft(int num){
+  chunkManager->moveLeft(num);
+}
+
+void WorldSpace::moveRight(int num){
+  chunkManager->moveRight(num);
 }
