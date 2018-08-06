@@ -69,9 +69,11 @@ void ChunkManager::draw(ChunkRenderer renderer){
   }
   // Check if height info is ready, so can generate chunk mesh
   // If chunk Mesh is already ready, than don't need to do that again
+
   if(isHeightReady){
     ThreadPool::getInstance(0)->submit([this] { initMesh(0, 0, 16, 16); });
   }
+
 
   if(isHeightReady && isNeedUpdate && isChunkReady){
 
