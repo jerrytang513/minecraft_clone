@@ -1,7 +1,9 @@
-#ifndef NOISEGENERATOR_H_INCLUDED
-#define NOISEGENERATOR_H_INCLUDED
+#ifndef WORLDGENERATOR_NOISEGEN_NOISEGENERATOR_H_INCLUDED
+#define WORLDGENERATOR_NOISEGEN_NOISEGENERATOR_H_INCLUDED
 
 #include <iostream>
+#include <mutex>
+
 struct NoiseParameters
 {
     int octaves;
@@ -16,8 +18,11 @@ class NoiseGenerator
 {
     const int WATER_LEVEL = 0;
 
-    void init();
+    static void init();
+
     bool isInit = false;
+    static int m_seed;
+	static std::once_flag initInstanceFlag;
 
     public:
         static NoiseGenerator& getInstance();
@@ -39,7 +44,6 @@ class NoiseGenerator
 
         NoiseParameters m_noiseParameters;
 
-        int m_seed;
 };
 
 #endif // NOISEGENERATOR_H_INCLUDED
