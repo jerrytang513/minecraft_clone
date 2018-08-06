@@ -1,6 +1,8 @@
 #ifndef WORLDGENERATOR_CHUNK_BLOCKCHUNK_H_
 #define WORLDGENERATOR_CHUNK_BLOCKCHUNK_H_
 
+#include <mutex>
+
 #include "../blockInfo.h"
 #include "../../Vec3D.h"
 #include "../Renderer/chunkRenderer.h"
@@ -31,6 +33,7 @@ class BlockChunk{
   std::vector<Vec3D> normals;
 
   std::vector<int> indices;
+
 public:
   BlockChunk();
   ~BlockChunk();
@@ -51,6 +54,7 @@ public:
   void addHeight(int width, int height, int length);
   void updateMesh();
   void setUpdate(bool status);
+  void rebuildMesh();
 
   // Add a face by specifying a direction
   void addFace(int i, int j, int k, Direction direction);

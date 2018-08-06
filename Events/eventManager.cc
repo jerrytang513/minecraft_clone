@@ -25,7 +25,7 @@ void EventManager::movement(Camera_Movement dir, double deltaTime){
   }
 
   if(leftRightCount == 3){
-    ws.get()->moveRight();
+    ws.get()->moveRight(3);
     leftRightCount = 0;
   } else if(leftRightCount == -3){
     ws.get()->moveLeft(3);

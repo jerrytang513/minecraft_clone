@@ -112,7 +112,7 @@ void ChunkManager::initMesh(int startWidth, int startLength, int width, int leng
           continue;
         }
       }
-      if(i == 15){
+      if(i == length - 1){
         front = m_heightChunks[i-1][j];
         if(!front.get()->isHeightReady()){
           continue;
@@ -125,20 +125,20 @@ void ChunkManager::initMesh(int startWidth, int startLength, int width, int leng
           continue;
         }
       }
-      if(j == 15){
+      if(j == width - 1){
         left = m_heightChunks[i][j - 1];
         if(!left.get()->isHeightReady()){
           continue;
         }
       }
-      if(i > 0 && i < 15){
+      if(i > 0 && i < length - 1){
         front = m_heightChunks[i-1][j];
         back = m_heightChunks[i+1][j];
         if(!front.get()->isHeightReady()){
           continue;
         }
       }
-      if(j > 0 && j < 15){
+      if(j > 0 && j < width - 1){
         left = m_heightChunks[i][j-1];
         right = m_heightChunks[i][j+1];
         if(!left.get()->isHeightReady()){
@@ -191,20 +191,30 @@ void ChunkManager::updateChunks(int startWidth, int startLength, int width, int 
 }
 
 void ChunkManager::waitForHeight(int firstWidth, int firstLength, int secondWidth, int secondLength, SIGNAL signal){
-  m_heightChunks[firstWidth][firstLength].get()->generateHeight();
+  m_heightChunks[firstLength][firstWidth].get()->generateHeight();
   switch(signal){
     case SIGNAL::LEFT:
+    //std::cout << "LEFT" << std::endl;
+
+      m_heightChunks[secondLength][secondWidth].get()->addLeftMesh(m_heightChunks[firstLength][firstWidth]);
       break;
     case SIGNAL::RIGHT:
+    //std::cout << "RIGHT" << std::endl;
+
+      m_heightChunks[secondLength][secondWidth].get()->addRightMesh(m_heightChunks[firstLength][firstWidth]);
       break;
     case SIGNAL::FRONT:
+    //std::cout << "FRONT" << std::endl;
+      m_heightChunks[secondLength][secondWidth].get()->addFrontMesh(m_heightChunks[firstLength][firstWidth]);
       break;
     case SIGNAL::BACK:
+    //std::cout << "BACK" << std::endl;
+
+      m_heightChunks[secondLength][secondWidth].get()->addBackMesh(m_heightChunks[firstLength][firstWidth]);
       break;
     default:
       break;
   };
-  //m_heightChunks[secondWidth][secondLength].
 }
 
 void ChunkManager::processBack(){
@@ -223,9 +233,7 @@ void ChunkManager::processBack(){
     int newCenterY = m_heightChunks[M_LENGTH - 1][width].get()->getInitLength() + 16;
      m_heightChunks[M_LENGTH - 1][width] = std::make_shared<HeightChunk>(newWidth, newLength, newCenterX, newCenterY);
      // Build the height
-     ThreadPool::getInstance(0)->submit([this, width] { m_heightChunks[M_LENGTH - 1][width].get()->generateHeight();});
-
-
+	 ThreadPool::getInstance(0)->submit([this, width] {waitForHeight(width, M_LENGTH - 1, width, M_LENGTH - 2, SIGNAL::BACK); });
   }
   processLock.unlock();
 }
@@ -246,7 +254,7 @@ void ChunkManager::processFront(){
     int newCenterY = m_heightChunks[0][width].get()->getInitLength() - 16;
      m_heightChunks[0][width] = std::make_shared<HeightChunk>(newWidth, newLength, newCenterX, newCenterY);
     // Build the height
-    ThreadPool::getInstance(0)->submit([this, width] { m_heightChunks[0][width].get()->generateHeight();});
+	 ThreadPool::getInstance(0)->submit([this, width] {waitForHeight(width, 0, width, 1, SIGNAL::FRONT); });
      // Set the mesh
   }
   processLock.unlock();
@@ -268,7 +276,7 @@ void ChunkManager::processLeft(){
     int newCenterY = m_heightChunks[length][0].get()->getInitLength();
     m_heightChunks[length][0] = std::make_shared<HeightChunk>(newWidth, newLength, newCenterX, newCenterY);
     // Build the height
-    ThreadPool::getInstance(0)->submit([this, length] { m_heightChunks[length][0].get()->generateHeight();});
+	ThreadPool::getInstance(0)->submit([this, length] {waitForHeight(0, length, 1, length, SIGNAL::LEFT); });
     // Set the mesh
   }
   processLock.unlock();
@@ -289,7 +297,7 @@ void ChunkManager::processRight(){
     int newCenterY = m_heightChunks[length][M_WIDTH - 1].get()->getInitLength();
      m_heightChunks[length][M_WIDTH - 1] = std::make_shared<HeightChunk>(newWidth, newLength, newCenterX, newCenterY);
      // Build the height
-     ThreadPool::getInstance(0)->submit([this, length] { m_heightChunks[length][M_WIDTH - 1].get()->generateHeight();});
+	 ThreadPool::getInstance(0)->submit([this, length] {waitForHeight(M_WIDTH - 1, length, M_WIDTH - 2, length, SIGNAL::RIGHT); });
   }
   processLock.unlock();
 }

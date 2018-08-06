@@ -1,4 +1,5 @@
-#include "blockChunk.h"//TODO
+#include "blockChunk.h"
+
 BlockChunk::BlockChunk(){
   std::vector<std::vector<std::vector<BlockInfo>>> temp {std::vector<std::vector<std::vector<BlockInfo>>>(16, std::vector<std::vector<BlockInfo>>(16,std::vector<BlockInfo>(16,BlockInfo())))};
   blocks = temp;
@@ -113,13 +114,16 @@ std::shared_ptr<ChunkMesh> BlockChunk::getMesh(){
     updateMesh();
     needUpdate = false;
   }
-    return mesh;
+  return mesh;
+}
+
+void BlockChunk::rebuildMesh(){
+  needUpdate = true;
 }
 
 void BlockChunk::addFace(int i, int j, int k, Direction direction){
   float faceDimension = 1.0f / 16.0f;
   std::vector<Vec2D> texCoords;
-
   switch(direction){
     case Direction::UP:
       vertices.emplace_back(Vec3D(-0.5f + faceDimension * i, -0.5f + faceDimension * (j + 1), -0.5f  + faceDimension * (k + 1)));

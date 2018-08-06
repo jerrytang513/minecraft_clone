@@ -81,13 +81,7 @@ public:
 
   std::vector<std::shared_ptr<ChunkMesh>> getChunkMesh();
 
-//*** For testing purpose
-  void testGenMesh();
-  void genTopDownFace();
-  void genLeftRightFace();
-  void genFrontBackFace();
 
-//***
   bool isHeightReady();
   bool isMeshReady();
   bool isNeedUpdate();
@@ -102,6 +96,10 @@ public:
   STATUS getStatus();
   void clearMesh();
 
+  void addLeftMesh(std::shared_ptr<HeightChunk> left);
+  void addRightMesh(std::shared_ptr<HeightChunk> right);
+  void addFrontMesh(std::shared_ptr<HeightChunk> front);
+  void addBackMesh(std::shared_ptr<HeightChunk> back);
 
 };
 

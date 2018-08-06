@@ -48,6 +48,15 @@ public:
     this->chunkX = chunkX;
     this->chunkY = chunkY;
     this->chunkZ = chunkZ;
+    /*
+    std::cout << "S" << std::endl;
+    std::cout << vertices.size() << std::endl;
+    std::cout << normals.size() << std::endl;
+    std::cout << indices.size() << std::endl;
+    std::cout << textureIndexes.size() << std::endl;
+    std::cout << textureCoords.size() << std::endl;
+    std::cout << "S" << std::endl;
+*/
     auto texCoordIt = textureCoords.begin();
     auto normalIt = normals.begin();
     int normalCount = 0;
