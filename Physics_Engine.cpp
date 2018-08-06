@@ -43,41 +43,6 @@ bool firstMouse = true;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
-std::vector<double> frontTime;
-std::vector<double> backTime;
-std::vector<double> leftTime;
-std::vector<double> rightTime;
-
-void eventHandler(){
-	for(int i = 0; i < frontTime.size(); i++){
-		//ThreadPool::getInstance(0)->submit([] {event.movement(FORWARD, deltaTime);});
-		std::cout << "F " << std::endl;
-		event.movement(FORWARD, deltaTime);
-	}
-	for(int i = 0; i < backTime.size(); i++){
-		//ThreadPool::getInstance(0)->submit([] {event.movement(BACKWARD, deltaTime);});
-		std::cout << "B " << std::endl;
-
-		event.movement(BACKWARD, deltaTime);
-	}
-	for(int i = 0; i < leftTime.size(); i++){
-		//ThreadPool::getInstance(0)->submit([] {event.movement(LEFT, deltaTime);});
-		std::cout << "L " << std::endl;
-
-		event.movement(LEFT, deltaTime);
-	}
-	for(int i = 0; i < rightTime.size(); i++){
-		//ThreadPool::getInstance(0)->submit([] {event.movement(RIGHT, deltaTime);});
-		std::cout << "R " << std::endl;
-
-		event.movement(RIGHT, deltaTime);
-	}
-	frontTime.clear();
-	backTime.clear();
-	leftTime.clear();
-	rightTime.clear();
-}
-
 int main()
 {
 
@@ -135,7 +100,6 @@ int main()
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 		processInput(window);
-		eventHandler();
 		// per-frame time logic
 		glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -184,21 +148,21 @@ void processInput(GLFWwindow *window)
 		glfwSetWindowShouldClose(window, true);
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS){
 		camera.get()->ProcessKeyboard(FORWARD, deltaTime);
-		frontTime.emplace_back(deltaTime);
+		event.movement(FORWARD, deltaTime);
 	}
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS){
 		camera.get()->ProcessKeyboard(BACKWARD, deltaTime);
-		backTime.emplace_back(deltaTime);
+		event.movement(BACKWARD, deltaTime);
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS){
 		camera.get()->ProcessKeyboard(LEFT, deltaTime);
-		leftTime.emplace_back(deltaTime);
+		event.movement(LEFT, deltaTime);
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS){
 		camera.get()->ProcessKeyboard(RIGHT, deltaTime);
-		rightTime.emplace_back(deltaTime);
+		event.movement(RIGHT, deltaTime);
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)

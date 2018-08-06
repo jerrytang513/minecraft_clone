@@ -42,6 +42,8 @@ class ChunkManager{
   void checkSignal();
 
   std::mutex boardLock;
+  std::mutex processLock;
+
 public:
   ChunkManager(int width, int length);
   void draw(ChunkRenderer renderer);
