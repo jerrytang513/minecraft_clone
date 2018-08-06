@@ -61,7 +61,7 @@ void ChunkManager::checkSignal(){
 void ChunkManager::draw(ChunkRenderer renderer){
   std::vector<std::shared_ptr<ChunkMesh>> meshes;
 
-  checkSignal(); 
+  checkSignal();
 
   if(!isHeightReady && !isProcessing){
     isProcessing = true;
@@ -71,7 +71,7 @@ void ChunkManager::draw(ChunkRenderer renderer){
   // If chunk Mesh is already ready, than don't need to do that again
 
   if(isHeightReady){
-    ThreadPool::getInstance(0)->submit([this] { initMesh(0, 0, 16, 16); });
+    initMesh(0, 0, 16, 16);
   }
 
 
@@ -80,7 +80,8 @@ void ChunkManager::draw(ChunkRenderer renderer){
   }
     for(int length = 0; length < 16; length++){
       for(int width = 0; width < 16; width++){
-      if(m_heightChunks[length][width].get()->isMeshReady() && !m_heightChunks[length][width].get()->isNeedUpdate()){
+
+      if(m_heightChunks[length][width].get() != nullptr && m_heightChunks[length][width].get()->isMeshReady()){
         std::vector<std::shared_ptr<ChunkMesh>> temp = m_heightChunks[length][width].get()->getChunkMesh();
         if(temp.size() == 0)
           continue;

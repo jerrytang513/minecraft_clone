@@ -5,6 +5,7 @@
 #include <memory>
 #include <mutex>
 #include <queue>
+#include <string>
 
 #include "blockChunk.h"
 #include "heightChunk.h"
@@ -43,6 +44,9 @@ class ChunkManager{
 
   std::mutex boardLock;
   std::mutex processLock;
+  std::mutex initHeightLock;
+  std::mutex initMeshLock;
+
 
 public:
   ChunkManager(int width, int length);

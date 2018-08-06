@@ -6,16 +6,12 @@ TextureManager::TextureManager(){
 
 TextureManager& TextureManager::getInstance(){
   static TextureManager textureManager;
-
-  if(!textureManager.isInit){
-    std::cout << "Initializing Texture Manager" << std::endl;
-  	textureManager.init();
-  	textureManager.isInit = true;
-  }
+  std::call_once(initInstanceFlag, &TextureManager::init);
   return textureManager;
 }
 
 void TextureManager::init(){
+    std::cout << "Initializing Texture Manager" << std::endl;
   textures.emplace_back(Texture("resources/terrain.jpg"));
 }
 
@@ -42,3 +38,6 @@ std::vector<Vec2D> TextureManager::getCoordinates(Vec2D coordinate){
        Vec2D(xMin, yMax)
   };
 }
+
+std::once_flag TextureManager::initInstanceFlag;
+std::vector<Texture> TextureManager::textures;
