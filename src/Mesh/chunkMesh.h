@@ -73,7 +73,7 @@ public:
       data.emplace_back(((Vec2D)(*texCoordIt)).coord.y);
       texCoordIt ++;
 
-      if(normalCount < 4){
+      if(normalCount < 3){
         normalCount ++;
       } else {
         normalCount = 0;
