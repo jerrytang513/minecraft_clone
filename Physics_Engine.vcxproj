@@ -195,6 +195,7 @@
     <ClInclude Include="vec3d.h" />
     <ClInclude Include="vec4d.h" />
     <ClInclude Include="window.h" />
+    <ClInclude Include="WorldGenerator\Block\blockTextures.h" />
     <ClInclude Include="WorldGenerator\Chunk\blockChunk.h" />
     <ClInclude Include="WorldGenerator\Chunk\chunkManager.h" />
     <ClInclude Include="WorldGenerator\Chunk\heightChunk.h" />
@@ -204,6 +205,7 @@
     <ClInclude Include="WorldGenerator\Renderer\chunkRenderer.h" />
     <ClInclude Include="WorldGenerator\Renderer\direction.h" />
     <ClInclude Include="WorldGenerator\Resource\textureManager.h" />
+    <ClInclude Include="WorldGenerator\TypeGen\typeGen.h" />
     <ClInclude Include="WorldGenerator\worldSpace.h" />
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +237,7 @@
     <ClCompile Include="vec3d.cc" />
     <ClCompile Include="vec4d.cc" />
     <ClCompile Include="window.cc" />
+    <ClCompile Include="WorldGenerator\Block\blockTextures.cc" />
     <ClCompile Include="WorldGenerator\Chunk\blockChunk.cc" />
     <ClCompile Include="WorldGenerator\Chunk\chunkManager.cc" />
     <ClCompile Include="WorldGenerator\Chunk\heightChunk.cc" />
@@ -243,6 +246,7 @@
     <ClCompile Include="WorldGenerator\Renderer\blockRenderer.cc" />
     <ClCompile Include="WorldGenerator\Renderer\chunkRenderer.cc" />
     <ClCompile Include="WorldGenerator\Resource\textureManager.cc" />
+    <ClCompile Include="WorldGenerator\TypeGen\typeGen.cc" />
     <ClCompile Include="WorldGenerator\worldSpace.cc" />
   </ItemGroup>
   <ItemGroup>

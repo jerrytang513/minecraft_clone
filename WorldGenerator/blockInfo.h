@@ -1,7 +1,19 @@
-#ifndef BLOCKINFO_H_
-#define BLOCKINFO_H_
+#ifndef WORLDGENERATOR_BLOCKINFO_H_
+#define WORLDGENERATOR_BLOCKINFO_H_
+
+enum class BLOCKTYPE {
+	SAND,
+	DIRT,
+	GRASS,
+	ROCK,
+	WATER,
+	AIR
+};
+
 struct BlockInfo{
   bool visible;
-  BlockInfo(){visible = false;}
+  BLOCKTYPE type;
+  BlockInfo():visible{false},type{BLOCKTYPE::AIR}{}
+  BlockInfo(BLOCKTYPE type):visible{true},type{type}{}
 };
 #endif

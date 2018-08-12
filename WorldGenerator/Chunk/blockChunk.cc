@@ -18,9 +18,10 @@ BlockChunk::~BlockChunk(){
 }
 
 
-BlockChunk::BlockChunk(int width,  int height, int length, std::vector<int> heights):initWidth{width},initHeight{height},initLength{length}{
+BlockChunk::BlockChunk(int width,  int height, int length, std::vector<int> heights, std::vector<int> actualHeight):initWidth{width},initHeight{height},initLength{length}, m_hightest{actualHeight}{
   std::vector<std::vector<std::vector<BlockInfo>>> temp {std::vector<std::vector<std::vector<BlockInfo>>>(16, std::vector<std::vector<BlockInfo>>(16,std::vector<BlockInfo>(16,BlockInfo())))};
   blocks = temp;
+  /*
   for(int i = 0; i < 16; i++){
     std::vector<int> vec;
     for(int j = 0; j < 16; j++){
@@ -34,7 +35,10 @@ BlockChunk::BlockChunk(int width,  int height, int length, std::vector<int> heig
     for(int j = 0; j < 16; j++){
       addHeight(j, heights[i * 16 + j], i);
     }
-  }
+  }*/
+
+  TypeGen& typeGen = TypeGen::getInstance();
+  typeGen.genType(height, blocks, actualHeight);
 }
 
 BlockChunk::BlockChunk(int initWidth,  int initHeight, int initLength):initWidth{initWidth},initHeight{initHeight},initLength{initLength}{
@@ -65,7 +69,7 @@ std::vector<std::vector<std::vector<BlockInfo>>>& BlockChunk::getBlockInfo(){
 void BlockChunk::addHeight(int width, int height, int length){
   if(height > 16)
     height = 16;
-  if(height < 0 || height - 1 < 0)
+  if(height < 1)
     return;
   highest[width][length] = height;
   for(int i = 0; i < height; i++){
@@ -196,4 +200,9 @@ int BlockChunk::getVerticeCount(){
 
 void BlockChunk::clear(){
   needUpdate = true;
+}
+
+void BlockChunk::setType(int x, int y, int z, BLOCKTYPE type){
+  blocks[x][y][z].type = type;
+  blocks[x][y][z].visible = true;
 }

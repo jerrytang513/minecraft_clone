@@ -35,6 +35,7 @@ class HeightChunk{
   bool m_isMeshReady;
   bool m_isNeedUpdate;
   bool m_isProcessing;
+  bool m_isTypeReady;
 
   std::vector<int> m_height;
   std::vector<BlockChunk> m_chunks;

@@ -34,7 +34,7 @@ void HeightChunk::init(){
         val = 0;
       }
     });
-    m_chunks.emplace_back(BlockChunk(m_width * 16, i * 16, m_length * 16, temp));
+    m_chunks.emplace_back(BlockChunk(m_width * 16, i * 16, m_length * 16, temp, m_height));
   }
   if(left_over > 0){
     std::vector<int> temp = m_height;
@@ -51,7 +51,7 @@ void HeightChunk::init(){
         val = 0;
       }
     });
-    m_chunks.emplace_back(BlockChunk(m_width * 16, total_chunks * 16, m_length * 16, temp));
+    m_chunks.emplace_back(BlockChunk(m_width * 16, total_chunks * 16, m_length * 16, temp, m_height));
   }
   m_isHeightReady = true;
 }
