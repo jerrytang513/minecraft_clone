@@ -1,11 +1,9 @@
 
 # 3D Minecraft Clone (OpenGl)
 
-[//]: # (Image References)
-
 [image1]: ./example_images/example1.png "image1"
-[image2]: ./example_images/example2.jpg "image2"
-[image3]: ./example_images/example3.jpg "image3"
+[image2]: ./example_images/example2.png "image2"
+[image3]: ./example_images/example3.png "image3"
 
 This project is still in development, I haven't clean up the code yet. Many code files in this repository might not be used. I'll provide a better user manual when the whole project is complete.
 
