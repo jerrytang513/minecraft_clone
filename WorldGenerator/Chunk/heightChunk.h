@@ -10,6 +10,7 @@
 
 #include "blockChunk.h"
 
+#include "../TypeGen/typeGen.h"
 #include "../Renderer/direction.h"
 #include "../NoiseGen/noiseGen.h"
 #include "../../src/Mesh/chunkMesh.h"

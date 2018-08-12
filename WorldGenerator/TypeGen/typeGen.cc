@@ -1,6 +1,6 @@
 #include "typeGen.h"
 
-TypeGen::TypeGen():waterLevel{5}, sandLevel{4}, rockLevel{8}{}
+TypeGen::TypeGen():waterLevel{70}, sandLevel{4}, rockLevel{8}, snowLevel{100}{}
 
 TypeGen& TypeGen::getInstance(){
   static TypeGen tg;
@@ -45,7 +45,7 @@ void TypeGen::genType(int curMinHeight, std::vector<std::vector<std::vector<Bloc
         } else {
             if(curHeight >= curMaxHeight && curHeight < waterLevel){
               blocks[width][height][length].type = BLOCKTYPE::WATER;
-            } else if(curHeight > curMaxHeight - sandLevel){
+            } else if(curHeight > curMaxHeight - sandLevel && curHeight < curMaxHeight){
               blocks[width][height][length].type = BLOCKTYPE::SAND;
             } else if(curHeight <= curMaxHeight - sandLevel){
               blocks[width][height][length].type = BLOCKTYPE::ROCK;
@@ -61,4 +61,8 @@ void TypeGen::genType(int curMinHeight, std::vector<std::vector<std::vector<Bloc
     }
   }
 
+}
+
+int TypeGen::getMinHeight(){
+  return waterLevel + sandLevel;
 }

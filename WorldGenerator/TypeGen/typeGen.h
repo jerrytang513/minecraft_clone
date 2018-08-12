@@ -15,13 +15,14 @@ class TypeGen{
   int waterLevel;
   int sandLevel;
   int rockLevel;
+  int snowLevel;
 
 public:
 
   static TypeGen& getInstance();
 
   void genType(int startHeight, std::vector<std::vector<std::vector<BlockInfo>>>& blocks, std::vector<int>& highest);
-
+  int getMinHeight();
 
 };
 

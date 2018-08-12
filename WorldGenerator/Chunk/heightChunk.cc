@@ -16,6 +16,8 @@ BlockChunk& HeightChunk::getBlockChunk(int height){
 }
 
 void HeightChunk::init(){
+  max_height = std::max(max_height, TypeGen::getInstance().getMinHeight());
+  std::cout << max_height << std::endl;
   int total_chunks = max_height / 16;
   int left_over = max_height % 16;
 
@@ -53,6 +55,8 @@ void HeightChunk::init(){
     });
     m_chunks.emplace_back(BlockChunk(m_width * 16, total_chunks * 16, m_length * 16, temp, m_height));
   }
+
+
   m_isHeightReady = true;
 }
 

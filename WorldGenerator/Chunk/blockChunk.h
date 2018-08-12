@@ -13,6 +13,7 @@
 #include "../Renderer/direction.h"
 #include "../Renderer/chunkRenderer.h"
 #include "../Resource/textureManager.h"
+#include "../Block/blockTextures.h"
 
 class BlockChunk{
 
