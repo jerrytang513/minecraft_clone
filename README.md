@@ -12,7 +12,7 @@ Here are some screenshot images taken from the game.
 ![Alt Text][image2]
 ![Alt Text][image3]
 
-###TODO List For Now:
+### TODO List For Now:
 Water Transparency Shader Program
 Tree Generation
 Game Optimization
@@ -21,6 +21,12 @@ Sun
 Sky Box
 Clouds
 
-##References
+## Libraries
+GLFW
+GLEW
+OPENGL
+stb_image
+
+## References
 ThreadPool library from : https://github.com/mtrebi/thread-pool
 NoiseGenerator from : https://github.com/Hopson97/MineCraft-One-Week-Challenge
